@@ -129,8 +129,7 @@ module top_32b (
         .array_select      (scheduler_array_select),
         .mem_addr          (scheduler_mem_addr),
         .mem_we            (scheduler_mem_we),
-        .mem_me            (scheduler_mem_me),
-        .state_name        ()
+        .mem_me            (scheduler_mem_me)
     );
 
     // Adder / Subtractor Unit
@@ -139,8 +138,8 @@ module top_32b (
         .rst    (rst),
         .en_ALU (en_addsub),
         .cmd    (scheduler_cmd),
-        .op1    (mem0_q[31:0]),
-        .op2    (mem1_q[31:0]),
+        .op1    (mem0_q),
+        .op2    (mem1_q),
         .res    (alu_res),
         .done   (alu_done)
     );
@@ -151,8 +150,8 @@ module top_32b (
         .rst    (rst),
         .start  (en_mult),
         .cmd    (scheduler_cmd),
-        .op1    (mem0_q[31:0]),
-        .op2    (mem1_q[31:0]),
+        .op1    (mem0_q),
+        .op2    (mem1_q),
         .res    (mult_res),
         .done   (mult_done)
     );
