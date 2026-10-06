@@ -36,12 +36,15 @@ module top_32b_tb;
         .rd_mem_start      (rd_mem_start),
         .wr_mem_start      (wr_mem_start),
         .array_select      (array_select),
+        .cmd_top           (cmd_top),    // Connected
+        .mode_top          (mode_top),   // Connected
         .data_in_top       (data_in_top),
         .pin_data_out_mem0 (pin_data_out_mem0),
         .pin_data_out_mem1 (pin_data_out_mem1),
         .pin_data_out_mem2 (pin_data_out_mem2)
     );
 
+    
     // Continuous Clock Generation
     always #(T/2) clk = ~clk;
 

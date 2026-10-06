@@ -1,5 +1,5 @@
 // File: top_32b.v
-// Description: Top-level integration of SRAMs, ALU, Multiplier, and Scheduler
+// Description: Top-level integration matching Control Registers, SRAMs, ALU, MULT, and Scheduler
 // ============================================================================
 module top_32b (
     input  wire        clk,
@@ -9,14 +9,32 @@ module top_32b (
     input  wire        rd_mem_start,
     input  wire        wr_mem_start,
     input  wire [1:0]  array_select,
+    input  wire [1:0]  cmd_top,       // Control and Status Register input
+    input  wire        mode_top,      // Control and Status Register input
     input  wire [63:0] data_in_top,
     output wire [63:0] pin_data_out_mem0,
     output wire [63:0] pin_data_out_mem1,
     output wire [63:0] pin_data_out_mem2
 );
 
-    // Clock Gating
+    // Gated Clocking
     wire gated_clk = clk & global_en;
+
+    // ============================================================
+    // Control & Status Registers Interconnects
+    // ============================================================
+    reg [1:0] reg_cmd;
+    reg       reg_mode;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            reg_cmd  <= 2'b00;
+            reg_mode <= 1'b0;
+        end else begin
+            reg_cmd  <= cmd_top;
+            reg_mode <= mode_top;
+        end
+    end
 
     // ============================================================
     // Scheduler Interconnect Wires
@@ -28,20 +46,20 @@ module top_32b (
     wire        scheduler_mem_me;
     wire        en_addsub;
     wire        en_mult;
-    wire [31:0] state_name;
 
     // ============================================================
-    // Sub-Module Data & Control Wires
+    // Memory Output & Execution Unit Signals
     // ============================================================
     wire [63:0] mem0_q;
     wire [63:0] mem1_q;
+    wire [63:0] mem2_q;
     wire [63:0] alu_res;
     wire [63:0] mult_res;
     wire        alu_done;
     wire        mult_done;
 
     // ============================================================
-    // Host Burst Address Counter (Auto-increments during TB operations)
+    // Host Burst Address Counter (Auto-increments for TB)
     // ============================================================
     reg [5:0] host_addr;
 
@@ -56,52 +74,40 @@ module top_32b (
     end
 
     // ============================================================
-    // External Host Access vs. Scheduler Control Multiplexing
+    // Host Control vs. Scheduler Control Multiplexing
     // ============================================================
-    wire [1:0] effective_array_select;
-    wire       effective_mem_we;
-    wire       effective_mem_me;
-    wire [5:0] effective_mem_addr;
+    wire host_active = wr_mem_start || rd_mem_start;
 
-    // Defer array selection to testbench during manual burst access
-    assign effective_array_select = (wr_mem_start || rd_mem_start)
-                                  ? array_select
-                                  : scheduler_array_select;
+    wire [1:0] effective_array_select = host_active ? array_select      : scheduler_array_select;
+    wire [5:0] effective_mem_addr     = host_active ? host_addr         : scheduler_mem_addr;
+    wire       effective_mem_we       = host_active ? wr_mem_start      : scheduler_mem_we;
+    wire       effective_mem_me       = host_active ? 1'b1              : scheduler_mem_me;
 
-    // Override Write Enable during external write phase
-    assign effective_mem_we = wr_mem_start
-                            ? 1'b1
-                            : scheduler_mem_we;
+    // Memory Enables & Write Enables
+    wire mem0_me = host_active ? (array_select == `ARRAY_SEL0) : effective_mem_me;
+    wire mem1_me = host_active ? (array_select == `ARRAY_SEL1) : effective_mem_me;
+    wire mem2_me = host_active ? (array_select == `ARRAY_SEL2) : (effective_mem_me && (scheduler_array_select == `ARRAY_SEL2));
 
-    // Enable Memory Chip Select during host access or scheduler cycles
-    assign effective_mem_me = (wr_mem_start || rd_mem_start)
-                            ? 1'b1
-                            : scheduler_mem_me;
-
-    // Select host auto-increment counter during burst transfers
-    assign effective_mem_addr = (wr_mem_start || rd_mem_start)
-                              ? host_addr
-                              : scheduler_mem_addr;
+    wire mem0_we = host_active ? (wr_mem_start && (array_select == `ARRAY_SEL0)) : (effective_mem_we && (scheduler_array_select == `ARRAY_SEL0));
+    wire mem1_we = host_active ? (wr_mem_start && (array_select == `ARRAY_SEL1)) : (effective_mem_we && (scheduler_array_select == `ARRAY_SEL1));
+    wire mem2_we = host_active ? (wr_mem_start && (array_select == `ARRAY_SEL2)) : (effective_mem_we && (scheduler_array_select == `ARRAY_SEL2));
 
     // ============================================================
-    // Memory Selection Decoding
+    // Result MUX (res_sel) & MEM2 Input MUX
     // ============================================================
-    wire mem0_we = effective_mem_we && (effective_array_select == `ARRAY_SEL0);
-    wire mem1_we = effective_mem_we && (effective_array_select == `ARRAY_SEL1);
-    wire mem2_we = effective_mem_we && (effective_array_select == `ARRAY_SEL2);
+    // res_sel multiplexes execution results from ADD/SUB and MULT32b
+    wire [63:0] res_sel_out = (scheduler_cmd == `CMD_MULT) ? mult_res : alu_res;
 
-    wire mem0_me = effective_mem_me && (effective_array_select == `ARRAY_SEL0);
-    wire mem1_me = effective_mem_me && (effective_array_select == `ARRAY_SEL1);
-    wire mem2_me = effective_mem_me && (effective_array_select == `ARRAY_SEL2);
-
-    // Result Write-Back Routing for MEM2
-    wire [63:0] wb_data = (scheduler_cmd == `CMD_MULT) ? mult_res : alu_res;
+    // MUX into MEM2 D input: Chooses between external data_in_top and computation result
+    wire [63:0] data_in_mem2 = (wr_mem_start && (array_select == `ARRAY_SEL2)) 
+                             ? data_in_top 
+                             : res_sel_out;
 
     // ============================================================
     // Submodule Instantiations
     // ============================================================
 
-    // Scheduler Control Unit
+    // Scheduler Unit
     top_scheduler I_TOP_SCHEDULER (
         .clk               (clk),
         .rst               (rst),
@@ -115,10 +121,10 @@ module top_32b (
         .mem_addr          (scheduler_mem_addr),
         .mem_we            (scheduler_mem_we),
         .mem_me            (scheduler_mem_me),
-        .state_name        (state_name)
+        .state_name        ()
     );
 
-    // Adder / Subtractor Unit
+    // Adder / Subtractor Unit (ADD/SUB)
     addsub_32b I_ADDSUB (
         .clk    (gated_clk),
         .rst    (rst),
@@ -130,7 +136,7 @@ module top_32b (
         .done   (alu_done)
     );
 
-    // Multiplier Unit
+    // Multiplier Unit (MULT32b)
     mult_32b I_MULT (
         .clk    (gated_clk),
         .rst    (rst),
@@ -162,18 +168,19 @@ module top_32b (
         .Q   (mem1_q)
     );
 
-    // MEM2: Stores ALU / Multiplier Computation Results
+    // MEM2: Stores Computation Results or External Direct Writes
     sramHD_64x64 MEM2 (
         .CLK (gated_clk),
         .ME  (mem2_me),
         .WE  (mem2_we),
         .ADR (effective_mem_addr),
-        .D   (wb_data),
-        .Q   (pin_data_out_mem2)
+        .D   (data_in_mem2), // Connects via MUX as shown in diagram
+        .Q   (mem2_q)
     );
 
-    // Output Pin Routing
+    // Top Output Ports
     assign pin_data_out_mem0 = mem0_q;
     assign pin_data_out_mem1 = mem1_q;
+    assign pin_data_out_mem2 = mem2_q;
 
 endmodule
