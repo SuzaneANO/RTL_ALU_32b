@@ -138,7 +138,6 @@ module top_32b (
         .clk    (gated_clk),
         .rst    (rst),
         .en_ALU (en_addsub),
-        .mode   (reg_mode),      // Wired from Control & Status Registers
         .cmd    (scheduler_cmd),
         .op1    (mem0_q[31:0]),
         .op2    (mem1_q[31:0]),
@@ -151,7 +150,6 @@ module top_32b (
         .clk    (gated_clk),
         .rst    (rst),
         .start  (en_mult),
-        .mode   (reg_mode),      // Wired from Control & Status Registers
         .cmd    (scheduler_cmd),
         .op1    (mem0_q[31:0]),
         .op2    (mem1_q[31:0]),
