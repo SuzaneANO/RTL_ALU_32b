@@ -66,59 +66,85 @@ module top_32b_tb;
         #(T);
 
         // ====================================================================
-        // PHASE 2: Write to MEM0 (Populate Operand 0 Array)
-        // ====================================================================
-        array_select = 2'b00; // Select MEM0
-        wr_mem_start = 1;
-        
-        for (i = 0; i < 16; i = i + 1) begin
-            data_in_top = i; // Assign integer directly to 64-bit bus
-            #(T);
-        end
-        
-        wr_mem_start = 0;
-        array_select = 2'b11;
-        #(2 * T);
+    // STIMULUS MEMORY ARRAYS (Table 16 Operations Data)
+    // ====================================================================
+    reg [63:0] mem0_test_data [0:15];
+    reg [63:0] mem1_test_data [0:15];
 
-        // ====================================================================
-        // PHASE 3: Write to MEM1 (Populate Operand 1 Array)
-        // ====================================================================
-        array_select = 2'b01; // Select MEM1
-        wr_mem_start = 1;
+    initial begin
+        // Populate Operand 0 and Operand 1 arrays
+        mem0_test_data[0]  = 64'h0000_0000_0000_000F; mem1_test_data[0]  = 64'h0000_0000_0000_00F0; // ADD
+        mem0_test_data[1]  = 64'h0000_0000_0000_0000; mem1_test_data[1]  = 64'h0000_0000_0000_0000; // MULT
+        mem0_test_data[2]  = 64'h0000_FFFF_0000_0000; mem1_test_data[2]  = 64'h0000_0000_FFFF_0000; // ADD
+        mem0_test_data[3]  = 64'h0000_0000_FFFF_FFFF; mem1_test_data[3]  = 64'h0000_0000_FFFF_FFFF; // SUB
+        mem0_test_data[4]  = 64'h0000_0000_FFFF_FFFF; mem1_test_data[4]  = 64'h0000_0000_0000_0000; // NOOP
+        mem0_test_data[5]  = 64'h0000_0000_FFFF_FFFF; mem1_test_data[5]  = 64'h0000_0000_FFFF_FFFF; // MULT
+        mem0_test_data[6]  = 64'h0000_0000_0000_000F; mem1_test_data[6]  = 64'h0000_0000_0000_000F; // MULT
+        mem0_test_data[7]  = 64'h0000_0000_0000_0000; mem1_test_data[7]  = 64'h0000_0000_0000_0000; // MULT
+        mem0_test_data[8]  = 64'h0000_0000_0000_FFFF; mem1_test_data[8]  = 64'h0000_0000_0000_FFFF; // MULT
+        mem0_test_data[9]  = 64'h0000_0000_0000_0000; mem1_test_data[9]  = 64'h0000_0000_0000_0000; // MULT
+        mem0_test_data[10] = 64'h0000_0000_0FFF_FFFF; mem1_test_data[10] = 64'h0000_0000_0FFF_FFFF; // MULT
+        mem0_test_data[11] = 64'h0000_0000_0000_0000; mem1_test_data[11] = 64'h0000_0000_0000_0000; // MULT
+        mem0_test_data[12] = 64'h0000_0000_FFFF_FFFF; mem1_test_data[12] = 64'h0000_0000_FFFF_FF00; // MULT
+        mem0_test_data[13] = 64'h0000_0000_0000_0000; mem1_test_data[13] = 64'h0000_0000_0000_0000; // MULT
+        mem0_test_data[14] = 64'h0000_0000_FFFF_FFFF; mem1_test_data[14] = 64'h0000_0000_FFFF_FFFF; // MULT
+        mem0_test_data[15] = 64'h0000_0000_0000_0000; mem1_test_data[15] = 64'h0000_0000_0000_0000; // MULT
+    end
 
-        for (i = 0; i < 16; i = i + 1) begin
-            data_in_top = i + 16; // Direct arithmetic assignment
-            #(T);
-        end
+    // ====================================================================
+    // PHASE 1: Write to MEM0 (Populate Operand 0 Array)
+    // ====================================================================
+    array_select = 2'b00; // Select MEM0
+    wr_mem_start = 1;
 
-        wr_mem_start = 0;
-        array_select = 2'b11;
-        #(2 * T);
-
-        // ====================================================================
-        // PHASE 4: Compute And write MEM2
-        // ====================================================================
-        alu_compute_start = 1;
+    for (i = 0; i < 16; i = i + 1) begin
+        data_in_top = mem0_test_data[i];
         #(T);
-        alu_compute_start = 0;
+    end
 
-        // Wait for scheduler to complete 16 arithmetic ops & MEM2 writes
-        #(64 * T);
+    wr_mem_start = 0;
+    array_select = 2'b11;
+    #(2 * T);
 
-        // ====================================================================
-        // PHASE 5: Read from MEM2 (Burst Read Results)
-        // ====================================================================
-        array_select = 2'b10; // Select MEM2
-        rd_mem_start = 1;
+    // ====================================================================
+    // PHASE 2: Write to MEM1 (Populate Operand 1 Array)
+    // ====================================================================
+    array_select = 2'b01; // Select MEM1
+    wr_mem_start = 1;
 
-        #(16 * T);
+    for (i = 0; i < 16; i = i + 1) begin
+        data_in_top = mem1_test_data[i];
+        #(T);
+    end
 
-        rd_mem_start = 0;
-        array_select = 2'b11;
-        #(5 * T);
+    wr_mem_start = 0;
+    array_select = 2'b11;
+    #(2 * T);
 
-        $display("Full 5-phase testbench execution completed successfully.");
-        $finish;
+    // ====================================================================
+    // PHASE 3: Execute ALU Computation Sequence
+    // ====================================================================
+    alu_compute_start = 1;
+    #(T);
+    alu_compute_start = 0;
+
+    // Wait for SCHEDULER to complete all 16 operations & writes to MEM2
+    // Adjust total cycles depending on Multiplier/ALU execution latency
+    #(128 * T); 
+
+    // ====================================================================
+    // PHASE 4: Read from MEM2 (Burst Read Results)
+    // ====================================================================
+    array_select = 2'b10; // Select MEM2
+    rd_mem_start = 1;
+
+    #(16 * T);
+
+    rd_mem_start = 0;
+    array_select = 2'b11;
+    #(5 * T);
+
+    $display("Full 4-phase testbench execution completed successfully.");
     end
 
 endmodule
