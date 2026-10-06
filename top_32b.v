@@ -93,6 +93,19 @@ module top_32b (
     wire mem2_we = host_active ? (wr_mem_start && (array_select == `ARRAY_SEL2)) : (effective_mem_we && (scheduler_array_select == `ARRAY_SEL2));
 
     // ============================================================
+    // Input Data Demultiplexer (Control & Status Registers routing)
+    // ============================================================
+    wire [63:0] data_in_mem0      = (wr_mem_start && (array_select == `ARRAY_SEL0)) ? data_in_top : 64'h0;
+    wire [63:0] data_in_mem1      = (wr_mem_start && (array_select == `ARRAY_SEL1)) ? data_in_top : 64'h0;
+    wire [63:0] data_in_mem2_host = (wr_mem_start && (array_select == `ARRAY_SEL2)) ? data_in_top : 64'h0;
+
+    // MEM2 Input MUX: Chooses between host external write data and computation result
+    wire [63:0] data_in_mem2 = (wr_mem_start && (array_select == `ARRAY_SEL2)) 
+                            ? data_in_mem2_host 
+                            : res_sel_out;
+
+
+    // ============================================================
     // Result MUX (res_sel) & MEM2 Input MUX
     // ============================================================
     // res_sel multiplexes execution results from ADD/SUB and MULT32b
@@ -154,7 +167,7 @@ module top_32b (
         .ME  (mem0_me),
         .WE  (mem0_we),
         .ADR (effective_mem_addr),
-        .D   (data_in_top),
+        .D   (data_in_mem0), // Dedicated input stream for MEM0
         .Q   (mem0_q)
     );
 
@@ -164,17 +177,17 @@ module top_32b (
         .ME  (mem1_me),
         .WE  (mem1_we),
         .ADR (effective_mem_addr),
-        .D   (data_in_top),
+        .D   (data_in_mem1), // Dedicated input stream for MEM1
         .Q   (mem1_q)
     );
 
-    // MEM2: Stores Computation Results or External Direct Writes
+    // MEM2: Stores Computation Results or Host Writes
     sramHD_64x64 MEM2 (
         .CLK (gated_clk),
         .ME  (mem2_me),
         .WE  (mem2_we),
         .ADR (effective_mem_addr),
-        .D   (data_in_mem2), // Connects via MUX as shown in diagram
+        .D   (data_in_mem2), // MUX output (res_sel_out vs data_in_mem2_host)
         .Q   (mem2_q)
     );
 
