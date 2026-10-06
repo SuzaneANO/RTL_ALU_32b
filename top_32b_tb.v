@@ -21,6 +21,10 @@ module top_32b_tb;
     wire [63:0] pin_data_out_mem1;
     wire [63:0] pin_data_out_mem2;
 
+    // Testbench memory arrays declared outside procedural blocks
+    reg [63:0] mem0_test_data [0:15];
+    reg [63:0] mem1_test_data [0:15];
+
     parameter T = 10; // 100 MHz clock period
 
     // UUT Instance
@@ -66,12 +70,10 @@ module top_32b_tb;
         #(T);
 
         // ====================================================================
-    // STIMULUS MEMORY ARRAYS (Table 16 Operations Data)
-    // ====================================================================
-    reg [63:0] mem0_test_data [0:15];
-    reg [63:0] mem1_test_data [0:15];
+        // STIMULUS MEMORY ARRAYS (Table 16 Operations Data)
+        // ====================================================================
+       
 
-    initial begin
         // Populate Operand 0 and Operand 1 arrays
         mem0_test_data[0]  = 64'h0000_0000_0000_000F; mem1_test_data[0]  = 64'h0000_0000_0000_00F0; // ADD
         mem0_test_data[1]  = 64'h0000_0000_0000_0000; mem1_test_data[1]  = 64'h0000_0000_0000_0000; // MULT
@@ -89,12 +91,12 @@ module top_32b_tb;
         mem0_test_data[13] = 64'h0000_0000_0000_0000; mem1_test_data[13] = 64'h0000_0000_0000_0000; // MULT
         mem0_test_data[14] = 64'h0000_0000_FFFF_FFFF; mem1_test_data[14] = 64'h0000_0000_FFFF_FFFF; // MULT
         mem0_test_data[15] = 64'h0000_0000_0000_0000; mem1_test_data[15] = 64'h0000_0000_0000_0000; // MULT
-    end
+    
 
     // ====================================================================
     // PHASE 1: Write to MEM0 (Populate Operand 0 Array)
     // ====================================================================
-    array_select = 2'b00; // Select MEM0
+    array_select = 2'b00;
     wr_mem_start = 1;
 
     for (i = 0; i < 16; i = i + 1) begin
