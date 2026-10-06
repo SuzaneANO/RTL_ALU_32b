@@ -20,12 +20,14 @@ module addsub_32b (
     input  wire        clk,
     input  wire        rst,
     input  wire        en_ALU,
+    input  wire        mode,    // ADDED: Mode control bit from CSR
     input  wire [1:0]  cmd,
     input  wire [31:0] op1,
     input  wire [31:0] op2,
-    output reg  [63:0] res, // Extended to 64-bit to match datapath/MEM writes
+    output reg  [63:0] res,
     output reg         done
 );
+
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             res  <= 64'd0;
@@ -35,16 +37,20 @@ module addsub_32b (
             if (en_ALU) begin
                 case (cmd)
                     `CMD_ADD: begin
-                        res  <= {32'd0, (op1 + op2)};
+                        // mode = 1: Signed addition (sign-extended to 64 bits)
+                        // mode = 0: Standard zero-extended unsigned addition
+                        res  <= mode ? $signed({{32{op1[31]}}, op1}) + $signed({{32{op2[31]}}, op2})
+                                     : {32'd0, (op1 + op2)};
                         done <= 1'b1;
                     end
                     `CMD_SUB: begin
-                        res  <= {32'd0, (op1 - op2)};
+                        res  <= mode ? $signed({{32{op1[31]}}, op1}) -$signed({{32{op2[31]}}, op2})
+                                     : {32'd0, (op1 - op2)};
                         done <= 1'b1;
                     end
                     default: begin
                         res  <= 64'd0;
-                        done <= 1'b1; // Complete NOOP immediately
+                        done <= 1'b1;
                     end
                 endcase
             end
@@ -59,25 +65,31 @@ endmodule
 module mult_32b (
     input  wire        clk,
     input  wire        rst,
-    input  wire        start,
+    input  wire        start,     // Connected to en_mult from scheduler
+    input  wire        mode,      // Mode control bit from CSR (0: Unsigned, 1: Signed)
     input  wire [1:0]  cmd,
     input  wire [31:0] op1,
     input  wire [31:0] op2,
     output reg  [63:0] res,
     output reg         done
 );
+
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             res  <= 64'd0;
             done <= 1'b0;
         end else begin
             done <= 1'b0;
-            if (start && cmd == `CMD_MULT) begin
-                res  <= op1 * op2;
-                done <= 1'b1; // Modeled as a single-cycle multiplier per the lab specs
+            if (start && (cmd == `CMD_MULT)) begin
+                // mode = 1: Signed 32x32 multiplication with 64-bit sign extension
+                // mode = 0: Unsigned 32x32 multiplication
+                res  <= mode ? ($signed({{32{op1[31]}}, op1}) * $signed({{32{op2[31]}}, op2}))
+                             : (op1 * op2);
+                done <= 1'b1;
             end
         end
     end
+
 endmodule
 
 // ============================================================================

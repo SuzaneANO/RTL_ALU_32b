@@ -99,10 +99,6 @@ module top_32b (
     wire [63:0] data_in_mem1      = (wr_mem_start && (array_select == `ARRAY_SEL1)) ? data_in_top : 64'h0;
     wire [63:0] data_in_mem2_host = (wr_mem_start && (array_select == `ARRAY_SEL2)) ? data_in_top : 64'h0;
 
-    // MEM2 Input MUX: Chooses between host external write data and computation result
-    wire [63:0] data_in_mem2 = (wr_mem_start && (array_select == `ARRAY_SEL2)) 
-                            ? data_in_mem2_host 
-                            : res_sel_out;
 
 
     // ============================================================
@@ -137,11 +133,12 @@ module top_32b (
         .state_name        ()
     );
 
-    // Adder / Subtractor Unit (ADD/SUB)
+    // Adder / Subtractor Unit
     addsub_32b I_ADDSUB (
         .clk    (gated_clk),
         .rst    (rst),
         .en_ALU (en_addsub),
+        .mode   (reg_mode),      // Wired from Control & Status Registers
         .cmd    (scheduler_cmd),
         .op1    (mem0_q[31:0]),
         .op2    (mem1_q[31:0]),
@@ -149,11 +146,12 @@ module top_32b (
         .done   (alu_done)
     );
 
-    // Multiplier Unit (MULT32b)
+    // Multiplier Unit
     mult_32b I_MULT (
         .clk    (gated_clk),
         .rst    (rst),
         .start  (en_mult),
+        .mode   (reg_mode),      // Wired from Control & Status Registers
         .cmd    (scheduler_cmd),
         .op1    (mem0_q[31:0]),
         .op2    (mem1_q[31:0]),
