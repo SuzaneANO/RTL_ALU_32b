@@ -35,6 +35,7 @@ module top_32b_tb;
         .alu_compute_start (alu_compute_start),
         .rd_mem_start      (rd_mem_start),
         .wr_mem_start      (wr_mem_start),
+        .array_select      (array_select),
         .data_in_top       (data_in_top),
         .pin_data_out_mem0 (pin_data_out_mem0),
         .pin_data_out_mem1 (pin_data_out_mem1),
@@ -147,6 +148,7 @@ module top_32b_tb;
     #(5 * T);
 
     $display("Full 4-phase testbench execution completed successfully.");
-    end
+    $finish;
+end
 
 endmodule

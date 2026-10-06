@@ -8,6 +8,7 @@ module top_32b (
     input  wire        alu_compute_start,
     input  wire        rd_mem_start,
     input  wire        wr_mem_start,
+    input  wire [1:0]  array_select,
     input  wire [63:0] data_in_top,
     output wire [63:0] pin_data_out_mem0,
     output wire [63:0] pin_data_out_mem1,
@@ -18,7 +19,7 @@ module top_32b (
 
     // Scheduler interconnects
     wire [1:0] cmd;
-    wire [1:0] arr_sel;
+    wire [1:0] scheduler_array_select;
     wire [5:0] sram_addr;
     wire       sram_we, sram_me;
     wire       en_alu, en_mult;
@@ -33,19 +34,23 @@ module top_32b (
 
     // Scheduler Instance
     top_scheduler I_TOP_SCHEDULER (
-        .clk               (gated_clk),
-        .rst               (rst),
-        .alu_compute_start (alu_compute_start),
-        .alu_done          (alu_done),
-        .mult_done         (mult_done),
-        .cmd_out           (cmd),
-        .en_addsub         (en_alu),
-        .en_mult           (en_mult),
-        .array_select      (arr_sel),
-        .mem_addr          (sram_addr),
-        .mem_we            (sram_we),
-        .mem_me            (sram_me)
-    );
+    .clk               (clk),
+    .rst               (rst),
+    .alu_compute_start (alu_compute_start),
+    .alu_done          (alu_done),
+    .mult_done         (mult_done),
+
+    .cmd_out           (cmd_out),
+    .en_addsub         (en_addsub),
+    .en_mult           (en_mult),
+
+    .array_select      (scheduler_array_select),
+
+    .mem_addr          (mem_addr),
+    .mem_we            (mem_we),
+    .mem_me            (mem_me),
+    .state_name        (state_name)
+);
 
     // ALU Instance
     addsub_32b I_ADDSUB (
