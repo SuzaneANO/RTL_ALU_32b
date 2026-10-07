@@ -48,7 +48,8 @@ module top_32b (
     wire        scheduler_mem_me;
     wire        en_addsub;
     wire        en_mult;
-    wire [2:0] state_current;
+    wire [2:0]  state_current;
+    wire        scheduler_wr_mem_start;
 
     // ============================================================
     // Memory Output & Execution Unit Signals
@@ -81,37 +82,29 @@ module top_32b (
     // ============================================================
     wire host_active = wr_mem_start || rd_mem_start;
 
-    wire [1:0] effective_array_select = host_active ? array_select      : scheduler_array_select;
-    wire [5:0] effective_mem_addr     = host_active ? host_addr         : scheduler_mem_addr;
-    wire       effective_mem_we       = host_active ? wr_mem_start      : scheduler_mem_we;
-    wire       effective_mem_me       = host_active ? 1'b1              : scheduler_mem_me;
+    wire [5:0] effective_mem_addr = host_active ? host_addr : scheduler_mem_addr;
 
-    // Memory Enables & Write Enables
-    wire mem0_me = host_active ? (array_select == `ARRAY_SEL0) : effective_mem_me;
-    wire mem1_me = host_active ? (array_select == `ARRAY_SEL1) : effective_mem_me;
-    wire mem2_me = host_active ? (array_select == `ARRAY_SEL2) : (effective_mem_me && (scheduler_array_select == `ARRAY_SEL2));
+    // Direct synchronization between Scheduler ME/WE and SRAM Memory Instances
+    wire mem0_me = host_active ? (array_select == `ARRAY_SEL0) : scheduler_mem_me;
+    wire mem1_me = host_active ? (array_select == `ARRAY_SEL1) : scheduler_mem_me;
+    wire mem2_me = host_active ? (array_select == `ARRAY_SEL2) : (scheduler_mem_me && (scheduler_array_select == `ARRAY_SEL2));
 
-    wire mem0_we = host_active ? (wr_mem_start && (array_select == `ARRAY_SEL0)) : (effective_mem_we && (scheduler_array_select == `ARRAY_SEL0));
-    wire mem1_we = host_active ? (wr_mem_start && (array_select == `ARRAY_SEL1)) : (effective_mem_we && (scheduler_array_select == `ARRAY_SEL1));
-    wire mem2_we = host_active ? (wr_mem_start && (array_select == `ARRAY_SEL2)) : (effective_mem_we && (scheduler_array_select == `ARRAY_SEL2));
+    wire mem0_we = host_active ? (wr_mem_start && (array_select == `ARRAY_SEL0)) : 1'b0;
+    wire mem1_we = host_active ? (wr_mem_start && (array_select == `ARRAY_SEL1)) : 1'b0;
+    wire mem2_we = host_active ? (wr_mem_start && (array_select == `ARRAY_SEL2)) : (scheduler_mem_we && (scheduler_array_select == `ARRAY_SEL2));
 
     // ============================================================
-    // Input Data Demultiplexer (Control & Status Registers routing)
+    // Input Data Demultiplexer
     // ============================================================
     wire [63:0] data_in_mem0      = (wr_mem_start && (array_select == `ARRAY_SEL0)) ? data_in_top : 64'h0;
     wire [63:0] data_in_mem1      = (wr_mem_start && (array_select == `ARRAY_SEL1)) ? data_in_top : 64'h0;
-    wire [63:0] data_in_mem2_host = (wr_mem_start && (array_select == `ARRAY_SEL2)) ? data_in_top : 64'h0;
-
-
 
     // ============================================================
-    // Result MUX (res_sel) & MEM2 Input MUX
+    // Result MUX & MEM2 Input MUX
     // ============================================================
-    // res_sel multiplexes execution results from ADD/SUB and MULT32b
     wire [63:0] res_sel_out = (scheduler_cmd == `CMD_MULT) ? mult_res : alu_res;
 
-    // MUX into MEM2 D input: Chooses between external data_in_top and computation result
-    wire [63:0] data_in_mem2 = (wr_mem2_start && (array_select == `ARRAY_SEL2)) 
+    wire [63:0] data_in_mem2 = (wr_mem_start && (array_select == `ARRAY_SEL2)) 
                              ? data_in_top 
                              : res_sel_out;
 
@@ -119,29 +112,25 @@ module top_32b (
     // Submodule Instantiations
     // ============================================================
 
-    // Scheduler Unit
     top_scheduler I_TOP_SCHEDULER (
-        .clk               (clk),
-        .rst               (rst),
-        .alu_compute_start (alu_compute_start),
-        
-        .alu_done          (alu_done),
-        .mult_done         (mult_done),
-        .cmd_out           (scheduler_cmd),
+        .clk                     (clk),
+        .rst                     (rst),
+        .alu_compute_start       (alu_compute_start),
+        .alu_done                (alu_done),
+        .mult_done               (mult_done),
+        .cmd_out                 (scheduler_cmd),
         .current_instruction_cmd (current_instruction_cmd),
-        .en_addsub         (en_addsub),
-        .en_mult           (en_mult),
-        .array_select      (scheduler_array_select),
-        .mem_addr          (scheduler_mem_addr),
-        .mem_we            (scheduler_mem_we),
-        .mem_me            (scheduler_mem_me),
-        .state_current            (state_current),
-        .wr_mem2_start (wr_mem2_start),
-        .wr_mem_start (wr_mem_start)
-        
-        );
+        .en_addsub               (en_addsub),
+        .en_mult                 (en_mult),
+        .array_select            (scheduler_array_select),
+        .mem_addr                (scheduler_mem_addr),
+        .mem_we                  (scheduler_mem_we),
+        .mem_me                  (scheduler_mem_me),
+        .state_current           (state_current),
+        .wr_mem_start            (scheduler_wr_mem_start),
+        .wr_mem2_start           (wr_mem2_start)
+    );
 
-    // Adder / Subtractor Unit
     addsub_32b I_ADDSUB (
         .clk    (gated_clk),
         .rst    (rst),
@@ -153,7 +142,6 @@ module top_32b (
         .done   (alu_done)
     );
 
-    // Multiplier Unit
     mult_32b I_MULT (
         .clk    (gated_clk),
         .rst    (rst),
@@ -165,37 +153,33 @@ module top_32b (
         .done   (mult_done)
     );
 
-    // MEM0: Stores Operand 0
     sramHD_64x64 MEM0 (
         .CLK (gated_clk),
         .ME  (mem0_me),
         .WE  (mem0_we),
         .ADR (effective_mem_addr),
-        .D   (data_in_mem0), // Dedicated input stream for MEM0
+        .D   (data_in_mem0),
         .Q   (mem0_q)
     );
 
-    // MEM1: Stores Operand 1
     sramHD_64x64 MEM1 (
         .CLK (gated_clk),
         .ME  (mem1_me),
         .WE  (mem1_we),
         .ADR (effective_mem_addr),
-        .D   (data_in_mem1), // Dedicated input stream for MEM1
+        .D   (data_in_mem1),
         .Q   (mem1_q)
     );
 
-    // MEM2: Stores Computation Results or Host Writes
     sramHD_64x64 MEM2 (
         .CLK (gated_clk),
         .ME  (mem2_me),
         .WE  (mem2_we),
         .ADR (effective_mem_addr),
-        .D   (data_in_mem2), // MUX output (res_sel_out vs data_in_mem2_host)
+        .D   (data_in_mem2),
         .Q   (mem2_q)
     );
 
-    // Top Output Ports
     assign pin_data_out_mem0 = mem0_q;
     assign pin_data_out_mem1 = mem1_q;
     assign pin_data_out_mem2 = mem2_q;

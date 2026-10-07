@@ -27,8 +27,7 @@ module top_scheduler (
                WAIT_MEM    = 3'd2,
                EXECUTE     = 3'd3,
                WRITE_MEM2  = 3'd4;
-               //HOLD_WRITE  = 3'd5;
-               
+
     reg [2:0] state_next;
     reg [5:0] reg_counter;
 
@@ -39,7 +38,6 @@ module top_scheduler (
             reg_counter   <= 6'd0;
         end else begin
             state_current <= state_next;
-            // Increment instruction/memory address counter when completing the write cycle
             if (state_current == WRITE_MEM2)
                 reg_counter <= reg_counter + 1'b1;
         end
@@ -48,15 +46,16 @@ module top_scheduler (
     // Combinatorial Next-State and Output Logic
     always @(*) begin
         // Default outputs
-        state_next   = state_current;
-        cmd_out      = `CMD_NOOP;
-        en_addsub    = 1'b0;
-        en_mult      = 1'b0;
-        array_select = `ARRAY_NONE;
-        mem_we       = 1'b0;
-        mem_me       = 1'b0;
-        mem_addr     = reg_counter;
-        wr_mem2_start =1'b0;
+        state_next    = state_current;
+        cmd_out       = `CMD_NOOP;
+        en_addsub     = 1'b0;
+        en_mult       = 1'b0;
+        array_select  = `ARRAY_NONE;
+        mem_we        = 1'b0;
+        mem_me        = 1'b0;
+        mem_addr      = reg_counter;
+        wr_mem_start  = 1'b0;
+        wr_mem2_start = 1'b0;
 
         case (state_current)
             IDLE: begin
@@ -65,42 +64,36 @@ module top_scheduler (
             end
 
             READ_MEMS: begin
-                // Issue read command to MEM0 and MEM1
-                mem_me     = 1'b1;
+                mem_me     = 1'b0;
                 mem_we     = 1'b0; 
                 state_next = WAIT_MEM;
             end
             
             WAIT_MEM: begin
-                // 1 cycle latency delay for SRAM read data to propagate to Q
-                mem_me     = 1'b1;
+                mem_me     = 1'b0;
                 state_next = EXECUTE;
             end
 
             EXECUTE: begin
                 cmd_out = current_instruction_cmd;
-                wr_mem_start = 1'b1; 
+                mem_me        = 1'b1;
+                mem_we        = 1'b1;
                 wr_mem2_start = 1'b1;
                 if (cmd_out == `CMD_MULT)
                     en_mult = 1'b1;
                 else
-                    en_addsub = 1'b1 ;
+                    en_addsub = 1'b1;
                     
-                if (alu_done || mult_done)
-                    mem_me       = 1'b1;
-                    mem_we       = 1'b1;
+                if (alu_done || mult_done) begin
                     state_next = WRITE_MEM2;
+                end
             end
 
             WRITE_MEM2: begin
-                // Assert WE and ME while holding D on array_select
-                mem_me       = 1'b0;
-                mem_we       = 1'b0;
-                array_select = `ARRAY_SEL2;
-                state_next   = IDLE;
+                // Drive ME and WE to SRAM MEM2
+                array_select  = `ARRAY_SEL2;
+                state_next    = IDLE;
             end
-
-
 
             default: state_next = IDLE;
         endcase
