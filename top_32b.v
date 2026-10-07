@@ -12,6 +12,7 @@ module top_32b (
     input  wire [1:0]  cmd_top,       // Control and Status Register input
     input  wire        mode_top,      // Control and Status Register input
     input  wire [63:0] data_in_top,
+    input  wire [2:0]  current_instruction_cmd,
     output wire [63:0] pin_data_out_mem0,
     output wire [63:0] pin_data_out_mem1,
     output wire [63:0] pin_data_out_mem2
@@ -124,12 +125,14 @@ module top_32b (
         .alu_done          (alu_done),
         .mult_done         (mult_done),
         .cmd_out           (scheduler_cmd),
+        .current_instruction_cmd (current_instruction_cmd),
         .en_addsub         (en_addsub),
         .en_mult           (en_mult),
         .array_select      (scheduler_array_select),
         .mem_addr          (scheduler_mem_addr),
         .mem_we            (scheduler_mem_we),
-        .mem_me            (scheduler_mem_me)
+        .mem_me            (scheduler_mem_me),
+        .state_current            (state_current)
     );
 
     // Adder / Subtractor Unit

@@ -25,6 +25,9 @@ module top_32b_tb;
     reg [63:0] mem0_test_data [0:15];
     reg [63:0] mem1_test_data [0:15];
 
+    reg [2:0] test_instructions [0:15];
+    
+
     parameter T = 10; // 100 MHz clock period
 
     // UUT Instance
@@ -41,7 +44,8 @@ module top_32b_tb;
         .data_in_top       (data_in_top),
         .pin_data_out_mem0 (pin_data_out_mem0),
         .pin_data_out_mem1 (pin_data_out_mem1),
-        .pin_data_out_mem2 (pin_data_out_mem2)
+        .pin_data_out_mem2 (pin_data_out_mem2),
+        .current_instruction_cmd (tb_instruction_cmd)
     );
 
     
@@ -97,6 +101,24 @@ module top_32b_tb;
         mem0_test_data[15] = 64'h0000_0000_0000_0000; mem1_test_data[15] = 64'h0000_0000_0000_0000; // MULT
     
 
+        test_instructions[0]  = `CMD_ADD;  // 000000000000000F + 00000000000000F0
+        test_instructions[1]  = `CMD_MULT; // 0000000000000000 * 0000000000000000
+        test_instructions[2]  = `CMD_ADD;  // 0000FFFF00000000 + 00000000FFFF0000
+        test_instructions[3]  = `CMD_SUB;  // 00000000FFFFFFFF - 00000000FFFFFFFF -> 0x0
+        test_instructions[4]  = `CMD_ADD;  // NOOP / Default ADD
+        test_instructions[5]  = `CMD_MULT; // 00000000FFFFFFFF * 00000000FFFFFFFF
+        test_instructions[6]  = `CMD_MULT; // 000000000000000F * 000000000000000F
+        test_instructions[7]  = `CMD_MULT; // 0000000000000000 * 0000000000000000
+        test_instructions[8]  = `CMD_MULT; // 000000000000FFFF * 000000000000FFFF
+        test_instructions[9]  = `CMD_MULT; // 0000000000000000 * 0000000000000000
+        test_instructions[10] = `CMD_MULT; // 000000000FFF_FFFF * 000000000FFF_FFFF
+        test_instructions[11] = `CMD_MULT; // 0000000000000000 * 0000000000000000
+        test_instructions[12] = `CMD_MULT; // 00000000FFFFFFFF * 00000000FFFFFF00
+        test_instructions[13] = `CMD_MULT; // 0000000000000000 * 0000000000000000
+        test_instructions[14] = `CMD_MULT; // 00000000FFFFFFFF * 00000000FFFFFFFF
+        test_instructions[15] = `CMD_MULT; // 0000000000000000 * 0000000000000000   
+
+
     // ====================================================================
     // PHASE 1: Write to MEM0 (Populate Operand 0 Array)
     // ====================================================================
@@ -130,9 +152,43 @@ module top_32b_tb;
     // ====================================================================
     // PHASE 3: Execute ALU Computation Sequence
     // ====================================================================
-    alu_compute_start = 1;
-    #(T);
-    alu_compute_start = 0;
+    // Testbench Instruction Array
+    
+
+    initial begin
+        // Reset and initialization sequences...
+        alu_compute_start = 1'b0;
+        tb_instruction_cmd = `CMD_ADD;
+        
+        // Wait for reset to complete
+        wait(!rst);
+        #20;
+
+        $display("--- Starting Step-by-Step Hardware Execution ---");
+
+        for (i = 0; i < 16; i = i + 1) begin
+            // 1. Set command for current operation BEFORE start pulse
+            @(posedge clk);
+            tb_instruction_cmd = test_instructions[i];
+
+            // 2. Pulse alu_compute_start high for exactly 1 clock cycle
+            alu_compute_start = 1'b1;
+            @(posedge clk);
+            alu_compute_start = 1'b0;
+
+            // 3. Wait for FSM to leave IDLE, complete execution, and return to IDLE
+            @(posedge clk);
+            while (I_TOP_SCHEDULER.state_current != 3'd0) begin
+                @(posedge clk);
+            end
+
+            $display("Completed Op %0d with Cmd %b", i, test_instructions[i]);
+            #10; // Brief pause between operations
+        end
+
+        $display("--- All 16 Operations Completed ---");
+        $finish;
+    end
 
     // Wait for SCHEDULER to complete all 16 operations & writes to MEM2
     // Adjust total cycles depending on Multiplier/ALU execution latency

@@ -9,7 +9,7 @@ module top_scheduler (
     input  wire        alu_compute_start,
     input  wire        alu_done,
     input  wire        mult_done,
-    
+    input  wire        current_instruction_cmd,
     output reg  [1:0]  cmd_out,
     output reg         en_addsub,
     output reg         en_mult,
@@ -17,7 +17,7 @@ module top_scheduler (
     output reg  [5:0]  mem_addr,
     output reg         mem_we,
     output reg         mem_me,
-    output reg [127:0] state_name // String output for text rendering in GTKWave
+    output reg [2:0] state_current
 );
     // FSM States
     localparam IDLE        = 3'd0,
@@ -26,7 +26,7 @@ module top_scheduler (
                EXECUTE     = 3'd3,
                WRITE_MEM2  = 3'd4;
                
-    reg [2:0] state_current, state_next;
+    reg [2:0] state_next;
     reg [5:0] reg_counter; // FIXED: Expanded from 5 bits to 6 bits to match mem_addr[5:0]
 
     // Sequential State & Address Counter Logic
@@ -87,7 +87,7 @@ module top_scheduler (
             end
 
             EXECUTE: begin
-                cmd_out = `CMD_ADD; // Driven by instruction sequence/ROM
+                cmd_out = current_instruction_cmd; // Driven by instruction sequence/ROM
                 if (cmd_out == `CMD_MULT)
                     en_mult = 1'b1;
                 else
@@ -101,11 +101,7 @@ module top_scheduler (
                 mem_me       = 1'b1;
                 mem_we       = 1'b1;
                 array_select = `ARRAY_SEL2; // Route results to MEM2
-                
-                if (reg_counter == 6'd15) // FIXED: 6-bit literal comparison
-                    state_next = IDLE;
-                else
-                    state_next = READ_MEMS;
+                state_next = IDLE;
             end
 
             default: state_next = IDLE;

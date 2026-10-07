@@ -12,6 +12,8 @@ module addsub_32b (
     output reg         done
 );
 
+
+
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             res  <= 64'd0;
