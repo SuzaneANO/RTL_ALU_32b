@@ -90,7 +90,6 @@ module top_scheduler (
                 mem_me       = 1'b1;
                 mem_we       = 1'b1;
                 array_select = `ARRAY_SEL2; // Route results to MEM2
-                reg_counter  <= reg_counter + 1'b1;
                 state_next = IDLE;
             end
 
