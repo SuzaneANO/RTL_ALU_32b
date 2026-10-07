@@ -38,8 +38,8 @@ module top_scheduler (
             state_current <= state_next;
             if (state_current == WRITE_MEM2)
                 reg_counter <= reg_counter + 1'b1;
-            else if (state_current == IDLE)
-                reg_counter <= 6'd0; // FIXED: Explicit 6-bit reset in IDLE
+            //else if (state_current == IDLE)
+            //    reg_counter <= 6'd0; // FIXED: Explicit 6-bit reset in IDLE
         end
     end
 

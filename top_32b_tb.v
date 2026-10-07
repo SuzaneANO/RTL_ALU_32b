@@ -176,10 +176,13 @@ module top_32b_tb;
         @(posedge clk);
         alu_compute_start = 1'b0;
 
+        // 3a. WAIT for FSM to leave IDLE (state_current != 0)
+        @(posedge clk);
+
         // 3. Wait for FSM to finish and return TO IDLE (3'd0)
         while (uut.I_TOP_SCHEDULER.state_current != 3'd0) begin
             @(posedge clk);
-            // $display("another one %3b ",uut.I_TOP_SCHEDULER.state_current);
+            $display("another one %3b ",uut.I_TOP_SCHEDULER.state_current);
         end
 
         $display("Completed Op %0d with Cmd %b", i, test_instructions[i]);
@@ -187,10 +190,9 @@ module top_32b_tb;
     end 
 
     $display("--- All 16 Operations Completed ---");
-    $finish;
+    
     // Wait for SCHEDULER to complete all 16 operations & writes to MEM2
     // Adjust total cycles depending on Multiplier/ALU execution latency
-    #(128 * T); 
 
     // ====================================================================
     // PHASE 4: Read from MEM2 (Burst Read Results)

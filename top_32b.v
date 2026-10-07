@@ -134,7 +134,7 @@ module top_32b (
         .mem_we            (scheduler_mem_we),
         .mem_me            (scheduler_mem_me),
         .state_current            (state_current)
-    );
+        );
 
     // Adder / Subtractor Unit
     addsub_32b I_ADDSUB (
