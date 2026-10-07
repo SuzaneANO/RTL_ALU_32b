@@ -23,6 +23,8 @@ module top_32b_tb;
     wire [63:0] pin_data_out_mem1;
     wire [63:0] pin_data_out_mem2;
 
+    wire wr_mem2_start;
+
     // Testbench memory arrays declared outside procedural blocks
     reg [63:0] mem0_test_data [0:15];
     reg [63:0] mem1_test_data [0:15];

@@ -136,7 +136,9 @@ module top_32b (
         .mem_we            (scheduler_mem_we),
         .mem_me            (scheduler_mem_me),
         .state_current            (state_current),
-        .wr_mem2_start (wr_mem2_start)
+        .wr_mem2_start (wr_mem2_start),
+        .wr_mem_start (wr_mem_start)
+        
         );
 
     // Adder / Subtractor Unit
