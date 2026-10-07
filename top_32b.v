@@ -47,6 +47,7 @@ module top_32b (
     wire        scheduler_mem_me;
     wire        en_addsub;
     wire        en_mult;
+    wire [2:0] state_current;
 
     // ============================================================
     // Memory Output & Execution Unit Signals

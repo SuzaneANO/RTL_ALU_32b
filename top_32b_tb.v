@@ -14,6 +14,7 @@ module top_32b_tb;
     reg [1:0]  array_select;
     reg [1:0]  cmd_top;
     reg        mode_top;
+    reg [2:0] tb_instruction_cmd;
 
     // Data Buses
     reg  [63:0] data_in_top;
@@ -155,41 +156,38 @@ module top_32b_tb;
     // Testbench Instruction Array
     
 
-    initial begin
-        // Reset and initialization sequences...
+    // Reset and initialization sequences...
+    alu_compute_start = 1'b0;
+    tb_instruction_cmd = `CMD_ADD;
+
+    // Wait for reset to complete
+    wait(!rst);
+    #20;
+
+    $display("--- Starting Step-by-Step Hardware Execution ---");
+
+    for (i = 0; i < 16; i = i + 1) begin
+        // 1. Set command for current operation BEFORE start pulse
+        @(posedge clk);
+        tb_instruction_cmd = test_instructions[i];
+
+        // 2. Pulse alu_compute_start high for exactly 1 clock cycle
+        alu_compute_start = 1'b1;
+        @(posedge clk);
         alu_compute_start = 1'b0;
-        tb_instruction_cmd = `CMD_ADD;
-        
-        // Wait for reset to complete
-        wait(!rst);
-        #20;
 
-        $display("--- Starting Step-by-Step Hardware Execution ---");
-
-        for (i = 0; i < 16; i = i + 1) begin
-            // 1. Set command for current operation BEFORE start pulse
+        // 3. Wait for FSM to finish and return TO IDLE (3'd0)
+        while (uut.I_TOP_SCHEDULER.state_current != 3'd0) begin
             @(posedge clk);
-            tb_instruction_cmd = test_instructions[i];
-
-            // 2. Pulse alu_compute_start high for exactly 1 clock cycle
-            alu_compute_start = 1'b1;
-            @(posedge clk);
-            alu_compute_start = 1'b0;
-
-            // 3. Wait for FSM to leave IDLE, complete execution, and return to IDLE
-            @(posedge clk);
-            while (I_TOP_SCHEDULER.state_current != 3'd0) begin
-                @(posedge clk);
-            end
-
-            $display("Completed Op %0d with Cmd %b", i, test_instructions[i]);
-            #10; // Brief pause between operations
+            // $display("another one %3b ",uut.I_TOP_SCHEDULER.state_current);
         end
 
-        $display("--- All 16 Operations Completed ---");
-        $finish;
-    end
+        $display("Completed Op %0d with Cmd %b", i, test_instructions[i]);
+        #10; // Brief pause between operations
+    end 
 
+    $display("--- All 16 Operations Completed ---");
+    $finish;
     // Wait for SCHEDULER to complete all 16 operations & writes to MEM2
     // Adjust total cycles depending on Multiplier/ALU execution latency
     #(128 * T); 

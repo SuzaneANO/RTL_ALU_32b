@@ -9,8 +9,8 @@ module top_scheduler (
     input  wire        alu_compute_start,
     input  wire        alu_done,
     input  wire        mult_done,
-    input  wire        current_instruction_cmd,
     output reg  [1:0]  cmd_out,
+    input  wire [2:0]      current_instruction_cmd,
     output reg         en_addsub,
     output reg         en_mult,
     output reg  [1:0]  array_select,
@@ -43,17 +43,6 @@ module top_scheduler (
         end
     end
 
-    // Combinatorial ASCII State Converter for GTKWave Text Display
-    always @(*) begin
-        case (state_current)
-            IDLE:       state_name = "IDLE";
-            READ_MEMS:  state_name = "READ_MEMS";
-            WAIT_MEM:   state_name = "WAIT_MEM";
-            EXECUTE:    state_name = "EXECUTE";
-            WRITE_MEM2: state_name = "WRITE_MEM2";
-            default:    state_name = "UNKNOWN";
-        endcase
-    end
 
     // Combinatorial Next-State and Output Logic
     always @(*) begin
@@ -101,6 +90,7 @@ module top_scheduler (
                 mem_me       = 1'b1;
                 mem_we       = 1'b1;
                 array_select = `ARRAY_SEL2; // Route results to MEM2
+                reg_counter  <= reg_counter + 1'b1;
                 state_next = IDLE;
             end
 
