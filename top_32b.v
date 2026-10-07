@@ -123,6 +123,7 @@ module top_32b (
         .clk               (clk),
         .rst               (rst),
         .alu_compute_start (alu_compute_start),
+        
         .alu_done          (alu_done),
         .mult_done         (mult_done),
         .cmd_out           (scheduler_cmd),
@@ -133,7 +134,8 @@ module top_32b (
         .mem_addr          (scheduler_mem_addr),
         .mem_we            (scheduler_mem_we),
         .mem_me            (scheduler_mem_me),
-        .state_current            (state_current)
+        .state_current            (state_current),
+        .wr_mem_start (wr_mem_start)
         );
 
     // Adder / Subtractor Unit

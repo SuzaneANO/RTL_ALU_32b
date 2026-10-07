@@ -17,7 +17,8 @@ module top_scheduler (
     output reg  [5:0]  mem_addr,
     output reg         mem_we,
     output reg         mem_me,
-    output reg  [2:0]  state_current
+    output reg  [2:0]  state_current,
+    output reg         wr_mem_start
 );
     // FSM States
     localparam IDLE        = 3'd0,
@@ -83,11 +84,13 @@ module top_scheduler (
                     
 
                 if (alu_done || mult_done)
+                    wr_mem_start = 1'b1;
                     state_next = WRITE_MEM2;
             end
 
             WRITE_MEM2: begin
                 // Assert WE and ME while holding D on array_select
+                wr_mem_start = 1'b1; 
                 mem_me       = 1'b1;
                 mem_we       = 1'b1;
                 array_select = `ARRAY_SEL2;
@@ -96,6 +99,7 @@ module top_scheduler (
 
             HOLD_WRITE: begin
                 // Deassert WE while keeping array_select stable for SRAM hold time
+                wr_mem_start = 1'b0;
                 mem_me       = 1'b0;
                 mem_we       = 1'b0;
                 array_select = `ARRAY_SEL2;

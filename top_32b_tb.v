@@ -166,8 +166,11 @@ module top_32b_tb;
 
     $display("--- Starting Step-by-Step Hardware Execution ---");
     
-    wr_mem_start = 1'b1 ;
+    
+      
     for (i = 0; i < 16; i = i + 1) begin
+        wr_mem_start = 1'b1 ;
+        $display("wr_mem_start %b", wr_mem_start);
         // 1. Set command for current operation BEFORE start pulse
         @(posedge clk);
         tb_instruction_cmd = test_instructions[i];
