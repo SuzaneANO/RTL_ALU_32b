@@ -15,7 +15,8 @@ module top_32b (
     input  wire [2:0]  current_instruction_cmd,
     output wire [63:0] pin_data_out_mem0,
     output wire [63:0] pin_data_out_mem1,
-    output wire [63:0] pin_data_out_mem2
+    output wire [63:0] pin_data_out_mem2,
+    output wire        wr_mem2_start
 );
 
     // Gated Clocking
@@ -110,7 +111,7 @@ module top_32b (
     wire [63:0] res_sel_out = (scheduler_cmd == `CMD_MULT) ? mult_res : alu_res;
 
     // MUX into MEM2 D input: Chooses between external data_in_top and computation result
-    wire [63:0] data_in_mem2 = (wr_mem_start && (array_select == `ARRAY_SEL2)) 
+    wire [63:0] data_in_mem2 = (wr_mem2_start && (array_select == `ARRAY_SEL2)) 
                              ? data_in_top 
                              : res_sel_out;
 
@@ -135,7 +136,7 @@ module top_32b (
         .mem_we            (scheduler_mem_we),
         .mem_me            (scheduler_mem_me),
         .state_current            (state_current),
-        .wr_mem_start (wr_mem_start)
+        .wr_mem2_start (wr_mem2_start)
         );
 
     // Adder / Subtractor Unit

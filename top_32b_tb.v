@@ -11,6 +11,7 @@ module top_32b_tb;
     reg        alu_compute_start;
     reg        rd_mem_start;
     reg        wr_mem_start;
+
     reg [1:0]  array_select;
     reg [1:0]  cmd_top;
     reg        mode_top;
@@ -46,7 +47,8 @@ module top_32b_tb;
         .pin_data_out_mem0 (pin_data_out_mem0),
         .pin_data_out_mem1 (pin_data_out_mem1),
         .pin_data_out_mem2 (pin_data_out_mem2),
-        .current_instruction_cmd (tb_instruction_cmd)
+        .current_instruction_cmd (tb_instruction_cmd),
+        .wr_mem2_start (wr_mem2_start)
     );
 
     
@@ -169,8 +171,8 @@ module top_32b_tb;
     
       
     for (i = 0; i < 16; i = i + 1) begin
-        wr_mem_start = 1'b1 ;
-        $display("wr_mem_start %b", wr_mem_start);
+
+
         // 1. Set command for current operation BEFORE start pulse
         @(posedge clk);
         tb_instruction_cmd = test_instructions[i];
@@ -202,7 +204,7 @@ module top_32b_tb;
     // PHASE 4: Read from MEM2 (Burst Read Results)
     // ====================================================================
     array_select = 2'b10; // Select MEM2
-    wr_mem_start = 1'b0;
+    
     rd_mem_start = 1;
 
     #(128 * T);
