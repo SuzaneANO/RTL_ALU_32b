@@ -166,7 +166,7 @@ module top_32b_tb;
 
     $display("--- Starting Step-by-Step Hardware Execution ---");
     
-    wr_mem_start = 1'b1 
+    wr_mem_start = 1'b1 ;
     for (i = 0; i < 16; i = i + 1) begin
         // 1. Set command for current operation BEFORE start pulse
         @(posedge clk);
@@ -199,7 +199,7 @@ module top_32b_tb;
     // PHASE 4: Read from MEM2 (Burst Read Results)
     // ====================================================================
     array_select = 2'b10; // Select MEM2
-    wr_mem_start = 1'b0
+    wr_mem_start = 1'b0;
     rd_mem_start = 1;
 
     #(128 * T);
