@@ -1,6 +1,3 @@
-// File: sramHD_64x64.v
-// Description: Behavioral wrapper for the 64x64 SRAM IP
-// ============================================================================
 module sramHD_64x64 (
     input  wire        CLK,
     input  wire        ME,  // Memory Enable
@@ -11,6 +8,18 @@ module sramHD_64x64 (
 );
     reg [63:0] mem_core_array [0:63];
 
+    // Declare loop variable for initialization
+    integer j;
+
+    // Initialize memory array and output to 0 at time 0
+    initial begin
+        for (j = 0; j < 64; j = j + 1) begin
+            mem_core_array[j] = 64'h0;
+        end
+        Q = 64'h0;
+    end
+
+    // Clocked Read / Write Logic
     always @(posedge CLK) begin
         if (ME) begin
             if (WE)
@@ -19,6 +28,5 @@ module sramHD_64x64 (
                 Q <= mem_core_array[ADR];
         end
     end
-endmodule
 
-// ============================================================================
+endmodule

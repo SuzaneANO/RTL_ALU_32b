@@ -78,7 +78,8 @@ module top_scheduler (
                 cmd_out = current_instruction_cmd;
                 mem_me        = 1'b1;
                 mem_we        = 1'b1;
-                wr_mem2_start = 1'b1;
+                array_select  = `ARRAY_SEL2;
+                
                 if (cmd_out == `CMD_MULT)
                     en_mult = 1'b1;
                 else

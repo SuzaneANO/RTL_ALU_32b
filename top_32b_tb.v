@@ -130,11 +130,12 @@ module top_32b_tb;
     array_select = 2'b00;
     wr_mem_start = 1;
 
+
     for (i = 0; i < 16; i = i + 1) begin
         data_in_top = mem0_test_data[i];
         #(T);
     end
-
+    
     wr_mem_start = 0;
     array_select = 2'b11;
     #(2 * T);
@@ -149,7 +150,7 @@ module top_32b_tb;
         data_in_top = mem1_test_data[i];
         #(T);
     end
-
+    
     wr_mem_start = 0;
     array_select = 2'b11;
     #(2 * T);
@@ -202,17 +203,29 @@ module top_32b_tb;
     // Wait for SCHEDULER to complete all 16 operations & writes to MEM2
     // Adjust total cycles depending on Multiplier/ALU execution latency
 
+
     // ====================================================================
     // PHASE 4: Read from MEM2 (Burst Read Results)
     // ====================================================================
-    array_select = 2'b10; // Select MEM2
+    $display("--- Starting MEM2 Burst Read Phase ---");
     
-    rd_mem_start = 1;
+    // Step 1: Drive read control signals
+    array_select = 2'b10; // ARRAY_SEL2 (MEM2)
+    rd_mem_start = 1'b1;  // host_active = 1, host_addr = 0
 
-    #(128 * T);
+    // Step 2: Wait 1 cycle for SRAM read pipeline latency (Address 0 latched -> Q updated)
+    @(posedge clk);
 
-    rd_mem_start = 0;
-    array_select = 2'b11;
+    // Step 3: Loop 16 cycles to display data as host_addr increments 0 -> 15
+    for (i = 0; i < 16; i = i + 1) begin
+        $display("[Read MEM2] Address: 0x%02h | Data Out: 0x%16h", i, pin_data_out_mem2);
+        @(posedge clk);
+    end
+
+    // Step 4: Deassert host controls
+    rd_mem_start = 1'b0;
+    array_select = 2'b11; // ARRAY_NONE
+    
     #(5 * T);
 
     $display("Full 4-phase testbench execution completed successfully.");
