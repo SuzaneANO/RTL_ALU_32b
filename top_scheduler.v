@@ -10,39 +10,38 @@ module top_scheduler (
     input  wire        alu_done,
     input  wire        mult_done,
     output reg  [1:0]  cmd_out,
-    input  wire [2:0]      current_instruction_cmd,
+    input  wire [2:0]  current_instruction_cmd,
     output reg         en_addsub,
     output reg         en_mult,
     output reg  [1:0]  array_select,
     output reg  [5:0]  mem_addr,
     output reg         mem_we,
     output reg         mem_me,
-    output reg [2:0] state_current
+    output reg  [2:0]  state_current
 );
     // FSM States
     localparam IDLE        = 3'd0,
                READ_MEMS   = 3'd1,
                WAIT_MEM    = 3'd2,
                EXECUTE     = 3'd3,
-               WRITE_MEM2  = 3'd4;
+               WRITE_MEM2  = 3'd4,
+               HOLD_WRITE  = 3'd5;
                
     reg [2:0] state_next;
-    reg [5:0] reg_counter; // FIXED: Expanded from 5 bits to 6 bits to match mem_addr[5:0]
+    reg [5:0] reg_counter;
 
     // Sequential State & Address Counter Logic
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             state_current <= IDLE;
-            reg_counter   <= 6'd0; // FIXED: Explicit 6-bit reset value
+            reg_counter   <= 6'd0;
         end else begin
             state_current <= state_next;
-            if (state_current == WRITE_MEM2)
+            // Increment instruction/memory address counter when completing the write cycle
+            if (state_current == HOLD_WRITE)
                 reg_counter <= reg_counter + 1'b1;
-            //else if (state_current == IDLE)
-            //    reg_counter <= 6'd0; // FIXED: Explicit 6-bit reset in IDLE
         end
     end
-
 
     // Combinatorial Next-State and Output Logic
     always @(*) begin
@@ -54,7 +53,7 @@ module top_scheduler (
         array_select = `ARRAY_NONE;
         mem_we       = 1'b0;
         mem_me       = 1'b0;
-        mem_addr     = reg_counter; // FIXED: Clean 6-bit vector assignment without bit slice errors
+        mem_addr     = reg_counter;
 
         case (state_current)
             IDLE: begin
@@ -76,21 +75,31 @@ module top_scheduler (
             end
 
             EXECUTE: begin
-                cmd_out = current_instruction_cmd; // Driven by instruction sequence/ROM
+                cmd_out = current_instruction_cmd;
                 if (cmd_out == `CMD_MULT)
                     en_mult = 1'b1;
                 else
-                    en_addsub = 1'b1;
+                    en_addsub = 1'b1 ;
+                    
 
                 if (alu_done || mult_done)
                     state_next = WRITE_MEM2;
             end
 
             WRITE_MEM2: begin
+                // Assert WE and ME while holding D on array_select
                 mem_me       = 1'b1;
                 mem_we       = 1'b1;
-                array_select = `ARRAY_SEL2; // Route results to MEM2
-                state_next = IDLE;
+                array_select = `ARRAY_SEL2;
+                state_next   = HOLD_WRITE;
+            end
+
+            HOLD_WRITE: begin
+                // Deassert WE while keeping array_select stable for SRAM hold time
+                mem_me       = 1'b0;
+                mem_we       = 1'b0;
+                array_select = `ARRAY_SEL2;
+                state_next   = IDLE;
             end
 
             default: state_next = IDLE;
