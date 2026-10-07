@@ -82,7 +82,17 @@ module top_32b (
     // ============================================================
     wire host_active = wr_mem_start || rd_mem_start;
 
-    wire [5:0] effective_mem_addr = host_active ? host_addr : scheduler_mem_addr;
+    //wire [5:0] effective_mem_addr = host_active ? host_addr : scheduler_mem_addr;
+
+    reg [5:0] effective_mem_addr;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            effective_mem_addr <= 6'd0;
+        end else begin
+            effective_mem_addr <= host_active ? host_addr : scheduler_mem_addr;
+        end
+    end
 
     // Direct synchronization between Scheduler ME/WE and SRAM Memory Instances
     wire mem0_me = host_active ? (array_select == `ARRAY_SEL0) : scheduler_mem_me;
