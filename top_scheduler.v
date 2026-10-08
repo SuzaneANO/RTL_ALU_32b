@@ -70,7 +70,7 @@ module top_scheduler (
             end
             
             WAIT_MEM: begin
-                mem_me     = 1'b0;
+                mem_me     = 1'b1;
                 state_next = EXECUTE;
             end
 
@@ -79,7 +79,7 @@ module top_scheduler (
                 mem_me        = 1'b1;
                 mem_we        = 1'b1;
                 array_select  = `ARRAY_SEL2;
-                
+
                 if (cmd_out == `CMD_MULT)
                     en_mult = 1'b1;
                 else

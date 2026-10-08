@@ -215,6 +215,8 @@ module top_32b_tb;
 
     // Step 2: Wait 1 cycle for SRAM read pipeline latency (Address 0 latched -> Q updated)
     @(posedge clk);
+    // Step 2: Wait 1 cycle for SRAM read pipeline latency (Address 0 latched -> Q updated)
+    @(posedge clk);
 
     // Step 3: Loop 16 cycles to display data as host_addr increments 0 -> 15
     for (i = 0; i < 16; i = i + 1) begin
