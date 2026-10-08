@@ -16,7 +16,7 @@ MACRO_DIR     := macros
 # Include the header file in the sources list
 RTL_SRCS     := $(RTL_DIR)/alu32_pkg.vh \
                 $(RTL_DIR)/top_32b.v \
-                $(RTL_DIR)/ALU_32b.v \
+                $(RTL_DIR)/addsub_32b.v \
                 $(RTL_DIR)/mult_32b.v \
                 $(RTL_DIR)/top_scheduler.v
 
@@ -94,7 +94,7 @@ define OPENLANE_CONFIG_BODY
 {
   "DESIGN_NAME": "$(TOP_MODULE)",
   "VERILOG_FILES": [
-    "dir::ALU_32b.v",
+    "dir::addsub_32b.v",
     "dir::mult_32b.v",
     "dir::top_scheduler.v",
     "dir::top_32b.v"

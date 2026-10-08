@@ -9,10 +9,10 @@ module top_32b (
     input  wire        rd_mem_start,
     input  wire        wr_mem_start,
     input  wire [1:0]  array_select,
-    input  wire [1:0]  cmd_top,       // Control and Status Register input
-    input  wire        mode_top,      // Control and Status Register input
+    // input  wire [1:0]  cmd_top,       // Control and Status Register input
+    // input  wire        mode_top,      // Control and Status Register input
     input  wire [63:0] data_in_top,
-    input  wire [2:0]  current_instruction_cmd,
+    input  wire [1:0]  current_instruction_cmd,
     output wire [63:0] pin_data_out_mem0,
     output wire [63:0] pin_data_out_mem1,
     output wire [63:0] pin_data_out_mem2,
@@ -25,18 +25,18 @@ module top_32b (
     // ============================================================
     // Control & Status Registers Interconnects
     // ============================================================
-    reg [1:0] reg_cmd;
-    reg       reg_mode;
+    // reg [1:0] reg_cmd;
+    // reg       reg_mode;
 
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            reg_cmd  <= 2'b00;
-            reg_mode <= 1'b0;
-        end else begin
-            reg_cmd  <= cmd_top;
-            reg_mode <= mode_top;
-        end
-    end
+    // always @(posedge clk or posedge rst) begin
+    //     if (rst) begin
+    //         reg_cmd  <= 2'b00;
+    //         reg_mode <= 1'b0;
+    //     end else begin
+    //         reg_cmd  <= cmd_top;
+    //         reg_mode <= mode_top;
+    //     end
+    // end
 
     // ============================================================
     // Scheduler Interconnect Wires
@@ -48,8 +48,8 @@ module top_32b (
     wire        scheduler_mem_me;
     wire        en_addsub;
     wire        en_mult;
-    wire [2:0]  state_current;
-    wire        scheduler_wr_mem_start;
+    //wire [2:0]  state_current;
+    //wire        scheduler_wr_mem_start;
 
     // ============================================================
     // Memory Output & Execution Unit Signals
@@ -136,8 +136,8 @@ module top_32b (
         .mem_addr                (scheduler_mem_addr),
         .mem_we                  (scheduler_mem_we),
         .mem_me                  (scheduler_mem_me),
-        .state_current           (state_current),
-        .wr_mem_start            (scheduler_wr_mem_start),
+        //.state_current           (state_current),
+        //.wr_mem_start            (scheduler_wr_mem_start),
         .wr_mem2_start           (wr_mem2_start)
     );
 

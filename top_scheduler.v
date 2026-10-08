@@ -10,15 +10,15 @@ module top_scheduler (
     input  wire        alu_done,
     input  wire        mult_done,
     output reg  [1:0]  cmd_out,
-    input  wire [2:0]  current_instruction_cmd,
+    input  wire [1:0]  current_instruction_cmd,
     output reg         en_addsub,
     output reg         en_mult,
     output reg  [1:0]  array_select,
     output reg  [5:0]  mem_addr,
     output reg         mem_we,
     output reg         mem_me,
-    output reg  [2:0]  state_current,
-    output reg         wr_mem_start,
+    //output reg  [2:0]  state_current,
+    //output reg         wr_mem_start,
     output reg         wr_mem2_start
 );
     // FSM States
@@ -30,6 +30,8 @@ module top_scheduler (
 
     reg [2:0] state_next;
     reg [5:0] reg_counter;
+
+    reg [2:0] state_current;
 
     // Sequential State & Address Counter Logic
     always @(posedge clk or posedge rst) begin
@@ -54,7 +56,7 @@ module top_scheduler (
         mem_we        = 1'b0;
         mem_me        = 1'b0;
         mem_addr      = reg_counter;
-        wr_mem_start  = 1'b0;
+        //wr_mem_start  = 1'b0;
         wr_mem2_start = 1'b0;
 
         case (state_current)
