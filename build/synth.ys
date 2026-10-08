@@ -1,0 +1,3 @@
+read_verilog -lib ./sramHD_64x64.v
+read_verilog -I. ./alu32_pkg.vh ./top_32b.v ./ALU_32b.v ./mult_32b.v ./top_scheduler.v
+hierarchy -check -top top_32b

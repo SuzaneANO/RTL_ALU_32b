@@ -86,12 +86,12 @@ module top_32b (
 
     reg [5:0] effective_mem_addr;
 
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            effective_mem_addr = 6'd0;
-        end else begin
-            effective_mem_addr = host_active ? host_addr : scheduler_mem_addr;
-        end
+    always @(*) begin
+    if (rst) begin
+        effective_mem_addr = 6'd0;
+    end else begin
+        effective_mem_addr = host_active ? host_addr : scheduler_mem_addr;
+    end
     end
 
     // Direct synchronization between Scheduler ME/WE and SRAM Memory Instances

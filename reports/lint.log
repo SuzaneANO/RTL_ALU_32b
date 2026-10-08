@@ -1,0 +1,48 @@
+%Warning-EOFNEWLINE: top_32b.v:197:10: Missing newline at end of file (POSIX 3.206).
+                                     : ... Suggest add newline.
+  197 | endmodule
+      |          ^
+                     ... For warning description see https://verilator.org/warn/EOFNEWLINE?v=5.044
+                     ... Use "/* verilator lint_off EOFNEWLINE */" and lint_on around source to disable this message.
+%Warning-EOFNEWLINE: top_scheduler.v:102:10: Missing newline at end of file (POSIX 3.206).
+                                           : ... Suggest add newline.
+  102 | endmodule
+      |          ^
+%Warning-EOFNEWLINE: sramHD_64x64.v:32:10: Missing newline at end of file (POSIX 3.206).
+                                         : ... Suggest add newline.
+   32 | endmodule
+      |          ^
+%Warning-DECLFILENAME: ALU_32b.v:4:8: Filename 'ALU_32b' does not match MODULE name: 'addsub_32b'
+    4 | module addsub_32b (
+      |        ^~~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/DECLFILENAME?v=5.044
+                       ... Use "/* verilator lint_off DECLFILENAME */" and lint_on around source to disable this message.
+%Warning-WIDTHTRUNC: top_scheduler.v:78:25: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's VARREF 'current_instruction_cmd' generates 3 bits.
+                                          : ... note: In instance 'top_32b.I_TOP_SCHEDULER'
+   78 |                 cmd_out = current_instruction_cmd;
+      |                         ^
+                     ... For warning description see https://verilator.org/warn/WIDTHTRUNC?v=5.044
+                     ... Use "/* verilator lint_off WIDTHTRUNC */" and lint_on around source to disable this message.
+%Warning-UNUSEDSIGNAL: top_32b.v:28:15: Signal is not used: 'reg_cmd'
+                                      : ... note: In instance 'top_32b'
+   28 |     reg [1:0] reg_cmd;
+      |               ^~~~~~~
+                       ... For warning description see https://verilator.org/warn/UNUSEDSIGNAL?v=5.044
+                       ... Use "/* verilator lint_off UNUSEDSIGNAL */" and lint_on around source to disable this message.
+%Warning-UNUSEDSIGNAL: top_32b.v:29:15: Signal is not used: 'reg_mode'
+                                      : ... note: In instance 'top_32b'
+   29 |     reg       reg_mode;
+      |               ^~~~~~~~
+%Warning-UNUSEDSIGNAL: top_32b.v:51:17: Signal is not used: 'state_current'
+                                      : ... note: In instance 'top_32b'
+   51 |     wire [2:0]  state_current;
+      |                 ^~~~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: top_32b.v:52:17: Signal is not used: 'scheduler_wr_mem_start'
+                                      : ... note: In instance 'top_32b'
+   52 |     wire        scheduler_wr_mem_start;
+      |                 ^~~~~~~~~~~~~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: top_scheduler.v:13:24: Bits of signal are not used: 'current_instruction_cmd'[2]
+                                            : ... note: In instance 'top_32b.I_TOP_SCHEDULER'
+   13 |     input  wire [2:0]  current_instruction_cmd,
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~
+%Error: Exiting due to 10 warning(s)
