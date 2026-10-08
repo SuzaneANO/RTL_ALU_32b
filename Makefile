@@ -12,6 +12,7 @@ RTL_DIR       := .
 BUILD_DIR     := build
 REPORTS_DIR   := reports
 MACRO_DIR     := macros
+MACRO_SRCS   := ./sramHD_64x64.v
 
 # Include the header file in the sources list
 RTL_SRCS     := $(RTL_DIR)/alu32_pkg.vh \
@@ -49,35 +50,29 @@ lint:
 # ------------------------------------------------------------------------------
 # 2. Automated Yosys Synthesis Script Generation & Execution
 # ------------------------------------------------------------------------------
+
 synth: $(BUILD_DIR)/$(TOP_MODULE).gate.v
 
-$(BUILD_DIR)/$(TOP_MODULE).gate.v: $(RTL_SRCS)
-	@mkdir -p $(BUILD_DIR) $(REPORTS_DIR)
-	@echo "==> Generating Yosys Elaboration and Synthesis Script..."
-	# Step 1: Read the blackbox library stub first
-	@echo "read_verilog -lib ./sramHD_64x64.v" > $(BUILD_DIR)/synth.ys
-
-	# Step 2: Read RTL includes/packages and source files
-	@echo "read_verilog $(RTL_INCLUDES) $(RTL_SRCS)" >> $(BUILD_DIR)/synth.ys
-
-	# Step 3: Run elaboration on top module
-	@echo "hierarchy -check -top $(TOP_MODULE)" >> $(BUILD_DIR)/synth.ys
-	
-# Define Liberty file path (adjust path if exported differently in your environment)
+# Sky130 Liberty file path definition
 SKY130_LIB ?= $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 
+# Top-level synthesis target
+synth: $(BUILD_DIR)/$(TOP_MODULE).gate.v
+
+# Step 1: Generate the build/synth.ys script file
 $(BUILD_DIR)/synth.ys: $(RTL_SRCS) $(MACRO_SRCS)
-	@mkdir -p $(BUILD_DIR)
+	@mkdir -p $(BUILD_DIR) $(REPORTS_DIR)
+	@echo "==> Generating Yosys Elaboration and Synthesis Script..."
 	@echo "read_verilog -lib $(MACRO_SRCS)" > $@
 	@echo "read_verilog $(RTL_INCLUDES) $(RTL_SRCS)" >> $@
 	@echo "hierarchy -check -top $(TOP_MODULE)" >> $@
 	@echo "proc; opt; fsm; opt; memory; opt" >> $@
-	@echo "techmap -map +/techmap.v" >> $@
-	@echo "dfflibmap -liberty $(SKY130_LIB)" >> $@
-	@echo "abc -liberty $(SKY130_LIB)" >> $@
-	@echo "opt_clean -purge" >> $@
+	@echo "synth -top $(TOP_MODULE)" >> $@
 	@echo "write_verilog $(BUILD_DIR)/$(TOP_MODULE).gate.v" >> $@
-	@echo "==> Executing Yosys Elaboration..."
+
+# Step 2: Execute Yosys using the generated synth.ys script
+$(BUILD_DIR)/$(TOP_MODULE).gate.v: $(BUILD_DIR)/synth.ys
+	@echo "==> Executing Yosys Elaboration and Synthesis..."
 	unset LD_LIBRARY_PATH && yosys -s $(BUILD_DIR)/synth.ys | tee $(REPORTS_DIR)/synthesis.log	
 
 # ==============================================================================

@@ -1,3 +1,4 @@
+(* blackbox *)
 module sramHD_64x64 (
     input  wire        CLK,
     input  wire        ME,  // Memory Enable
