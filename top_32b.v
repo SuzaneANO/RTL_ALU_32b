@@ -12,7 +12,7 @@ module top_32b (
     // input  wire [1:0]  cmd_top,       // Control and Status Register input
     // input  wire        mode_top,      // Control and Status Register input
     input  wire [63:0] data_in_top,
-    input  wire [2:0]  current_instruction_cmd,
+    input  wire [1:0]  current_instruction_cmd,
     output wire [63:0] pin_data_out_mem0,
     output wire [63:0] pin_data_out_mem1,
     output wire [63:0] pin_data_out_mem2,

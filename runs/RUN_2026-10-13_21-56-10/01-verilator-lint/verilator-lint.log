@@ -1,0 +1,21 @@
+%Error: /home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:25:21: Define or directive not defined: '`CMD_ADD'
+   25 |                     `CMD_ADD: begin
+      |                     ^~~~~~~~
+        ... See the manual at https://verilator.org/verilator_doc.html?v=5.044 for more assistance.
+%Error: /home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:25:29: syntax error, unexpected :-then-begin, expecting IDENTIFIER-for-type
+   25 |                     `CMD_ADD: begin
+      |                             ^
+%Error: /home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:29:21: Define or directive not defined: '`CMD_SUB'
+   29 |                     `CMD_SUB: begin
+      |                     ^~~~~~~~
+%Error: /home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:29:29: syntax error, unexpected :-then-begin
+   29 |                     `CMD_SUB: begin
+      |                             ^
+%Error: /home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:33:21: syntax error, unexpected default
+   33 |                     default: begin
+      |                     ^~~~~~~
+%Error: /home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:37:17: syntax error, unexpected endcase
+   37 |                 endcase
+      |                 ^~~~~~~
+%Error: Cannot continue
+        ... This fatal error may be caused by the earlier error(s); resolve those first.

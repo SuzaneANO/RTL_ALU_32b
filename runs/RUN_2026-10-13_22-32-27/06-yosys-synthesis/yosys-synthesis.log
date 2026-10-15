@@ -1,0 +1,1702 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)
+
+1. Executing Liberty frontend: /opt/pdk/open_pdks/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+Imported 428 cell types from liberty file.
+[INFO] Using SDC file '/home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_22-32-27/06-yosys-synthesis/synthesis.abc.sdc' for ABC…
+
+2. Executing Verilog-2005 frontend: /home/adamsbane/project_digital/librelane/RTL_Test/alu32_pkg.vh
+Parsing SystemVerilog input from `/home/adamsbane/project_digital/librelane/RTL_Test/alu32_pkg.vh' to AST representation.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: /home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v
+Parsing SystemVerilog input from `/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v' to AST representation.
+Storing AST representation for module `$abstract\addsub_32b'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: /home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v
+Parsing SystemVerilog input from `/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v' to AST representation.
+Storing AST representation for module `$abstract\mult_32b'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: /home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v
+Parsing SystemVerilog input from `/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v' to AST representation.
+Storing AST representation for module `$abstract\top_scheduler'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: /home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v
+Parsing SystemVerilog input from `/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v' to AST representation.
+Storing AST representation for module `$abstract\top_32b'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: /home/adamsbane/project_digital/librelane/RTL_Test/sramHD_64x64.v
+Parsing SystemVerilog input from `/home/adamsbane/project_digital/librelane/RTL_Test/sramHD_64x64.v' to AST representation.
+Storing AST representation for module `$abstract\sramHD_64x64'.
+Successfully finished Verilog frontend.
+
+8. Executing HIERARCHY pass (managing design hierarchy).
+
+9. Executing AST frontend in derive mode using pre-parsed AST for module `\top_32b'.
+Generating RTLIL representation for module `\top_32b'.
+
+9.1. Analyzing design hierarchy..
+Top module:  \top_32b
+
+9.2. Executing AST frontend in derive mode using pre-parsed AST for module `\mult_32b'.
+Generating RTLIL representation for module `\mult_32b'.
+
+9.3. Executing AST frontend in derive mode using pre-parsed AST for module `\addsub_32b'.
+Generating RTLIL representation for module `\addsub_32b'.
+
+9.4. Executing AST frontend in derive mode using pre-parsed AST for module `\top_scheduler'.
+Generating RTLIL representation for module `\top_scheduler'.
+
+9.5. Analyzing design hierarchy..
+Top module:  \top_32b
+Used module:     \mult_32b
+Used module:     \addsub_32b
+Used module:     \top_scheduler
+
+9.6. Analyzing design hierarchy..
+Top module:  \top_32b
+Used module:     \mult_32b
+Used module:     \addsub_32b
+Used module:     \top_scheduler
+Removing unused module `$abstract\top_32b'.
+Removing unused module `$abstract\top_scheduler'.
+Removing unused module `$abstract\mult_32b'.
+Removing unused module `$abstract\addsub_32b'.
+Removed 4 unused modules.
+Renaming module top_32b to top_32b.
+
+10. Executing ATTRMAP pass (move or copy attributes).
+
+11. Executing TRIBUF pass.
+
+12. Executing HIERARCHY pass (managing design hierarchy).
+
+12.1. Analyzing design hierarchy..
+Top module:  \top_32b
+Used module:     \mult_32b
+Used module:     \addsub_32b
+Used module:     \top_scheduler
+
+12.2. Analyzing design hierarchy..
+Top module:  \top_32b
+Used module:     \mult_32b
+Used module:     \addsub_32b
+Used module:     \top_scheduler
+Removed 0 unused modules.
+
+13. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+14. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:89$7 in module top_32b.
+Marked 2 switch rules as full_case in process $proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:70$3 in module top_32b.
+Marked 4 switch rules as full_case in process $proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114 in module top_scheduler.
+Marked 1 switch rules as full_case in process $proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:37$111 in module top_scheduler.
+Marked 2 switch rules as full_case in process $proc$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:18$108 in module addsub_32b.
+Marked 1 switch rules as full_case in process $proc$/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v:15$104 in module mult_32b.
+Removed a total of 0 dead cases.
+
+15. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 4 redundant assignments.
+Promoted 10 assignments to connections.
+
+16. Executing PROC_INIT pass (extract init attributes).
+
+17. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst in `\top_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:70$3'.
+Found async reset \rst in `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:37$111'.
+Found async reset \rst in `\addsub_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:18$108'.
+Found async reset \rst in `\mult_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v:15$104'.
+
+18. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~10 debug messages>
+
+19. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\top_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:89$7'.
+     1/1: $1\effective_mem_addr[5:0]
+Creating decoders for process `\top_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:70$3'.
+     1/1: $0\host_addr[5:0]
+Creating decoders for process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+     1/11: $3\state_next[2:0]
+     2/11: $2\en_mult[0:0]
+     3/11: $2\en_addsub[0:0]
+     4/11: $2\state_next[2:0]
+     5/11: $1\state_next[2:0]
+     6/11: $1\mem_me[0:0]
+     7/11: $1\mem_we[0:0]
+     8/11: $1\cmd_out[1:0]
+     9/11: $1\en_mult[0:0]
+    10/11: $1\en_addsub[0:0]
+    11/11: $1\array_select[1:0]
+Creating decoders for process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:37$111'.
+     1/2: $0\state_current[2:0]
+     2/2: $0\reg_counter[5:0]
+Creating decoders for process `\addsub_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:18$108'.
+     1/2: $0\done[0:0]
+     2/2: $0\res[63:0]
+Creating decoders for process `\mult_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v:15$104'.
+     1/2: $0\done[0:0]
+     2/2: $0\res[63:0]
+
+20. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\top_32b.\effective_mem_addr' from process `\top_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:89$7'.
+No latch inferred for signal `\top_scheduler.\array_select' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\wr_mem2_start' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\en_addsub' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\en_mult' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\cmd_out' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\mem_addr' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\mem_we' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\mem_me' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\state_next' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+
+21. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\top_32b.\host_addr' using process `\top_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:70$3'.
+  created $adff cell `$procdff$205' with positive edge clock and positive level reset.
+Creating register for signal `\top_scheduler.\reg_counter' using process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:37$111'.
+  created $adff cell `$procdff$208' with positive edge clock and positive level reset.
+Creating register for signal `\top_scheduler.\state_current' using process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:37$111'.
+  created $adff cell `$procdff$211' with positive edge clock and positive level reset.
+Creating register for signal `\addsub_32b.\res' using process `\addsub_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:18$108'.
+  created $adff cell `$procdff$214' with positive edge clock and positive level reset.
+Creating register for signal `\addsub_32b.\done' using process `\addsub_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:18$108'.
+  created $adff cell `$procdff$217' with positive edge clock and positive level reset.
+Creating register for signal `\mult_32b.\res' using process `\mult_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v:15$104'.
+  created $adff cell `$procdff$220' with positive edge clock and positive level reset.
+Creating register for signal `\mult_32b.\done' using process `\mult_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v:15$104'.
+  created $adff cell `$procdff$223' with positive edge clock and positive level reset.
+
+22. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+23. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\top_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:89$7'.
+Removing empty process `top_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:89$7'.
+Found and cleaned up 1 empty switch in `\top_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:70$3'.
+Removing empty process `top_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:70$3'.
+Found and cleaned up 4 empty switches in `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+Removing empty process `top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+Found and cleaned up 1 empty switch in `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:37$111'.
+Removing empty process `top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:37$111'.
+Found and cleaned up 2 empty switches in `\addsub_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:18$108'.
+Removing empty process `addsub_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:18$108'.
+Found and cleaned up 1 empty switch in `\mult_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v:15$104'.
+Removing empty process `mult_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v:15$104'.
+Cleaned up 10 empty switches.
+
+24. Executing CHECK pass (checking for obvious problems).
+Checking module top_32b...
+Checking module top_scheduler...
+Checking module addsub_32b...
+Checking module mult_32b...
+Found and reported 0 problems.
+
+25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+<suppressed ~4 debug messages>
+Optimizing module top_scheduler.
+<suppressed ~4 debug messages>
+Optimizing module addsub_32b.
+<suppressed ~2 debug messages>
+Optimizing module mult_32b.
+<suppressed ~2 debug messages>
+
+26. Executing FLATTEN pass (flatten design).
+Deleting now unused module top_scheduler.
+Deleting now unused module addsub_32b.
+Deleting now unused module mult_32b.
+<suppressed ~3 debug messages>
+
+27. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+28. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 0 unused cells and 67 unused wires.
+<suppressed ~1 debug messages>
+
+29. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+30. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 98 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Computing hashes of 77 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Computing hashes of 74 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+<suppressed ~72 debug messages>
+Removed a total of 24 cells.
+
+31. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \top_32b..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $flatten\I_TOP_SCHEDULER.$procmux$128.
+    dead port 2/2 on $mux $flatten\I_TOP_SCHEDULER.$procmux$135.
+    dead port 2/2 on $mux $flatten\I_TOP_SCHEDULER.$procmux$142.
+    dead port 2/2 on $mux $flatten\I_TOP_SCHEDULER.$procmux$152.
+Removed 4 multiplexer ports.
+<suppressed ~57 debug messages>
+
+32. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \top_32b.
+    New ctrl vector for $pmux cell $flatten\I_TOP_SCHEDULER.$procmux$163: $auto$opt_reduce.cc:137:opt_pmux$228
+    New ctrl vector for $pmux cell $flatten\I_TOP_SCHEDULER.$procmux$183: $auto$opt_reduce.cc:137:opt_pmux$230
+  Optimizing cells in module \top_32b.
+Performed a total of 2 changes.
+
+33. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 72 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+34. Executing OPT_DFF pass (perform DFF optimizations).
+
+35. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 0 unused cells and 28 unused wires.
+<suppressed ~1 debug messages>
+
+36. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+37. Rerunning OPT passes. (Maybe there is more to do…)
+
+38. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \top_32b..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~53 debug messages>
+
+39. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \top_32b.
+Performed a total of 0 changes.
+
+40. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 72 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+41. Executing OPT_DFF pass (perform DFF optimizations).
+
+42. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+
+43. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+44. Executing FSM pass (extract and optimize FSM).
+
+44.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register top_32b.I_TOP_SCHEDULER.state_current.
+
+44.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\I_TOP_SCHEDULER.state_current' from module `\top_32b'.
+  found $adff cell for state register: $flatten\I_TOP_SCHEDULER.$procdff$211
+  root of input selection tree: \I_TOP_SCHEDULER.state_next
+  found reset state: 3'000 (from async reset)
+  found ctrl input: $flatten\I_TOP_SCHEDULER.$procmux$129_CMP
+  found ctrl input: $flatten\I_TOP_SCHEDULER.$procmux$158_CMP
+  found ctrl input: $flatten\I_TOP_SCHEDULER.$procmux$159_CMP
+  found ctrl input: $flatten\I_TOP_SCHEDULER.$procmux$153_CMP
+  found ctrl input: $flatten\I_TOP_SCHEDULER.$logic_or$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:90$116_Y
+  found state code: 3'100
+  found state code: 3'011
+  found state code: 3'010
+  found ctrl input: \alu_compute_start
+  found state code: 3'001
+  found ctrl output: $flatten\I_TOP_SCHEDULER.$procmux$159_CMP
+  found ctrl output: $flatten\I_TOP_SCHEDULER.$procmux$158_CMP
+  found ctrl output: $flatten\I_TOP_SCHEDULER.$procmux$153_CMP
+  found ctrl output: $flatten\I_TOP_SCHEDULER.$procmux$129_CMP
+  found ctrl output: $flatten\I_TOP_SCHEDULER.$eq$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:43$112_Y
+  ctrl inputs: { $flatten\I_TOP_SCHEDULER.$logic_or$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:90$116_Y \alu_compute_start }
+  ctrl outputs: { \I_TOP_SCHEDULER.state_next $flatten\I_TOP_SCHEDULER.$eq$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:43$112_Y $flatten\I_TOP_SCHEDULER.$procmux$129_CMP $flatten\I_TOP_SCHEDULER.$procmux$153_CMP $flatten\I_TOP_SCHEDULER.$procmux$158_CMP $flatten\I_TOP_SCHEDULER.$procmux$159_CMP }
+  transition:      3'000 2'-0 ->      3'000 8'00000100
+  transition:      3'000 2'-1 ->      3'001 8'00100100
+  transition:      3'100 2'-- ->      3'000 8'00010000
+  transition:      3'010 2'-- ->      3'011 8'01100010
+  transition:      3'001 2'-- ->      3'010 8'01000001
+  transition:      3'011 2'0- ->      3'011 8'01101000
+  transition:      3'011 2'1- ->      3'100 8'10001000
+
+44.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\I_TOP_SCHEDULER.state_current$231' from module `\top_32b'.
+
+44.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 9 unused cells and 9 unused wires.
+<suppressed ~10 debug messages>
+
+44.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\I_TOP_SCHEDULER.state_current$231' from module `\top_32b'.
+  Removing unused output signal $flatten\I_TOP_SCHEDULER.$procmux$159_CMP.
+  Removing unused output signal $flatten\I_TOP_SCHEDULER.$procmux$153_CMP.
+  Removing unused output signal \I_TOP_SCHEDULER.state_next [0].
+  Removing unused output signal \I_TOP_SCHEDULER.state_next [1].
+  Removing unused output signal \I_TOP_SCHEDULER.state_next [2].
+
+44.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\I_TOP_SCHEDULER.state_current$231' from module `\top_32b' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  000 -> ----1
+  100 -> ---1-
+  010 -> --1--
+  001 -> -1---
+  011 -> 1----
+
+44.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\I_TOP_SCHEDULER.state_current$231' from module `top_32b':
+-------------------------------------
+
+  Information on FSM $fsm$\I_TOP_SCHEDULER.state_current$231 (\I_TOP_SCHEDULER.state_current):
+
+  Number of input signals:    2
+  Number of output signals:   3
+  Number of state bits:       5
+
+  Input signals:
+    0: \alu_compute_start
+    1: $flatten\I_TOP_SCHEDULER.$logic_or$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:90$116_Y
+
+  Output signals:
+    0: $flatten\I_TOP_SCHEDULER.$procmux$158_CMP
+    1: $flatten\I_TOP_SCHEDULER.$procmux$129_CMP
+    2: $flatten\I_TOP_SCHEDULER.$eq$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:43$112_Y
+
+  State encoding:
+    0:    5'----1  <RESET STATE>
+    1:    5'---1-
+    2:    5'--1--
+    3:    5'-1---
+    4:    5'1----
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 2'-0   ->     0 3'000
+      1:     0 2'-1   ->     3 3'000
+      2:     1 2'--   ->     0 3'100
+      3:     2 2'--   ->     4 3'001
+      4:     3 2'--   ->     2 3'000
+      5:     4 2'1-   ->     1 3'010
+      6:     4 2'0-   ->     4 3'010
+
+-------------------------------------
+
+44.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\I_TOP_SCHEDULER.state_current$231' from module `\top_32b'.
+
+45. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+<suppressed ~4 debug messages>
+
+46. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 72 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+47. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \top_32b..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~49 debug messages>
+
+48. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \top_32b.
+Performed a total of 0 changes.
+
+49. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 72 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+50. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $flatten\I_TOP_SCHEDULER.$procdff$208 ($adff) from module top_32b (D = $flatten\I_TOP_SCHEDULER.$add$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:44$113_Y, Q = \I_TOP_SCHEDULER.reg_counter).
+Adding EN signal on $flatten\I_MULT.$procdff$220 ($adff) from module top_32b (D = $flatten\I_MULT.$mul$/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v:22$107_Y, Q = \I_MULT.res).
+Adding EN signal on $flatten\I_ADDSUB.$procdff$214 ($adff) from module top_32b (D = $flatten\I_ADDSUB.$procmux$194_Y, Q = \I_ADDSUB.res).
+
+51. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 3 unused cells and 13 unused wires.
+<suppressed ~5 debug messages>
+
+52. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+53. Rerunning OPT passes. (Maybe there is more to do…)
+
+54. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \top_32b..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~44 debug messages>
+
+55. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \top_32b.
+Performed a total of 0 changes.
+
+56. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 69 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+57. Executing OPT_DFF pass (perform DFF optimizations).
+
+58. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+
+59. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+60. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell top_32b.$eq$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:103$20 ($eq).
+Removed top 1 bits (of 2) from mux cell top_32b.$flatten\I_TOP_SCHEDULER.$procmux$183 ($mux).
+Removed top 1 bits (of 2) from port B of cell top_32b.$flatten\I_ADDSUB.$procmux$196_CMP0 ($eq).
+Removed top 1 bits (of 2) from wire top_32b.scheduler_array_select.
+
+61. Executing PEEPOPT pass (run peephole optimizers).
+
+62. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+63. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module top_32b:
+  creating $macc model for $add$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:74$5 ($add).
+  creating $macc model for $flatten\I_ADDSUB.$add$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:27$109 ($add).
+  creating $macc model for $flatten\I_ADDSUB.$sub$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:31$110 ($sub).
+  creating $macc model for $flatten\I_MULT.$mul$/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v:22$107 ($mul).
+  creating $macc model for $flatten\I_TOP_SCHEDULER.$add$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:44$113 ($add).
+  creating $alu model for $macc $flatten\I_TOP_SCHEDULER.$add$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:44$113.
+  creating $alu model for $macc $flatten\I_ADDSUB.$sub$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:31$110.
+  creating $alu model for $macc $flatten\I_ADDSUB.$add$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:27$109.
+  creating $alu model for $macc $add$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:74$5.
+  creating $macc cell for $flatten\I_MULT.$mul$/home/adamsbane/project_digital/librelane/RTL_Test/mult_32b.v:22$107: $auto$alumacc.cc:382:replace_macc$264
+  creating $alu cell for $add$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:74$5: $auto$alumacc.cc:512:replace_alu$265
+  creating $alu cell for $flatten\I_ADDSUB.$add$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:27$109: $auto$alumacc.cc:512:replace_alu$268
+  creating $alu cell for $flatten\I_ADDSUB.$sub$/home/adamsbane/project_digital/librelane/RTL_Test/addsub_32b.v:31$110: $auto$alumacc.cc:512:replace_alu$271
+  creating $alu cell for $flatten\I_TOP_SCHEDULER.$add$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:44$113: $auto$alumacc.cc:512:replace_alu$274
+  created 4 $alu and 1 $macc cells.
+
+64. Executing SHARE pass (SAT-based resource sharing).
+
+65. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+<suppressed ~2 debug messages>
+
+66. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 68 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+67. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \top_32b..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $flatten\I_TOP_SCHEDULER.$procmux$183.
+    dead port 2/2 on $mux $flatten\I_TOP_SCHEDULER.$procmux$183.
+Removed 2 multiplexer ports.
+<suppressed ~42 debug messages>
+
+68. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \top_32b.
+Performed a total of 0 changes.
+
+69. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 67 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+70. Executing OPT_DFF pass (perform DFF optimizations).
+
+71. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+72. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+73. Rerunning OPT passes. (Maybe there is more to do…)
+
+74. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \top_32b..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~42 debug messages>
+
+75. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \top_32b.
+Performed a total of 0 changes.
+
+76. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 67 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+77. Executing OPT_DFF pass (perform DFF optimizations).
+
+78. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+
+79. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+80. Executing MEMORY pass.
+
+80.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+80.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+80.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+80.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+80.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+80.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+
+80.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+80.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+80.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+
+80.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+81. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+
+82. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+<suppressed ~11 debug messages>
+
+83. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 62 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+84. Executing OPT_DFF pass (perform DFF optimizations).
+
+85. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 0 unused cells and 4 unused wires.
+<suppressed ~1 debug messages>
+
+86. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+87. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+88. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 62 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+89. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \top_32b..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~24 debug messages>
+
+90. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \top_32b.
+Performed a total of 0 changes.
+
+91. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 62 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+92. Executing OPT_SHARE pass.
+    Found cells that share an operand and can be merged by moving the $pmux $flatten\I_ADDSUB.$procmux$194 in front of them:
+        $auto$alumacc.cc:512:replace_alu$271
+        $auto$alumacc.cc:512:replace_alu$268
+
+93. Executing OPT_DFF pass (perform DFF optimizations).
+
+94. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+95. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+<suppressed ~1 debug messages>
+
+96. Rerunning OPT passes. (Maybe there is more to do…)
+
+97. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \top_32b..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~26 debug messages>
+
+98. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \top_32b.
+    New ctrl vector for $pmux cell $flatten\I_ADDSUB.$procmux$194: $auto$opt_reduce.cc:137:opt_pmux$285
+  Optimizing cells in module \top_32b.
+Performed a total of 1 changes.
+
+99. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 64 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+100. Executing OPT_SHARE pass.
+
+101. Executing OPT_DFF pass (perform DFF optimizations).
+
+102. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+
+103. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+104. Rerunning OPT passes. (Maybe there is more to do…)
+
+105. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \top_32b..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~26 debug messages>
+
+106. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \top_32b.
+Performed a total of 0 changes.
+
+107. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 64 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+108. Executing OPT_SHARE pass.
+
+109. Executing OPT_DFF pass (perform DFF optimizations).
+
+110. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+
+111. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+112. Executing TECHMAP pass (map to technology primitives).
+
+112.1. Executing Verilog-2005 frontend: /nix/store/f1q0w7rd0a4ny4hqvfxlhs4cmariidcy-yosys-0.62/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/nix/store/f1q0w7rd0a4ny4hqvfxlhs4cmariidcy-yosys-0.62/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+112.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $mux.
+Running "alumacc" on wrapper $extern:wrap:$neg:A_SIGNED=0:A_WIDTH=64:Y_WIDTH=64:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$neg:A_SIGNED=0:A_WIDTH=64:Y_WIDTH=64:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$neg:A_SIGNED=0:A_WIDTH=64:Y_WIDTH=64:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $paramod$32efbfac1c4dc57230cf86180788fdfd12e3b511\_90_alu for cells of type $alu.
+Using template $paramod$039520c137afc9cd69dd56c3fb11a4e1fbe5f664\_90_alu for cells of type $alu.
+Using extmapper maccmap for cells of type $macc_v2.
+  add \I_ADDSUB.op1 * \I_ADDSUB.op2 (64x64 bits, unsigned)
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $logic_not.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000001000000 for cells of type $fa.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000110 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000110 for cells of type $lcu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000001000000 for cells of type $lcu.
+Using template $paramod$38ea46ffd892378bfaf8febe0c8ac03b94ee7ee9\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $or.
+No more expansions possible.
+<suppressed ~1944 debug messages>
+
+113. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+<suppressed ~13235 debug messages>
+
+114. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 14023 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Computing hashes of 14018 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+<suppressed ~15 debug messages>
+Removed a total of 5 cells.
+
+115. Executing OPT_DFF pass (perform DFF optimizations).
+
+116. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 305 unused cells and 1087 unused wires.
+<suppressed ~306 debug messages>
+
+117. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+118. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 13713 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+119. Executing OPT_DFF pass (perform DFF optimizations).
+
+120. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+
+121. Executing ABC pass (technology mapping using ABC).
+
+121.1. Extracting gate netlist of module `\top_32b' to `<abc-temp-dir>/input.blif'..
+
+121.1.1. Executed ABC.
+Extracted 13560 gates and 13909 wires to a netlist network with 348 inputs and 351 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /tmp/yosys-abc-GJJOf9/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+121.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:     1707
+ABC RESULTS:            ANDNOT cells:     4182
+ABC RESULTS:               MUX cells:      201
+ABC RESULTS:              NAND cells:      951
+ABC RESULTS:               NOR cells:      275
+ABC RESULTS:               NOT cells:      366
+ABC RESULTS:                OR cells:     1563
+ABC RESULTS:             ORNOT cells:      176
+ABC RESULTS:              XNOR cells:      798
+ABC RESULTS:               XOR cells:     3560
+ABC RESULTS:        internal signals:    13210
+ABC RESULTS:           input signals:      348
+ABC RESULTS:          output signals:      351
+Removing temp directory.
+Removing global temp directory.
+
+122. Executing OPT pass (performing simple optimizations).
+
+122.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+<suppressed ~2 debug messages>
+
+122.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 13932 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+122.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+122.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 0 unused cells and 1547 unused wires.
+<suppressed ~12 debug messages>
+
+122.5. Finished fast OPT passes.
+
+123. Executing HIERARCHY pass (managing design hierarchy).
+
+123.1. Analyzing design hierarchy..
+Top module:  \top_32b
+
+123.2. Analyzing design hierarchy..
+Top module:  \top_32b
+Removed 0 unused modules.
+
+124. Executing CHECK pass (checking for obvious problems).
+Checking module top_32b...
+Found and reported 0 problems.
+
+125. Printing statistics.
+
+=== top_32b ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    13566 wires
+    15000 wire bits
+       62 public wires
+     1229 public wire bits
+       13 ports
+      267 port bits
+    13932 cells
+     4182   $_ANDNOT_
+     1707   $_AND_
+      134   $_DFFE_PP0P_
+       12   $_DFF_PP0_
+        1   $_DFF_PP1_
+      201   $_MUX_
+      951   $_NAND_
+      275   $_NOR_
+      366   $_NOT_
+      176   $_ORNOT_
+     1563   $_OR_
+      798   $_XNOR_
+     3560   $_XOR_
+        3   $scopeinfo
+        3   sramHD_64x64
+
+126. Executing OPT pass (performing simple optimizations).
+
+126.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+126.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 13932 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+126.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \top_32b..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+126.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \top_32b.
+Performed a total of 0 changes.
+
+126.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\top_32b'.
+Computing hashes of 13932 cells of `\top_32b'.
+Finding duplicate cells in `\top_32b'.
+Removed a total of 0 cells.
+
+126.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+126.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+
+126.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_32b.
+
+126.9. Finished fast OPT passes. (There is nothing left to do.)
+
+127. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 3 unused cells and 29 unused wires.
+<suppressed ~32 debug messages>
+{
+   "creator": "Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_22-32-27/tmp/91e96cafbeee48a9a54b77407a5216f8.lib ",
+   "modules": {
+      "\\top_32b": {
+         "num_wires":         13537,
+         "num_wire_bits":     14392,
+         "num_pub_wires":     33,
+         "num_pub_wire_bits": 621,
+         "num_ports":         13,
+         "num_port_bits":     267,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         13929,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 4182,
+            "$_AND_": 1707,
+            "$_DFFE_PP0P_": 134,
+            "$_DFF_PP0_": 12,
+            "$_DFF_PP1_": 1,
+            "$_MUX_": 201,
+            "$_NAND_": 951,
+            "$_NOR_": 275,
+            "$_NOT_": 366,
+            "$_ORNOT_": 176,
+            "$_OR_": 1563,
+            "$_XNOR_": 798,
+            "$_XOR_": 3560,
+            "sramHD_64x64": 3
+         }
+      }
+   },
+      "design": {
+         "num_wires":         13537,
+         "num_wire_bits":     14392,
+         "num_pub_wires":     33,
+         "num_pub_wire_bits": 621,
+         "num_ports":         13,
+         "num_port_bits":     267,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         13929,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 4182,
+            "$_AND_": 1707,
+            "$_DFFE_PP0P_": 134,
+            "$_DFF_PP0_": 12,
+            "$_DFF_PP1_": 1,
+            "$_MUX_": 201,
+            "$_NAND_": 951,
+            "$_NOR_": 275,
+            "$_NOT_": 366,
+            "$_ORNOT_": 176,
+            "$_OR_": 1563,
+            "$_XNOR_": 798,
+            "$_XOR_": 3560,
+            "sramHD_64x64": 3
+         }
+      }
+}
+
+128. Printing statistics.
+
+=== top_32b ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    13537 wires
+    14392 wire bits
+       33 public wires
+      621 public wire bits
+       13 ports
+      267 port bits
+    13929 cells
+     4182   $_ANDNOT_
+     1707   $_AND_
+      134   $_DFFE_PP0P_
+       12   $_DFF_PP0_
+        1   $_DFF_PP1_
+      201   $_MUX_
+      951   $_NAND_
+      275   $_NOR_
+      366   $_NOT_
+      176   $_ORNOT_
+     1563   $_OR_
+      798   $_XNOR_
+     3560   $_XOR_
+        3   sramHD_64x64
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_DFFE_PP0P_ is unknown!
+   Area for cell type $_DFF_PP0_ is unknown!
+   Area for cell type $_DFF_PP1_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+   Area for cell type \sramHD_64x64 is unknown!
+
+[INFO] Applying tri-state buffer mapping from '/opt/pdk/open_pdks/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v'…
+
+129. Executing TECHMAP pass (map to technology primitives).
+
+129.1. Executing Verilog-2005 frontend: /opt/pdk/open_pdks/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v
+Parsing Verilog input from `/opt/pdk/open_pdks/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v' to AST representation.
+Generating RTLIL representation for module `$_TBUF_'.
+Successfully finished Verilog frontend.
+
+129.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~3 debug messages>
+
+130. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+[INFO] Applying latch mapping from '/opt/pdk/open_pdks/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v'…
+
+131. Executing TECHMAP pass (map to technology primitives).
+
+131.1. Executing Verilog-2005 frontend: /opt/pdk/open_pdks/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v
+Parsing Verilog input from `/opt/pdk/open_pdks/ciel/sky130/versions/8afc8346a57fe1ab7934ba5a6056ea8b43078e71/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v' to AST representation.
+Generating RTLIL representation for module `$_DLATCH_P_'.
+Generating RTLIL representation for module `$_DLATCH_N_'.
+Successfully finished Verilog frontend.
+
+131.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~4 debug messages>
+
+132. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+
+133. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_2 (noninv, pins=3, area=21.27) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__dfbbn_2 (noninv, pins=6, area=35.03) is a direct match for cell type $_DFFSR_NNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_2 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_2 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    unmapped dff cell: $_DFFE_PP_
+    \sky130_fd_sc_hd__dfbbn_2 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    unmapped dff cell: $_DFFSR_PNN_
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+133.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `\top_32b':
+  mapped 146 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_2 cells.
+  mapped 1 $_DFF_PN1_ cells to \sky130_fd_sc_hd__dfstp_2 cells.
+{
+   "creator": "Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_22-32-27/tmp/91e96cafbeee48a9a54b77407a5216f8.lib ",
+   "modules": {
+      "\\top_32b": {
+         "num_wires":         13818,
+         "num_wire_bits":     14673,
+         "num_pub_wires":     33,
+         "num_pub_wire_bits": 621,
+         "num_ports":         13,
+         "num_port_bits":     267,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         14210,
+         "num_submodules":       0,
+         "area":              3862.454400,
+         "sequential_area":    3862.454400,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 4182,
+            "$_AND_": 1707,
+            "$_MUX_": 335,
+            "$_NAND_": 951,
+            "$_NOR_": 275,
+            "$_NOT_": 513,
+            "$_ORNOT_": 176,
+            "$_OR_": 1563,
+            "$_XNOR_": 798,
+            "$_XOR_": 3560,
+            "sky130_fd_sc_hd__dfrtp_2": 146,
+            "sky130_fd_sc_hd__dfstp_2": 1,
+            "sramHD_64x64": 3
+         }
+      }
+   },
+      "design": {
+         "num_wires":         13818,
+         "num_wire_bits":     14673,
+         "num_pub_wires":     33,
+         "num_pub_wire_bits": 621,
+         "num_ports":         13,
+         "num_port_bits":     267,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         14210,
+         "num_submodules":       0,
+         "area":              3862.454400,
+         "sequential_area":    3862.454400,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 4182,
+            "$_AND_": 1707,
+            "$_MUX_": 335,
+            "$_NAND_": 951,
+            "$_NOR_": 275,
+            "$_NOT_": 513,
+            "$_ORNOT_": 176,
+            "$_OR_": 1563,
+            "$_XNOR_": 798,
+            "$_XOR_": 3560,
+            "sky130_fd_sc_hd__dfrtp_2": 146,
+            "sky130_fd_sc_hd__dfstp_2": 1,
+            "sramHD_64x64": 3
+         }
+      }
+}
+
+134. Printing statistics.
+
+=== top_32b ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    13818        - wires
+    14673        - wire bits
+       33        - public wires
+      621        - public wire bits
+       13        - ports
+      267        - port bits
+    14210 3.86E+03 cells
+     4182        -   $_ANDNOT_
+     1707        -   $_AND_
+      335        -   $_MUX_
+      951        -   $_NAND_
+      275        -   $_NOR_
+      513        -   $_NOT_
+      176        -   $_ORNOT_
+     1563        -   $_OR_
+      798        -   $_XNOR_
+     3560        -   $_XOR_
+      146 3.84E+03   sky130_fd_sc_hd__dfrtp_2
+        1   26.275   sky130_fd_sc_hd__dfstp_2
+        3        -   sramHD_64x64
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+   Area for cell type \sramHD_64x64 is unknown!
+
+   Chip area for module '\top_32b': 3862.454400
+     of which used for sequential elements: 3862.454400 (100.00%)
+
+[INFO] Using generated ABC script '/home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_22-32-27/06-yosys-synthesis/DELAY_3.abc'…
+
+135. Executing ABC pass (technology mapping using ABC).
+
+135.1. Extracting gate netlist of module `\top_32b' to `/tmp/yosys-abc-7jLgRO/input.blif'..
+
+135.1.1. Executed ABC.
+Extracted 14060 gates and 14408 wires to a netlist network with 348 inputs and 498 outputs.
+Running ABC script: /tmp/yosys-abc-7jLgRO/abc.script
+ABC: ======== ABC command line "source /tmp/yosys-abc-7jLgRO/abc.script"
+ABC: + read_blif /tmp/yosys-abc-7jLgRO/input.blif 
+ABC: + read_lib -w /home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_22-32-27/tmp/91e96cafbeee48a9a54b77407a5216f8.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.10 sec
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_22-32-27/tmp/91e96cafbeee48a9a54b77407a5216f8.lib" has 175 cells (17 skipped: 14 seq; 3 tri-state; 0 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.18 sec
+ABC: Memory =    9.54 MB. Time =     0.18 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + read_constr -v /home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_22-32-27/06-yosys-synthesis/synthesis.abc.sdc 
+ABC: Setting driving cell to be "sky130_fd_sc_hd__inv_2/Y".
+ABC: Setting output load to be 33.442001.
+ABC: + source /home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_22-32-27/06-yosys-synthesis/DELAY_3.abc 
+ABC: Error: The network is combinational.
+ABC: The cell areas are multiplied by the factor: <num_fanins> ^ (0.90).
+ABC: The cell delays are multiplied by the factor: <num_fanins> ^ (0.20).
+ABC: Cannot find the default PI driving cell (sky130_fd_sc_hd__inv_2/Y) in the library.
+ABC: WireLoad = "none"  Gates =  20378 (  2.3 %)   Cap = 12.9 ff (  0.5 %)   Area =   208586.30 ( 97.0 %)   Delay =  7358.33 ps  (  1.8 %)               
+ABC: Path  0 --     153 : 0  159 pi                         A =   0.00  Df =   0.0   -0.0 ps  S =   0.0 ps  Cin =  0.0 ff  Cout = 627.1 ff  Cmax =   0.0 ff  G =    0  
+ABC: Path  1 --     859 : 1  100 sky130_fd_sc_hd__inv_2     A =   3.75  Df =1352.1 -704.3 ps  S =1962.9 ps  Cin =  4.5 ff  Cout = 437.5 ff  Cmax = 331.4 ff  G = 9329  
+ABC: Path  2 --   12862 : 4    4 sky130_fd_sc_hd__o22ai_2   A =  12.51  Df =1683.7 -516.1 ps  S = 304.2 ps  Cin =  4.3 ff  Cout =  15.9 ff  Cmax = 137.3 ff  G =  357  
+ABC: Path  3 --   12863 : 3    3 sky130_fd_sc_hd__o21ai_2   A =   8.76  Df =1879.8 -578.6 ps  S = 197.2 ps  Cin =  4.5 ff  Cout =  13.8 ff  Cmax = 139.2 ff  G =  284  
+ABC: Path  4 --   13144 : 5    2 sky130_fd_sc_hd__o2111ai_2 A =  15.01  Df =2002.0 -517.9 ps  S = 155.5 ps  Cin =  4.3 ff  Cout =   4.1 ff  Cmax = 129.1 ff  G =   89  
+ABC: Path  5 --   13147 : 3    3 sky130_fd_sc_hd__and3_2    A =   7.51  Df =2287.4  -22.5 ps  S = 100.1 ps  Cin =  1.5 ff  Cout =  15.2 ff  Cmax = 309.5 ff  G =  977  
+ABC: Path  6 --   13387 : 5    9 sky130_fd_sc_hd__o221ai_2  A =  15.01  Df =2684.2 -121.8 ps  S = 505.4 ps  Cin =  4.5 ff  Cout =  36.3 ff  Cmax = 128.2 ff  G =  780  
+ABC: Path  7 --   13579 : 5    4 sky130_fd_sc_hd__o2111ai_2 A =  15.01  Df =2963.1 -193.7 ps  S = 286.6 ps  Cin =  4.3 ff  Cout =  16.4 ff  Cmax = 129.1 ff  G =  356  
+ABC: Path  8 --   13710 : 5    2 sky130_fd_sc_hd__a41o_2    A =  11.26  Df =3315.4 -165.9 ps  S =  70.4 ps  Cin =  2.3 ff  Cout =   9.2 ff  Cmax = 325.0 ff  G =  375  
+ABC: Path  9 --   14173 : 4    6 sky130_fd_sc_hd__o211ai_2  A =  12.51  Df =3598.2 -144.1 ps  S = 322.4 ps  Cin =  4.4 ff  Cout =  22.9 ff  Cmax = 133.7 ff  G =  505  
+ABC: Path 10 --   14177 : 4    6 sky130_fd_sc_hd__o211a_2   A =  10.01  Df =3926.8 -245.5 ps  S = 152.0 ps  Cin =  2.4 ff  Cout =  23.4 ff  Cmax = 268.3 ff  G =  931  
+ABC: Path 11 --   14184 : 4    6 sky130_fd_sc_hd__o22ai_2   A =  12.51  Df =4067.9  -60.6 ps  S = 321.6 ps  Cin =  4.3 ff  Cout =  23.5 ff  Cmax = 137.3 ff  G =  524  
+ABC: Path 12 --   14187 : 4    4 sky130_fd_sc_hd__o211a_2   A =  10.01  Df =4305.4  -50.8 ps  S = 116.7 ps  Cin =  2.4 ff  Cout =  16.6 ff  Cmax = 268.3 ff  G =  673  
+ABC: Path 13 --   14474 : 4    5 sky130_fd_sc_hd__o22ai_2   A =  12.51  Df =4484.8  -48.2 ps  S = 270.6 ps  Cin =  4.3 ff  Cout =  18.5 ff  Cmax = 137.3 ff  G =  410  
+ABC: Path 14 --   14476 : 4    5 sky130_fd_sc_hd__o2bb2ai_2 A =  15.01  Df =4686.1  -65.6 ps  S = 266.7 ps  Cin =  4.6 ff  Cout =  19.8 ff  Cmax = 134.6 ff  G =  411  
+ABC: Path 15 --   14496 : 4    1 sky130_fd_sc_hd__o211ai_2  A =  12.51  Df =4821.3  -59.7 ps  S = 131.3 ps  Cin =  4.4 ff  Cout =   4.6 ff  Cmax = 133.7 ff  G =  102  
+ABC: Path 16 --   14691 : 3    5 sky130_fd_sc_hd__nand3_2   A =  10.01  Df =4967.1  -53.1 ps  S = 132.5 ps  Cin =  4.4 ff  Cout =  20.4 ff  Cmax = 260.0 ff  G =  445  
+ABC: Path 17 --   14693 : 3    3 sky130_fd_sc_hd__o21ai_2   A =   8.76  Df =5059.5  -25.1 ps  S = 233.9 ps  Cin =  4.5 ff  Cout =  11.6 ff  Cmax = 139.2 ff  G =  244  
+ABC: Path 18 --   14699 : 4    3 sky130_fd_sc_hd__a22o_2    A =  10.01  Df =5403.3 -124.8 ps  S =  66.4 ps  Cin =  2.3 ff  Cout =   8.5 ff  Cmax = 301.2 ff  G =  350  
+ABC: Path 19 --   14702 : 5    1 sky130_fd_sc_hd__o2111ai_2 A =  15.01  Df =5484.6  -94.6 ps  S = 160.3 ps  Cin =  4.3 ff  Cout =   4.5 ff  Cmax = 129.1 ff  G =   99  
+ABC: Path 20 --   15092 : 4    2 sky130_fd_sc_hd__o22ai_2   A =  12.51  Df =5630.7  -46.0 ps  S = 173.3 ps  Cin =  4.3 ff  Cout =   9.0 ff  Cmax = 137.3 ff  G =  200  
+ABC: Path 21 --   15094 : 4    1 sky130_fd_sc_hd__a22oi_2   A =  12.51  Df =5717.5  -14.3 ps  S = 141.5 ps  Cin =  4.3 ff  Cout =   4.7 ff  Cmax = 170.3 ff  G =  105  
+ABC: Path 22 --   16940 : 3    7 sky130_fd_sc_hd__nand3_2   A =  10.01  Df =5883.7  -34.4 ps  S = 152.2 ps  Cin =  4.4 ff  Cout =  24.5 ff  Cmax = 260.0 ff  G =  534  
+ABC: Path 23 --   16942 : 4    4 sky130_fd_sc_hd__a31oi_2   A =  12.51  Df =6137.6 -145.3 ps  S = 253.1 ps  Cin =  4.4 ff  Cout =  14.3 ff  Cmax = 118.1 ff  G =  309  
+ABC: Path 24 --   19909 : 3    3 sky130_fd_sc_hd__o21ai_2   A =   8.76  Df =6244.8  -57.4 ps  S = 177.1 ps  Cin =  4.5 ff  Cout =  11.8 ff  Cmax = 139.2 ff  G =  244  
+ABC: Path 25 --   19911 : 4    3 sky130_fd_sc_hd__a22oi_2   A =  12.51  Df =6484.1 -178.0 ps  S = 284.8 ps  Cin =  4.3 ff  Cout =  17.8 ff  Cmax = 170.3 ff  G =  397  
+ABC: Path 26 --   19920 : 2    2 sky130_fd_sc_hd__nand2_2   A =   6.26  Df =6567.5 -165.1 ps  S =  74.6 ps  Cin =  4.4 ff  Cout =   6.2 ff  Cmax = 295.7 ff  G =  131  
+ABC: Path 27 --   19921 : 4    1 sky130_fd_sc_hd__and4_2    A =  10.01  Df =6810.2 -183.0 ps  S =  61.5 ps  Cin =  1.5 ff  Cout =   4.7 ff  Cmax = 300.3 ff  G =  284  
+ABC: Path 28 --   19924 : 4    1 sky130_fd_sc_hd__o31ai_2   A =  12.51  Df =7358.3 -444.5 ps  S = 834.6 ps  Cin =  4.4 ff  Cout =  33.4 ff  Cmax =  80.6 ff  G =  762  
+ABC: Start-point = pi152 (\pin_data_out_mem1 [7]).  End-point = po25 ($auto$rtlil.cc:3583:MuxGate$42500).
+ABC: netlist                       : i/o =  348/  498  lat =    0  nd = 20378  edge =  69562  area =69787.87  delay =3125.10  lev = 38
+ABC: + write_blif /tmp/yosys-abc-7jLgRO/output.blif 
+
+135.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a2111o_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a2111oi_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a211o_2 cells:      112
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_2 cells:       80
+ABC RESULTS:   sky130_fd_sc_hd__a21bo_2 cells:       84
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_2 cells:      152
+ABC RESULTS:   sky130_fd_sc_hd__a21o_2 cells:      891
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_2 cells:     1316
+ABC RESULTS:   sky130_fd_sc_hd__a221o_2 cells:       24
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_2 cells:       35
+ABC RESULTS:   sky130_fd_sc_hd__a22o_2 cells:     1122
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_2 cells:      813
+ABC RESULTS:   sky130_fd_sc_hd__a2bb2o_2 cells:       89
+ABC RESULTS:   sky130_fd_sc_hd__a2bb2oi_2 cells:      194
+ABC RESULTS:   sky130_fd_sc_hd__a311o_2 cells:       27
+ABC RESULTS:   sky130_fd_sc_hd__a311oi_2 cells:       17
+ABC RESULTS:   sky130_fd_sc_hd__a31o_2 cells:      409
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_2 cells:      178
+ABC RESULTS:   sky130_fd_sc_hd__a32o_2 cells:      166
+ABC RESULTS:   sky130_fd_sc_hd__a32oi_2 cells:      129
+ABC RESULTS:   sky130_fd_sc_hd__a41o_2 cells:       41
+ABC RESULTS:   sky130_fd_sc_hd__a41oi_2 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__and2_2 cells:      148
+ABC RESULTS:   sky130_fd_sc_hd__and2b_2 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__and3_2 cells:      675
+ABC RESULTS:   sky130_fd_sc_hd__and3b_2 cells:       17
+ABC RESULTS:   sky130_fd_sc_hd__and4_2 cells:      596
+ABC RESULTS:   sky130_fd_sc_hd__and4b_2 cells:       93
+ABC RESULTS:   sky130_fd_sc_hd__and4bb_2 cells:       73
+ABC RESULTS:   sky130_fd_sc_hd__inv_2 cells:      462
+ABC RESULTS:   sky130_fd_sc_hd__mux2_1 cells:      145
+ABC RESULTS:   sky130_fd_sc_hd__nand2_2 cells:     1921
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_2 cells:       14
+ABC RESULTS:   sky130_fd_sc_hd__nand3_2 cells:     1591
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_2 cells:      211
+ABC RESULTS:   sky130_fd_sc_hd__nand4_2 cells:     1312
+ABC RESULTS:   sky130_fd_sc_hd__nand4b_2 cells:       41
+ABC RESULTS:   sky130_fd_sc_hd__nor2_2 cells:      339
+ABC RESULTS:   sky130_fd_sc_hd__nor3_2 cells:       72
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_2 cells:       25
+ABC RESULTS:   sky130_fd_sc_hd__nor4_2 cells:       25
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o2111a_2 cells:      151
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_2 cells:      450
+ABC RESULTS:   sky130_fd_sc_hd__o211a_2 cells:      536
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_2 cells:     1268
+ABC RESULTS:   sky130_fd_sc_hd__o21a_2 cells:      299
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_2 cells:     1177
+ABC RESULTS:   sky130_fd_sc_hd__o21ba_2 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__o21bai_2 cells:      237
+ABC RESULTS:   sky130_fd_sc_hd__o221a_2 cells:      105
+ABC RESULTS:   sky130_fd_sc_hd__o221ai_2 cells:      209
+ABC RESULTS:   sky130_fd_sc_hd__o22a_2 cells:      193
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_2 cells:      511
+ABC RESULTS:   sky130_fd_sc_hd__o2bb2a_2 cells:      126
+ABC RESULTS:   sky130_fd_sc_hd__o2bb2ai_2 cells:      789
+ABC RESULTS:   sky130_fd_sc_hd__o311a_2 cells:       97
+ABC RESULTS:   sky130_fd_sc_hd__o311ai_2 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__o31a_2 cells:      145
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_2 cells:       48
+ABC RESULTS:   sky130_fd_sc_hd__o32a_2 cells:       65
+ABC RESULTS:   sky130_fd_sc_hd__o32ai_2 cells:       20
+ABC RESULTS:   sky130_fd_sc_hd__o41a_2 cells:       18
+ABC RESULTS:   sky130_fd_sc_hd__o41ai_2 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__or2_2 cells:       63
+ABC RESULTS:   sky130_fd_sc_hd__or3_2 cells:       45
+ABC RESULTS:   sky130_fd_sc_hd__or3b_2 cells:       18
+ABC RESULTS:   sky130_fd_sc_hd__or4_2 cells:       19
+ABC RESULTS:   sky130_fd_sc_hd__or4b_2 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__or4bb_2 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_2 cells:       46
+ABC RESULTS:   sky130_fd_sc_hd__xor2_2 cells:       45
+ABC RESULTS:        internal signals:    13562
+ABC RESULTS:           input signals:      348
+ABC RESULTS:          output signals:      498
+Removing temp directory.
+Removing global temp directory.
+
+136. Executing SETUNDEF pass (replace undef values with defined constants).
+
+137. Executing HILOMAP pass (mapping to constant drivers).
+
+138. Executing SPLITNETS pass (splitting up multi-bit signals).
+
+139. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_32b..
+Removed 0 unused cells and 14608 unused wires.
+<suppressed ~2 debug messages>
+
+140. Executing INSBUF pass (insert buffer cells for connected wires).
+
+141. Executing CHECK pass (checking for obvious problems).
+Checking module top_32b...
+Found and reported 0 problems.
+{
+   "creator": "Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_22-32-27/tmp/91e96cafbeee48a9a54b77407a5216f8.lib ",
+   "modules": {
+      "\\top_32b": {
+         "num_wires":         20538,
+         "num_wire_bits":     20792,
+         "num_pub_wires":     366,
+         "num_pub_wire_bits": 620,
+         "num_ports":         13,
+         "num_port_bits":     267,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         20529,
+         "num_submodules":       0,
+         "area":              212452.508800,
+         "sequential_area":    3862.454400,
+         "num_cells_by_type": {
+            "sky130_fd_sc_hd__a2111o_2": 2,
+            "sky130_fd_sc_hd__a2111oi_2": 2,
+            "sky130_fd_sc_hd__a211o_2": 112,
+            "sky130_fd_sc_hd__a211oi_2": 80,
+            "sky130_fd_sc_hd__a21bo_2": 84,
+            "sky130_fd_sc_hd__a21boi_2": 152,
+            "sky130_fd_sc_hd__a21o_2": 891,
+            "sky130_fd_sc_hd__a21oi_2": 1316,
+            "sky130_fd_sc_hd__a221o_2": 24,
+            "sky130_fd_sc_hd__a221oi_2": 35,
+            "sky130_fd_sc_hd__a22o_2": 1122,
+            "sky130_fd_sc_hd__a22oi_2": 813,
+            "sky130_fd_sc_hd__a2bb2o_2": 89,
+            "sky130_fd_sc_hd__a2bb2oi_2": 194,
+            "sky130_fd_sc_hd__a311o_2": 27,
+            "sky130_fd_sc_hd__a311oi_2": 17,
+            "sky130_fd_sc_hd__a31o_2": 409,
+            "sky130_fd_sc_hd__a31oi_2": 178,
+            "sky130_fd_sc_hd__a32o_2": 166,
+            "sky130_fd_sc_hd__a32oi_2": 129,
+            "sky130_fd_sc_hd__a41o_2": 41,
+            "sky130_fd_sc_hd__a41oi_2": 10,
+            "sky130_fd_sc_hd__and2_2": 148,
+            "sky130_fd_sc_hd__and2b_2": 13,
+            "sky130_fd_sc_hd__and3_2": 675,
+            "sky130_fd_sc_hd__and3b_2": 17,
+            "sky130_fd_sc_hd__and4_2": 596,
+            "sky130_fd_sc_hd__and4b_2": 93,
+            "sky130_fd_sc_hd__and4bb_2": 73,
+            "sky130_fd_sc_hd__conb_1": 1,
+            "sky130_fd_sc_hd__dfrtp_2": 146,
+            "sky130_fd_sc_hd__dfstp_2": 1,
+            "sky130_fd_sc_hd__inv_2": 462,
+            "sky130_fd_sc_hd__mux2_1": 145,
+            "sky130_fd_sc_hd__nand2_2": 1921,
+            "sky130_fd_sc_hd__nand2b_2": 14,
+            "sky130_fd_sc_hd__nand3_2": 1591,
+            "sky130_fd_sc_hd__nand3b_2": 211,
+            "sky130_fd_sc_hd__nand4_2": 1312,
+            "sky130_fd_sc_hd__nand4b_2": 41,
+            "sky130_fd_sc_hd__nor2_2": 339,
+            "sky130_fd_sc_hd__nor3_2": 72,
+            "sky130_fd_sc_hd__nor3b_2": 25,
+            "sky130_fd_sc_hd__nor4_2": 25,
+            "sky130_fd_sc_hd__nor4b_2": 1,
+            "sky130_fd_sc_hd__o2111a_2": 151,
+            "sky130_fd_sc_hd__o2111ai_2": 450,
+            "sky130_fd_sc_hd__o211a_2": 536,
+            "sky130_fd_sc_hd__o211ai_2": 1268,
+            "sky130_fd_sc_hd__o21a_2": 299,
+            "sky130_fd_sc_hd__o21ai_2": 1177,
+            "sky130_fd_sc_hd__o21ba_2": 11,
+            "sky130_fd_sc_hd__o21bai_2": 237,
+            "sky130_fd_sc_hd__o221a_2": 105,
+            "sky130_fd_sc_hd__o221ai_2": 209,
+            "sky130_fd_sc_hd__o22a_2": 193,
+            "sky130_fd_sc_hd__o22ai_2": 511,
+            "sky130_fd_sc_hd__o2bb2a_2": 126,
+            "sky130_fd_sc_hd__o2bb2ai_2": 789,
+            "sky130_fd_sc_hd__o311a_2": 97,
+            "sky130_fd_sc_hd__o311ai_2": 8,
+            "sky130_fd_sc_hd__o31a_2": 145,
+            "sky130_fd_sc_hd__o31ai_2": 48,
+            "sky130_fd_sc_hd__o32a_2": 65,
+            "sky130_fd_sc_hd__o32ai_2": 20,
+            "sky130_fd_sc_hd__o41a_2": 18,
+            "sky130_fd_sc_hd__o41ai_2": 4,
+            "sky130_fd_sc_hd__or2_2": 63,
+            "sky130_fd_sc_hd__or3_2": 45,
+            "sky130_fd_sc_hd__or3b_2": 18,
+            "sky130_fd_sc_hd__or4_2": 19,
+            "sky130_fd_sc_hd__or4b_2": 4,
+            "sky130_fd_sc_hd__or4bb_2": 4,
+            "sky130_fd_sc_hd__xnor2_2": 46,
+            "sky130_fd_sc_hd__xor2_2": 45,
+            "sramHD_64x64": 3
+         }
+      }
+   },
+      "design": {
+         "num_wires":         20538,
+         "num_wire_bits":     20792,
+         "num_pub_wires":     366,
+         "num_pub_wire_bits": 620,
+         "num_ports":         13,
+         "num_port_bits":     267,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         20529,
+         "num_submodules":       0,
+         "area":              212452.508800,
+         "sequential_area":    3862.454400,
+         "num_cells_by_type": {
+            "sky130_fd_sc_hd__a2111o_2": 2,
+            "sky130_fd_sc_hd__a2111oi_2": 2,
+            "sky130_fd_sc_hd__a211o_2": 112,
+            "sky130_fd_sc_hd__a211oi_2": 80,
+            "sky130_fd_sc_hd__a21bo_2": 84,
+            "sky130_fd_sc_hd__a21boi_2": 152,
+            "sky130_fd_sc_hd__a21o_2": 891,
+            "sky130_fd_sc_hd__a21oi_2": 1316,
+            "sky130_fd_sc_hd__a221o_2": 24,
+            "sky130_fd_sc_hd__a221oi_2": 35,
+            "sky130_fd_sc_hd__a22o_2": 1122,
+            "sky130_fd_sc_hd__a22oi_2": 813,
+            "sky130_fd_sc_hd__a2bb2o_2": 89,
+            "sky130_fd_sc_hd__a2bb2oi_2": 194,
+            "sky130_fd_sc_hd__a311o_2": 27,
+            "sky130_fd_sc_hd__a311oi_2": 17,
+            "sky130_fd_sc_hd__a31o_2": 409,
+            "sky130_fd_sc_hd__a31oi_2": 178,
+            "sky130_fd_sc_hd__a32o_2": 166,
+            "sky130_fd_sc_hd__a32oi_2": 129,
+            "sky130_fd_sc_hd__a41o_2": 41,
+            "sky130_fd_sc_hd__a41oi_2": 10,
+            "sky130_fd_sc_hd__and2_2": 148,
+            "sky130_fd_sc_hd__and2b_2": 13,
+            "sky130_fd_sc_hd__and3_2": 675,
+            "sky130_fd_sc_hd__and3b_2": 17,
+            "sky130_fd_sc_hd__and4_2": 596,
+            "sky130_fd_sc_hd__and4b_2": 93,
+            "sky130_fd_sc_hd__and4bb_2": 73,
+            "sky130_fd_sc_hd__conb_1": 1,
+            "sky130_fd_sc_hd__dfrtp_2": 146,
+            "sky130_fd_sc_hd__dfstp_2": 1,
+            "sky130_fd_sc_hd__inv_2": 462,
+            "sky130_fd_sc_hd__mux2_1": 145,
+            "sky130_fd_sc_hd__nand2_2": 1921,
+            "sky130_fd_sc_hd__nand2b_2": 14,
+            "sky130_fd_sc_hd__nand3_2": 1591,
+            "sky130_fd_sc_hd__nand3b_2": 211,
+            "sky130_fd_sc_hd__nand4_2": 1312,
+            "sky130_fd_sc_hd__nand4b_2": 41,
+            "sky130_fd_sc_hd__nor2_2": 339,
+            "sky130_fd_sc_hd__nor3_2": 72,
+            "sky130_fd_sc_hd__nor3b_2": 25,
+            "sky130_fd_sc_hd__nor4_2": 25,
+            "sky130_fd_sc_hd__nor4b_2": 1,
+            "sky130_fd_sc_hd__o2111a_2": 151,
+            "sky130_fd_sc_hd__o2111ai_2": 450,
+            "sky130_fd_sc_hd__o211a_2": 536,
+            "sky130_fd_sc_hd__o211ai_2": 1268,
+            "sky130_fd_sc_hd__o21a_2": 299,
+            "sky130_fd_sc_hd__o21ai_2": 1177,
+            "sky130_fd_sc_hd__o21ba_2": 11,
+            "sky130_fd_sc_hd__o21bai_2": 237,
+            "sky130_fd_sc_hd__o221a_2": 105,
+            "sky130_fd_sc_hd__o221ai_2": 209,
+            "sky130_fd_sc_hd__o22a_2": 193,
+            "sky130_fd_sc_hd__o22ai_2": 511,
+            "sky130_fd_sc_hd__o2bb2a_2": 126,
+            "sky130_fd_sc_hd__o2bb2ai_2": 789,
+            "sky130_fd_sc_hd__o311a_2": 97,
+            "sky130_fd_sc_hd__o311ai_2": 8,
+            "sky130_fd_sc_hd__o31a_2": 145,
+            "sky130_fd_sc_hd__o31ai_2": 48,
+            "sky130_fd_sc_hd__o32a_2": 65,
+            "sky130_fd_sc_hd__o32ai_2": 20,
+            "sky130_fd_sc_hd__o41a_2": 18,
+            "sky130_fd_sc_hd__o41ai_2": 4,
+            "sky130_fd_sc_hd__or2_2": 63,
+            "sky130_fd_sc_hd__or3_2": 45,
+            "sky130_fd_sc_hd__or3b_2": 18,
+            "sky130_fd_sc_hd__or4_2": 19,
+            "sky130_fd_sc_hd__or4b_2": 4,
+            "sky130_fd_sc_hd__or4bb_2": 4,
+            "sky130_fd_sc_hd__xnor2_2": 46,
+            "sky130_fd_sc_hd__xor2_2": 45,
+            "sramHD_64x64": 3
+         }
+      }
+}
+
+142. Printing statistics.
+
+=== top_32b ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    20538        - wires
+    20792        - wire bits
+      366        - public wires
+      620        - public wire bits
+       13        - ports
+      267        - port bits
+    20529 2.12E+05 cells
+        2   25.024   sky130_fd_sc_hd__a2111o_2
+        2   30.029   sky130_fd_sc_hd__a2111oi_2
+      112 1.12E+03   sky130_fd_sc_hd__a211o_2
+       80  1000.96   sky130_fd_sc_hd__a211oi_2
+       84  840.806   sky130_fd_sc_hd__a21bo_2
+      152 1.71E+03   sky130_fd_sc_hd__a21boi_2
+      891  7.8E+03   sky130_fd_sc_hd__a21o_2
+     1316 1.15E+04   sky130_fd_sc_hd__a21oi_2
+       24  270.259   sky130_fd_sc_hd__a221o_2
+       35  525.504   sky130_fd_sc_hd__a221oi_2
+     1122 1.12E+04   sky130_fd_sc_hd__a22o_2
+      813 1.02E+04   sky130_fd_sc_hd__a22oi_2
+       89    1E+03   sky130_fd_sc_hd__a2bb2o_2
+      194 2.91E+03   sky130_fd_sc_hd__a2bb2oi_2
+       27  304.042   sky130_fd_sc_hd__a311o_2
+       17  255.245   sky130_fd_sc_hd__a311oi_2
+      409 3.58E+03   sky130_fd_sc_hd__a31o_2
+      178 2.23E+03   sky130_fd_sc_hd__a31oi_2
+      166 1.87E+03   sky130_fd_sc_hd__a32o_2
+      129  2.1E+03   sky130_fd_sc_hd__a32oi_2
+       41  461.693   sky130_fd_sc_hd__a41o_2
+       10  162.656   sky130_fd_sc_hd__a41oi_2
+      148 1.11E+03   sky130_fd_sc_hd__and2_2
+       13  113.859   sky130_fd_sc_hd__and2b_2
+      675  5067.36   sky130_fd_sc_hd__and3_2
+       17  170.163   sky130_fd_sc_hd__and3b_2
+      596 5.97E+03   sky130_fd_sc_hd__and4_2
+       93 1.05E+03   sky130_fd_sc_hd__and4b_2
+       73  913.376   sky130_fd_sc_hd__and4bb_2
+        1    3.754   sky130_fd_sc_hd__conb_1
+      146 3.84E+03   sky130_fd_sc_hd__dfrtp_2
+        1   26.275   sky130_fd_sc_hd__dfstp_2
+      462 1.73E+03   sky130_fd_sc_hd__inv_2
+      145 1.63E+03   sky130_fd_sc_hd__mux2_1
+     1921  1.2E+04   sky130_fd_sc_hd__nand2_2
+       14  122.618   sky130_fd_sc_hd__nand2b_2
+     1591 1.59E+04   sky130_fd_sc_hd__nand3_2
+      211 2.38E+03   sky130_fd_sc_hd__nand3b_2
+     1312 1.64E+04   sky130_fd_sc_hd__nand4_2
+       41   615.59   sky130_fd_sc_hd__nand4b_2
+      339 2.12E+03   sky130_fd_sc_hd__nor2_2
+       72  720.691   sky130_fd_sc_hd__nor3_2
+       25    312.8   sky130_fd_sc_hd__nor3b_2
+       25    312.8   sky130_fd_sc_hd__nor4_2
+        1   15.014   sky130_fd_sc_hd__nor4b_2
+      151 1.89E+03   sky130_fd_sc_hd__o2111a_2
+      450  6756.48   sky130_fd_sc_hd__o2111ai_2
+      536 5.37E+03   sky130_fd_sc_hd__o211a_2
+     1268 1.59E+04   sky130_fd_sc_hd__o211ai_2
+      299 2.62E+03   sky130_fd_sc_hd__o21a_2
+     1177 1.03E+04   sky130_fd_sc_hd__o21ai_2
+       11  110.106   sky130_fd_sc_hd__o21ba_2
+      237  2668.81   sky130_fd_sc_hd__o21bai_2
+      105 1.18E+03   sky130_fd_sc_hd__o221a_2
+      209  3138.01   sky130_fd_sc_hd__o221ai_2
+      193 1.93E+03   sky130_fd_sc_hd__o22a_2
+      511 6.39E+03   sky130_fd_sc_hd__o22ai_2
+      126 1.42E+03   sky130_fd_sc_hd__o2bb2a_2
+      789 1.18E+04   sky130_fd_sc_hd__o2bb2ai_2
+       97 1.09E+03   sky130_fd_sc_hd__o311a_2
+        8  130.125   sky130_fd_sc_hd__o311ai_2
+      145 1.45E+03   sky130_fd_sc_hd__o31a_2
+       48  600.576   sky130_fd_sc_hd__o31ai_2
+       65  731.952   sky130_fd_sc_hd__o32a_2
+       20  325.312   sky130_fd_sc_hd__o32ai_2
+       18  225.216   sky130_fd_sc_hd__o41a_2
+        4   65.062   sky130_fd_sc_hd__o41ai_2
+       63  394.128   sky130_fd_sc_hd__or2_2
+       45  337.824   sky130_fd_sc_hd__or3_2
+       18  157.651   sky130_fd_sc_hd__or3b_2
+       19   166.41   sky130_fd_sc_hd__or4_2
+        4   40.038   sky130_fd_sc_hd__or4b_2
+        4   50.048   sky130_fd_sc_hd__or4bb_2
+       46  748.218   sky130_fd_sc_hd__xnor2_2
+       45  731.952   sky130_fd_sc_hd__xor2_2
+        3        -   sramHD_64x64
+
+   Area for cell type \sramHD_64x64 is unknown!
+
+   Chip area for module '\top_32b': 212452.508800
+     of which used for sequential elements: 3862.454400 (1.82%)
+
+143. Executing Verilog backend.
+Dumping module `\top_32b'.
+
+144. Executing JSON backend.

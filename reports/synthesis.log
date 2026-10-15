@@ -37,52 +37,68 @@ Parsing Verilog input from `./top_scheduler.v' to AST representation.
 Generating RTLIL representation for module `\top_scheduler'.
 Successfully finished Verilog frontend.
 
-7. Executing HIERARCHY pass (managing design hierarchy).
+7. Executing Verilog-2005 frontend: ./sramHD_64x64.v
+Parsing Verilog input from `./sramHD_64x64.v' to AST representation.
+Replacing existing blackbox module `\sramHD_64x64' at ./sramHD_64x64.v:2.1-33.10.
+Generating RTLIL representation for module `\sramHD_64x64'.
+Successfully finished Verilog frontend.
 
-7.1. Analyzing design hierarchy..
+8. Executing HIERARCHY pass (managing design hierarchy).
+
+8.1. Analyzing design hierarchy..
 Top module:  \top_32b
 Used module:     \mult_32b
 Used module:     \addsub_32b
 Used module:     \top_scheduler
 
-7.2. Analyzing design hierarchy..
+8.2. Analyzing design hierarchy..
 Top module:  \top_32b
 Used module:     \mult_32b
 Used module:     \addsub_32b
 Used module:     \top_scheduler
 Removed 0 unused modules.
 
-8. Executing PROC pass (convert processes to netlists).
+9. Executing PROC pass (convert processes to netlists).
 
-8.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+9.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
 Cleaned up 0 empty switches.
 
-8.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
-Marked 4 switch rules as full_case in process $proc$./top_scheduler.v:49$114 in module top_scheduler.
-Marked 1 switch rules as full_case in process $proc$./top_scheduler.v:37$111 in module top_scheduler.
+9.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
 Marked 1 switch rules as full_case in process $proc$./mult_32b.v:15$107 in module mult_32b.
-Marked 2 switch rules as full_case in process $proc$./addsub_32b.v:17$104 in module addsub_32b.
+Marked 2 switch rules as full_case in process $proc$./addsub_32b.v:18$104 in module addsub_32b.
 Marked 1 switch rules as full_case in process $proc$./top_32b.v:89$72 in module top_32b.
 Marked 2 switch rules as full_case in process $proc$./top_32b.v:70$68 in module top_32b.
+Marked 4 switch rules as full_case in process $proc$./top_scheduler.v:49$114 in module top_scheduler.
+Marked 1 switch rules as full_case in process $proc$./top_scheduler.v:37$111 in module top_scheduler.
 Removed a total of 0 dead cases.
 
-8.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+9.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
 Removed 4 redundant assignments.
 Promoted 10 assignments to connections.
 
-8.4. Executing PROC_INIT pass (extract init attributes).
+9.4. Executing PROC_INIT pass (extract init attributes).
 
-8.5. Executing PROC_ARST pass (detect async resets in processes).
-Found async reset \rst in `\top_scheduler.$proc$./top_scheduler.v:37$111'.
+9.5. Executing PROC_ARST pass (detect async resets in processes).
 Found async reset \rst in `\mult_32b.$proc$./mult_32b.v:15$107'.
-Found async reset \rst in `\addsub_32b.$proc$./addsub_32b.v:17$104'.
+Found async reset \rst in `\addsub_32b.$proc$./addsub_32b.v:18$104'.
 Found async reset \rst in `\top_32b.$proc$./top_32b.v:70$68'.
+Found async reset \rst in `\top_scheduler.$proc$./top_scheduler.v:37$111'.
 
-8.6. Executing PROC_ROM pass (convert switches to ROMs).
+9.6. Executing PROC_ROM pass (convert switches to ROMs).
 Converted 0 switches.
 <suppressed ~10 debug messages>
 
-8.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+9.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\mult_32b.$proc$./mult_32b.v:15$107'.
+     1/2: $0\done[0:0]
+     2/2: $0\res[63:0]
+Creating decoders for process `\addsub_32b.$proc$./addsub_32b.v:18$104'.
+     1/2: $0\done[0:0]
+     2/2: $0\res[63:0]
+Creating decoders for process `\top_32b.$proc$./top_32b.v:89$72'.
+     1/1: $1\effective_mem_addr[5:0]
+Creating decoders for process `\top_32b.$proc$./top_32b.v:70$68'.
+     1/1: $0\host_addr[5:0]
 Creating decoders for process `\top_scheduler.$proc$./top_scheduler.v:49$114'.
      1/11: $3\state_next[2:0]
      2/11: $2\en_mult[0:0]
@@ -98,18 +114,9 @@ Creating decoders for process `\top_scheduler.$proc$./top_scheduler.v:49$114'.
 Creating decoders for process `\top_scheduler.$proc$./top_scheduler.v:37$111'.
      1/2: $0\state_current[2:0]
      2/2: $0\reg_counter[5:0]
-Creating decoders for process `\mult_32b.$proc$./mult_32b.v:15$107'.
-     1/2: $0\done[0:0]
-     2/2: $0\res[63:0]
-Creating decoders for process `\addsub_32b.$proc$./addsub_32b.v:17$104'.
-     1/2: $0\done[0:0]
-     2/2: $0\res[63:0]
-Creating decoders for process `\top_32b.$proc$./top_32b.v:89$72'.
-     1/1: $1\effective_mem_addr[5:0]
-Creating decoders for process `\top_32b.$proc$./top_32b.v:70$68'.
-     1/1: $0\host_addr[5:0]
 
-8.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+9.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\top_32b.\effective_mem_addr' from process `\top_32b.$proc$./top_32b.v:89$72'.
 No latch inferred for signal `\top_scheduler.\array_select' from process `\top_scheduler.$proc$./top_scheduler.v:49$114'.
 No latch inferred for signal `\top_scheduler.\wr_mem2_start' from process `\top_scheduler.$proc$./top_scheduler.v:49$114'.
 No latch inferred for signal `\top_scheduler.\en_addsub' from process `\top_scheduler.$proc$./top_scheduler.v:49$114'.
@@ -119,66 +126,59 @@ No latch inferred for signal `\top_scheduler.\mem_addr' from process `\top_sched
 No latch inferred for signal `\top_scheduler.\mem_we' from process `\top_scheduler.$proc$./top_scheduler.v:49$114'.
 No latch inferred for signal `\top_scheduler.\mem_me' from process `\top_scheduler.$proc$./top_scheduler.v:49$114'.
 No latch inferred for signal `\top_scheduler.\state_next' from process `\top_scheduler.$proc$./top_scheduler.v:49$114'.
-No latch inferred for signal `\top_32b.\effective_mem_addr' from process `\top_32b.$proc$./top_32b.v:89$72'.
 
-8.9. Executing PROC_DFF pass (convert process syncs to FFs).
-Creating register for signal `\top_scheduler.\reg_counter' using process `\top_scheduler.$proc$./top_scheduler.v:37$111'.
-  created $adff cell `$procdff$205' with positive edge clock and positive level reset.
-Creating register for signal `\top_scheduler.\state_current' using process `\top_scheduler.$proc$./top_scheduler.v:37$111'.
-  created $adff cell `$procdff$208' with positive edge clock and positive level reset.
+9.9. Executing PROC_DFF pass (convert process syncs to FFs).
 Creating register for signal `\mult_32b.\res' using process `\mult_32b.$proc$./mult_32b.v:15$107'.
-  created $adff cell `$procdff$211' with positive edge clock and positive level reset.
+  created $adff cell `$procdff$271' with positive edge clock and positive level reset.
 Creating register for signal `\mult_32b.\done' using process `\mult_32b.$proc$./mult_32b.v:15$107'.
-  created $adff cell `$procdff$214' with positive edge clock and positive level reset.
-Creating register for signal `\addsub_32b.\res' using process `\addsub_32b.$proc$./addsub_32b.v:17$104'.
-  created $adff cell `$procdff$217' with positive edge clock and positive level reset.
-Creating register for signal `\addsub_32b.\done' using process `\addsub_32b.$proc$./addsub_32b.v:17$104'.
-  created $adff cell `$procdff$220' with positive edge clock and positive level reset.
+  created $adff cell `$procdff$274' with positive edge clock and positive level reset.
+Creating register for signal `\addsub_32b.\res' using process `\addsub_32b.$proc$./addsub_32b.v:18$104'.
+  created $adff cell `$procdff$277' with positive edge clock and positive level reset.
+Creating register for signal `\addsub_32b.\done' using process `\addsub_32b.$proc$./addsub_32b.v:18$104'.
+  created $adff cell `$procdff$280' with positive edge clock and positive level reset.
 Creating register for signal `\top_32b.\host_addr' using process `\top_32b.$proc$./top_32b.v:70$68'.
-  created $adff cell `$procdff$223' with positive edge clock and positive level reset.
+  created $adff cell `$procdff$283' with positive edge clock and positive level reset.
+Creating register for signal `\top_scheduler.\reg_counter' using process `\top_scheduler.$proc$./top_scheduler.v:37$111'.
+  created $adff cell `$procdff$286' with positive edge clock and positive level reset.
+Creating register for signal `\top_scheduler.\state_current' using process `\top_scheduler.$proc$./top_scheduler.v:37$111'.
+  created $adff cell `$procdff$289' with positive edge clock and positive level reset.
 
-8.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+9.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
 
-8.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
-Found and cleaned up 4 empty switches in `\top_scheduler.$proc$./top_scheduler.v:49$114'.
-Removing empty process `top_scheduler.$proc$./top_scheduler.v:49$114'.
-Found and cleaned up 1 empty switch in `\top_scheduler.$proc$./top_scheduler.v:37$111'.
-Removing empty process `top_scheduler.$proc$./top_scheduler.v:37$111'.
+9.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
 Found and cleaned up 1 empty switch in `\mult_32b.$proc$./mult_32b.v:15$107'.
 Removing empty process `mult_32b.$proc$./mult_32b.v:15$107'.
-Found and cleaned up 2 empty switches in `\addsub_32b.$proc$./addsub_32b.v:17$104'.
-Removing empty process `addsub_32b.$proc$./addsub_32b.v:17$104'.
+Found and cleaned up 2 empty switches in `\addsub_32b.$proc$./addsub_32b.v:18$104'.
+Removing empty process `addsub_32b.$proc$./addsub_32b.v:18$104'.
 Found and cleaned up 1 empty switch in `\top_32b.$proc$./top_32b.v:89$72'.
 Removing empty process `top_32b.$proc$./top_32b.v:89$72'.
 Found and cleaned up 1 empty switch in `\top_32b.$proc$./top_32b.v:70$68'.
 Removing empty process `top_32b.$proc$./top_32b.v:70$68'.
+Found and cleaned up 4 empty switches in `\top_scheduler.$proc$./top_scheduler.v:49$114'.
+Removing empty process `top_scheduler.$proc$./top_scheduler.v:49$114'.
+Found and cleaned up 1 empty switch in `\top_scheduler.$proc$./top_scheduler.v:37$111'.
+Removing empty process `top_scheduler.$proc$./top_scheduler.v:37$111'.
 Cleaned up 10 empty switches.
 
-8.12. Executing OPT_EXPR pass (perform const folding).
-Optimizing module top_scheduler.
-<suppressed ~4 debug messages>
+9.12. Executing OPT_EXPR pass (perform const folding).
 Optimizing module mult_32b.
 <suppressed ~2 debug messages>
 Optimizing module addsub_32b.
 <suppressed ~2 debug messages>
 Optimizing module top_32b.
 <suppressed ~4 debug messages>
-
-9. Executing OPT pass (performing simple optimizations).
-
-9.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module top_scheduler.
+<suppressed ~4 debug messages>
+
+10. Executing OPT pass (performing simple optimizations).
+
+10.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module mult_32b.
 Optimizing module addsub_32b.
 Optimizing module top_32b.
+Optimizing module top_scheduler.
 
-9.2. Executing OPT_MERGE pass (detect identical cells).
-Finding identical cells in module `\top_scheduler'.
-Computing hashes of 38 cells of `\top_scheduler'.
-Finding duplicate cells in `\top_scheduler'.
-Computing hashes of 26 cells of `\top_scheduler'.
-Finding duplicate cells in `\top_scheduler'.
-<suppressed ~36 debug messages>
+10.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\mult_32b'.
 Computing hashes of 7 cells of `\mult_32b'.
 Finding duplicate cells in `\mult_32b'.
@@ -193,17 +193,15 @@ Finding duplicate cells in `\top_32b'.
 Computing hashes of 33 cells of `\top_32b'.
 Finding duplicate cells in `\top_32b'.
 <suppressed ~33 debug messages>
+Finding identical cells in module `\top_scheduler'.
+Computing hashes of 38 cells of `\top_scheduler'.
+Finding duplicate cells in `\top_scheduler'.
+Computing hashes of 26 cells of `\top_scheduler'.
+Finding duplicate cells in `\top_scheduler'.
+<suppressed ~36 debug messages>
 Removed a total of 23 cells.
 
-9.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
-Running muxtree optimizer on module \top_scheduler..
-  Creating internal representation of mux trees.
-  Evaluating internal representation of mux trees.
-  Analyzing evaluation results.
-    dead port 2/2 on $mux $procmux$146.
-    dead port 2/2 on $mux $procmux$136.
-    dead port 2/2 on $mux $procmux$129.
-    dead port 2/2 on $mux $procmux$122.
+10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \mult_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
@@ -216,23 +214,28 @@ Running muxtree optimizer on module \top_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
+Running muxtree optimizer on module \top_scheduler..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$233.
+    dead port 2/2 on $mux $procmux$223.
+    dead port 2/2 on $mux $procmux$216.
+    dead port 2/2 on $mux $procmux$209.
 Removed 4 multiplexer ports.
 <suppressed ~57 debug messages>
 
-9.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
-  Optimizing cells in module \top_scheduler.
-    New ctrl vector for $pmux cell $procmux$177: $auto$opt_reduce.cc:137:opt_pmux$225
-    New ctrl vector for $pmux cell $procmux$157: $auto$opt_reduce.cc:137:opt_pmux$227
-  Optimizing cells in module \top_scheduler.
+10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \mult_32b.
   Optimizing cells in module \addsub_32b.
   Optimizing cells in module \top_32b.
+  Optimizing cells in module \top_scheduler.
+    New ctrl vector for $pmux cell $procmux$264: $auto$opt_reduce.cc:137:opt_pmux$291
+    New ctrl vector for $pmux cell $procmux$244: $auto$opt_reduce.cc:137:opt_pmux$293
+  Optimizing cells in module \top_scheduler.
 Performed a total of 2 changes.
 
-9.5. Executing OPT_MERGE pass (detect identical cells).
-Finding identical cells in module `\top_scheduler'.
-Computing hashes of 24 cells of `\top_scheduler'.
-Finding duplicate cells in `\top_scheduler'.
+10.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\mult_32b'.
 Computing hashes of 7 cells of `\mult_32b'.
 Finding duplicate cells in `\mult_32b'.
@@ -242,31 +245,34 @@ Finding duplicate cells in `\addsub_32b'.
 Finding identical cells in module `\top_32b'.
 Computing hashes of 33 cells of `\top_32b'.
 Finding duplicate cells in `\top_32b'.
+Finding identical cells in module `\top_scheduler'.
+Computing hashes of 24 cells of `\top_scheduler'.
+Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-9.6. Executing OPT_DFF pass (perform DFF optimizations).
-Adding EN signal on $procdff$208 ($adff) from module top_scheduler (D = $procmux$150_Y, Q = \state_current).
-Adding EN signal on $procdff$205 ($adff) from module top_scheduler (D = $add$./top_scheduler.v:44$113_Y, Q = \reg_counter).
-Adding EN signal on $procdff$211 ($adff) from module mult_32b (D = $mul$./mult_32b.v:22$110_Y, Q = \res).
-Adding EN signal on $procdff$217 ($adff) from module addsub_32b (D = $procmux$192_Y, Q = \res).
+10.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$271 ($adff) from module mult_32b (D = $mul$./mult_32b.v:22$110_Y, Q = \res).
+Adding EN signal on $procdff$277 ($adff) from module addsub_32b (D = $procmux$193_Y, Q = \res).
+Adding EN signal on $procdff$289 ($adff) from module top_scheduler (D = $procmux$237_Y, Q = \state_current).
+Adding EN signal on $procdff$286 ($adff) from module top_scheduler (D = $add$./top_scheduler.v:44$113_Y, Q = \reg_counter).
 
-9.7. Executing OPT_CLEAN pass (remove unused cells and wires).
-Finding unused cells or wires in module \top_scheduler..
+10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \top_32b..
+Finding unused cells or wires in module \top_scheduler..
 Removed 3 unused cells and 97 unused wires.
 <suppressed ~7 debug messages>
 
-9.8. Executing OPT_EXPR pass (perform const folding).
+10.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-9.9. Rerunning OPT passes. (Maybe there is more to do..)
+10.9. Rerunning OPT passes. (Maybe there is more to do..)
 
-9.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \addsub_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
@@ -286,14 +292,14 @@ Running muxtree optimizer on module \top_scheduler..
 Removed 0 multiplexer ports.
 <suppressed ~48 debug messages>
 
-9.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \addsub_32b.
   Optimizing cells in module \mult_32b.
   Optimizing cells in module \top_32b.
   Optimizing cells in module \top_scheduler.
 Performed a total of 0 changes.
 
-9.12. Executing OPT_MERGE pass (detect identical cells).
+10.12. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -308,53 +314,53 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-9.13. Executing OPT_DFF pass (perform DFF optimizations).
+10.13. Executing OPT_DFF pass (perform DFF optimizations).
 
-9.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-9.15. Executing OPT_EXPR pass (perform const folding).
+10.15. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-9.16. Finished fast OPT passes. (There is nothing left to do.)
+10.16. Finished fast OPT passes. (There is nothing left to do.)
 
-10. Executing FSM pass (extract and optimize FSM).
+11. Executing FSM pass (extract and optimize FSM).
 
-10.1. Executing FSM_DETECT pass (finding FSMs in design).
+11.1. Executing FSM_DETECT pass (finding FSMs in design).
 
-10.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+11.2. Executing FSM_EXTRACT pass (extracting FSM from design).
 
-10.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+11.3. Executing FSM_OPT pass (simple optimizations of FSMs).
 
-10.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+11.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-10.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+11.5. Executing FSM_OPT pass (simple optimizations of FSMs).
 
-10.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+11.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
 
-10.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+11.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
 
-10.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+11.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
 
-11. Executing OPT pass (performing simple optimizations).
+12. Executing OPT pass (performing simple optimizations).
 
-11.1. Executing OPT_EXPR pass (perform const folding).
+12.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-11.2. Executing OPT_MERGE pass (detect identical cells).
+12.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -369,7 +375,7 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-11.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+12.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \addsub_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
@@ -389,14 +395,14 @@ Running muxtree optimizer on module \top_scheduler..
 Removed 0 multiplexer ports.
 <suppressed ~48 debug messages>
 
-11.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+12.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \addsub_32b.
   Optimizing cells in module \mult_32b.
   Optimizing cells in module \top_32b.
   Optimizing cells in module \top_scheduler.
 Performed a total of 0 changes.
 
-11.5. Executing OPT_MERGE pass (detect identical cells).
+12.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -411,66 +417,66 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-11.6. Executing OPT_DFF pass (perform DFF optimizations).
+12.6. Executing OPT_DFF pass (perform DFF optimizations).
 
-11.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+12.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-11.8. Executing OPT_EXPR pass (perform const folding).
+12.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-11.9. Finished fast OPT passes. (There is nothing left to do.)
+12.9. Finished fast OPT passes. (There is nothing left to do.)
 
-12. Executing MEMORY pass.
+13. Executing MEMORY pass.
 
-12.1. Executing OPT_MEM pass (optimize memories).
+13.1. Executing OPT_MEM pass (optimize memories).
 Performed a total of 0 transformations.
 
-12.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+13.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
 Performed a total of 0 transformations.
 
-12.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+13.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
 
-12.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+13.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
 
-12.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+13.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
 
-12.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+13.6. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-12.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+13.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
 
-12.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+13.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
 Performed a total of 0 transformations.
 
-12.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+13.9. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-12.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+13.10. Executing MEMORY_COLLECT pass (generating $mem cells).
 
-12.11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+13.11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
 
-13. Executing OPT pass (performing simple optimizations).
+14. Executing OPT pass (performing simple optimizations).
 
-13.1. Executing OPT_EXPR pass (perform const folding).
+14.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-13.2. Executing OPT_MERGE pass (detect identical cells).
+14.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -485,7 +491,7 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-13.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \addsub_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
@@ -505,14 +511,14 @@ Running muxtree optimizer on module \top_scheduler..
 Removed 0 multiplexer ports.
 <suppressed ~48 debug messages>
 
-13.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \addsub_32b.
   Optimizing cells in module \mult_32b.
   Optimizing cells in module \top_32b.
   Optimizing cells in module \top_scheduler.
 Performed a total of 0 changes.
 
-13.5. Executing OPT_MERGE pass (detect identical cells).
+14.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -527,103 +533,103 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-13.6. Executing OPT_DFF pass (perform DFF optimizations).
+14.6. Executing OPT_DFF pass (perform DFF optimizations).
 
-13.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-13.8. Executing OPT_EXPR pass (perform const folding).
+14.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-13.9. Finished fast OPT passes. (There is nothing left to do.)
+14.9. Finished fast OPT passes. (There is nothing left to do.)
 
-14. Executing SYNTH pass.
+15. Executing SYNTH pass.
 
-14.1. Executing HIERARCHY pass (managing design hierarchy).
+15.1. Executing HIERARCHY pass (managing design hierarchy).
 
-14.1.1. Analyzing design hierarchy..
+15.1.1. Analyzing design hierarchy..
 Top module:  \top_32b
 Used module:     \addsub_32b
 Used module:     \mult_32b
 Used module:     \top_scheduler
 
-14.1.2. Analyzing design hierarchy..
+15.1.2. Analyzing design hierarchy..
 Top module:  \top_32b
 Used module:     \addsub_32b
 Used module:     \mult_32b
 Used module:     \top_scheduler
 Removed 0 unused modules.
 
-14.2. Executing PROC pass (convert processes to netlists).
+15.2. Executing PROC pass (convert processes to netlists).
 
-14.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+15.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
 Cleaned up 0 empty switches.
 
-14.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+15.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
 Removed a total of 0 dead cases.
 
-14.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+15.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
 Removed 0 redundant assignments.
 Promoted 0 assignments to connections.
 
-14.2.4. Executing PROC_INIT pass (extract init attributes).
+15.2.4. Executing PROC_INIT pass (extract init attributes).
 
-14.2.5. Executing PROC_ARST pass (detect async resets in processes).
+15.2.5. Executing PROC_ARST pass (detect async resets in processes).
 
-14.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+15.2.6. Executing PROC_ROM pass (convert switches to ROMs).
 Converted 0 switches.
 
-14.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+15.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
 
-14.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+15.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
 
-14.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+15.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
 
-14.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+15.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
 
-14.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+15.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
 Cleaned up 0 empty switches.
 
-14.2.12. Executing OPT_EXPR pass (perform const folding).
+15.2.12. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.3. Executing OPT_EXPR pass (perform const folding).
+15.3. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.5. Executing CHECK pass (checking for obvious problems).
+15.5. Executing CHECK pass (checking for obvious problems).
 Checking module addsub_32b...
 Checking module mult_32b...
 Checking module top_32b...
 Checking module top_scheduler...
 Found and reported 0 problems.
 
-14.6. Executing OPT pass (performing simple optimizations).
+15.6. Executing OPT pass (performing simple optimizations).
 
-14.6.1. Executing OPT_EXPR pass (perform const folding).
+15.6.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.6.2. Executing OPT_MERGE pass (detect identical cells).
+15.6.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -638,7 +644,7 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+15.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \addsub_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
@@ -658,14 +664,14 @@ Running muxtree optimizer on module \top_scheduler..
 Removed 0 multiplexer ports.
 <suppressed ~48 debug messages>
 
-14.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+15.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \addsub_32b.
   Optimizing cells in module \mult_32b.
   Optimizing cells in module \top_32b.
   Optimizing cells in module \top_scheduler.
 Performed a total of 0 changes.
 
-14.6.5. Executing OPT_MERGE pass (detect identical cells).
+15.6.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -680,53 +686,53 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+15.6.6. Executing OPT_DFF pass (perform DFF optimizations).
 
-14.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.6.8. Executing OPT_EXPR pass (perform const folding).
+15.6.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.6.9. Finished fast OPT passes. (There is nothing left to do.)
+15.6.9. Finished fast OPT passes. (There is nothing left to do.)
 
-14.7. Executing FSM pass (extract and optimize FSM).
+15.7. Executing FSM pass (extract and optimize FSM).
 
-14.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+15.7.1. Executing FSM_DETECT pass (finding FSMs in design).
 
-14.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+15.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
 
-14.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+15.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
 
-14.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+15.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
 
-14.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+15.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
 
-14.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+15.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
 
-14.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+15.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
 
-14.8. Executing OPT pass (performing simple optimizations).
+15.8. Executing OPT pass (performing simple optimizations).
 
-14.8.1. Executing OPT_EXPR pass (perform const folding).
+15.8.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.8.2. Executing OPT_MERGE pass (detect identical cells).
+15.8.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -741,7 +747,7 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+15.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \addsub_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
@@ -761,14 +767,14 @@ Running muxtree optimizer on module \top_scheduler..
 Removed 0 multiplexer ports.
 <suppressed ~48 debug messages>
 
-14.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+15.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \addsub_32b.
   Optimizing cells in module \mult_32b.
   Optimizing cells in module \top_32b.
   Optimizing cells in module \top_scheduler.
 Performed a total of 0 changes.
 
-14.8.5. Executing OPT_MERGE pass (detect identical cells).
+15.8.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -783,73 +789,73 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+15.8.6. Executing OPT_DFF pass (perform DFF optimizations).
 
-14.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.8.8. Executing OPT_EXPR pass (perform const folding).
+15.8.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.8.9. Finished fast OPT passes. (There is nothing left to do.)
+15.8.9. Finished fast OPT passes. (There is nothing left to do.)
 
-14.9. Executing WREDUCE pass (reducing word size of cells).
-Removed top 1 bits (of 2) from port B of cell addsub_32b.$procmux$194_CMP0 ($eq).
+15.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell addsub_32b.$procmux$195_CMP0 ($eq).
 Removed top 1 bits (of 2) from port B of cell top_32b.$eq$./top_32b.v:110$96 ($eq).
-Removed top 2 bits (of 3) from port B of cell top_scheduler.$procmux$153_CMP0 ($eq).
-Removed top 1 bits (of 3) from port B of cell top_scheduler.$procmux$159_CMP0 ($eq).
-Removed top 1 bits (of 2) from mux cell top_scheduler.$procmux$177 ($mux).
-Removed top 1 bits (of 3) from port B of cell top_scheduler.$procmux$179_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell top_scheduler.$procmux$240_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell top_scheduler.$procmux$246_CMP0 ($eq).
+Removed top 1 bits (of 2) from mux cell top_scheduler.$procmux$264 ($mux).
+Removed top 1 bits (of 3) from port B of cell top_scheduler.$procmux$266_CMP0 ($eq).
 
-14.10. Executing PEEPOPT pass (run peephole optimizers).
+15.10. Executing PEEPOPT pass (run peephole optimizers).
 
-14.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.11. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.12. Executing ALUMACC pass (create $alu and $macc cells).
+15.12. Executing ALUMACC pass (create $alu and $macc cells).
 Extracting $alu and $macc cells in module addsub_32b:
-  creating $macc model for $add$./addsub_32b.v:26$105 ($add).
-  creating $macc model for $sub$./addsub_32b.v:30$106 ($sub).
-  creating $alu model for $macc $sub$./addsub_32b.v:30$106.
-  creating $alu model for $macc $add$./addsub_32b.v:26$105.
-  creating $alu cell for $add$./addsub_32b.v:26$105: $auto$alumacc.cc:512:replace_alu$238
-  creating $alu cell for $sub$./addsub_32b.v:30$106: $auto$alumacc.cc:512:replace_alu$241
+  creating $macc model for $add$./addsub_32b.v:27$105 ($add).
+  creating $macc model for $sub$./addsub_32b.v:31$106 ($sub).
+  creating $alu model for $macc $sub$./addsub_32b.v:31$106.
+  creating $alu model for $macc $add$./addsub_32b.v:27$105.
+  creating $alu cell for $add$./addsub_32b.v:27$105: $auto$alumacc.cc:512:replace_alu$304
+  creating $alu cell for $sub$./addsub_32b.v:31$106: $auto$alumacc.cc:512:replace_alu$307
   created 2 $alu and 0 $macc cells.
 Extracting $alu and $macc cells in module mult_32b:
   creating $macc model for $mul$./mult_32b.v:22$110 ($mul).
-  creating $macc cell for $mul$./mult_32b.v:22$110: $auto$alumacc.cc:382:replace_macc$244
+  creating $macc cell for $mul$./mult_32b.v:22$110: $auto$alumacc.cc:382:replace_macc$310
   created 0 $alu and 1 $macc cells.
 Extracting $alu and $macc cells in module top_32b:
   creating $macc model for $add$./top_32b.v:74$70 ($add).
   creating $alu model for $macc $add$./top_32b.v:74$70.
-  creating $alu cell for $add$./top_32b.v:74$70: $auto$alumacc.cc:512:replace_alu$245
+  creating $alu cell for $add$./top_32b.v:74$70: $auto$alumacc.cc:512:replace_alu$311
   created 1 $alu and 0 $macc cells.
 Extracting $alu and $macc cells in module top_scheduler:
   creating $macc model for $add$./top_scheduler.v:44$113 ($add).
   creating $alu model for $macc $add$./top_scheduler.v:44$113.
-  creating $alu cell for $add$./top_scheduler.v:44$113: $auto$alumacc.cc:512:replace_alu$248
+  creating $alu cell for $add$./top_scheduler.v:44$113: $auto$alumacc.cc:512:replace_alu$314
   created 1 $alu and 0 $macc cells.
 
-14.13. Executing SHARE pass (SAT-based resource sharing).
+15.13. Executing SHARE pass (SAT-based resource sharing).
 
-14.14. Executing OPT pass (performing simple optimizations).
+15.14. Executing OPT pass (performing simple optimizations).
 
-14.14.1. Executing OPT_EXPR pass (perform const folding).
+15.14.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.14.2. Executing OPT_MERGE pass (detect identical cells).
+15.14.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -864,7 +870,7 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+15.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \addsub_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
@@ -884,14 +890,14 @@ Running muxtree optimizer on module \top_scheduler..
 Removed 0 multiplexer ports.
 <suppressed ~48 debug messages>
 
-14.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+15.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \addsub_32b.
   Optimizing cells in module \mult_32b.
   Optimizing cells in module \top_32b.
   Optimizing cells in module \top_scheduler.
 Performed a total of 0 changes.
 
-14.14.5. Executing OPT_MERGE pass (detect identical cells).
+15.14.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 8 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -906,64 +912,64 @@ Computing hashes of 26 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+15.14.6. Executing OPT_DFF pass (perform DFF optimizations).
 
-14.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.14.8. Executing OPT_EXPR pass (perform const folding).
+15.14.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.14.9. Finished fast OPT passes. (There is nothing left to do.)
+15.14.9. Finished fast OPT passes. (There is nothing left to do.)
 
-14.15. Executing MEMORY pass.
+15.15. Executing MEMORY pass.
 
-14.15.1. Executing OPT_MEM pass (optimize memories).
+15.15.1. Executing OPT_MEM pass (optimize memories).
 Performed a total of 0 transformations.
 
-14.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+15.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
 Performed a total of 0 transformations.
 
-14.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+15.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
 
-14.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+15.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
 
-14.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+15.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
 
-14.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+15.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
 
-14.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+15.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
 Performed a total of 0 transformations.
 
-14.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+15.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
 
-14.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.16. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.17. Executing OPT pass (performing simple optimizations).
+15.17. Executing OPT pass (performing simple optimizations).
 
-14.17.1. Executing OPT_EXPR pass (perform const folding).
+15.17.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 <suppressed ~1 debug messages>
 Optimizing module mult_32b.
@@ -973,7 +979,7 @@ Optimizing module top_32b.
 Optimizing module top_scheduler.
 <suppressed ~9 debug messages>
 
-14.17.2. Executing OPT_MERGE pass (detect identical cells).
+15.17.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 7 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -988,9 +994,9 @@ Computing hashes of 21 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+15.17.3. Executing OPT_DFF pass (perform DFF optimizations).
 
-14.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
@@ -998,19 +1004,19 @@ Finding unused cells or wires in module \top_scheduler..
 Removed 0 unused cells and 7 unused wires.
 <suppressed ~3 debug messages>
 
-14.17.5. Finished fast OPT passes.
+15.17.5. Finished fast OPT passes.
 
-14.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+15.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
 
-14.19. Executing OPT pass (performing simple optimizations).
+15.19. Executing OPT pass (performing simple optimizations).
 
-14.19.1. Executing OPT_EXPR pass (perform const folding).
+15.19.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.19.2. Executing OPT_MERGE pass (detect identical cells).
+15.19.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 7 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -1025,7 +1031,7 @@ Computing hashes of 21 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+15.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \addsub_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
@@ -1044,14 +1050,14 @@ Running muxtree optimizer on module \top_scheduler..
 Removed 0 multiplexer ports.
 <suppressed ~26 debug messages>
 
-14.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+15.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \addsub_32b.
   Optimizing cells in module \mult_32b.
   Optimizing cells in module \top_32b.
   Optimizing cells in module \top_scheduler.
 Performed a total of 0 changes.
 
-14.19.5. Executing OPT_MERGE pass (detect identical cells).
+15.19.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 7 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -1066,14 +1072,14 @@ Computing hashes of 21 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.19.6. Executing OPT_SHARE pass.
-    Found cells that share an operand and can be merged by moving the $pmux $procmux$192 in front of them:
-        $auto$alumacc.cc:512:replace_alu$241
-        $auto$alumacc.cc:512:replace_alu$238
+15.19.6. Executing OPT_SHARE pass.
+    Found cells that share an operand and can be merged by moving the $pmux $procmux$193 in front of them:
+        $auto$alumacc.cc:512:replace_alu$307
+        $auto$alumacc.cc:512:replace_alu$304
 
-14.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+15.19.7. Executing OPT_DFF pass (perform DFF optimizations).
 
-14.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
@@ -1081,16 +1087,16 @@ Finding unused cells or wires in module \top_scheduler..
 Removed 0 unused cells and 6 unused wires.
 <suppressed ~1 debug messages>
 
-14.19.9. Executing OPT_EXPR pass (perform const folding).
+15.19.9. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 <suppressed ~1 debug messages>
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+15.19.10. Rerunning OPT passes. (Maybe there is more to do..)
 
-14.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+15.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \addsub_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
@@ -1109,16 +1115,16 @@ Running muxtree optimizer on module \top_scheduler..
 Removed 0 multiplexer ports.
 <suppressed ~28 debug messages>
 
-14.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+15.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \addsub_32b.
-    New ctrl vector for $pmux cell $procmux$192: $auto$opt_reduce.cc:137:opt_pmux$259
+    New ctrl vector for $pmux cell $procmux$193: $auto$opt_reduce.cc:137:opt_pmux$325
   Optimizing cells in module \addsub_32b.
   Optimizing cells in module \mult_32b.
   Optimizing cells in module \top_32b.
   Optimizing cells in module \top_scheduler.
 Performed a total of 1 changes.
 
-14.19.13. Executing OPT_MERGE pass (detect identical cells).
+15.19.13. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 9 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -1133,25 +1139,25 @@ Computing hashes of 21 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.19.14. Executing OPT_SHARE pass.
+15.19.14. Executing OPT_SHARE pass.
 
-14.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+15.19.15. Executing OPT_DFF pass (perform DFF optimizations).
 
-14.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.19.17. Executing OPT_EXPR pass (perform const folding).
+15.19.17. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.19.18. Rerunning OPT passes. (Maybe there is more to do..)
+15.19.18. Rerunning OPT passes. (Maybe there is more to do..)
 
-14.19.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+15.19.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \addsub_32b..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
@@ -1170,14 +1176,14 @@ Running muxtree optimizer on module \top_scheduler..
 Removed 0 multiplexer ports.
 <suppressed ~28 debug messages>
 
-14.19.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+15.19.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \addsub_32b.
   Optimizing cells in module \mult_32b.
   Optimizing cells in module \top_32b.
   Optimizing cells in module \top_scheduler.
 Performed a total of 0 changes.
 
-14.19.21. Executing OPT_MERGE pass (detect identical cells).
+15.19.21. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 9 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -1192,27 +1198,27 @@ Computing hashes of 21 cells of `\top_scheduler'.
 Finding duplicate cells in `\top_scheduler'.
 Removed a total of 0 cells.
 
-14.19.22. Executing OPT_SHARE pass.
+15.19.22. Executing OPT_SHARE pass.
 
-14.19.23. Executing OPT_DFF pass (perform DFF optimizations).
+15.19.23. Executing OPT_DFF pass (perform DFF optimizations).
 
-14.19.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.19.24. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
 Finding unused cells or wires in module \top_scheduler..
 
-14.19.25. Executing OPT_EXPR pass (perform const folding).
+15.19.25. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 
-14.19.26. Finished fast OPT passes. (There is nothing left to do.)
+15.19.26. Finished fast OPT passes. (There is nothing left to do.)
 
-14.20. Executing TECHMAP pass (map to technology primitives).
+15.20. Executing TECHMAP pass (map to technology primitives).
 
-14.20.1. Executing Verilog-2005 frontend: /nix/store/f1q0w7rd0a4ny4hqvfxlhs4cmariidcy-yosys-0.62/bin/../share/yosys/techmap.v
+15.20.1. Executing Verilog-2005 frontend: /nix/store/f1q0w7rd0a4ny4hqvfxlhs4cmariidcy-yosys-0.62/bin/../share/yosys/techmap.v
 Parsing Verilog input from `/nix/store/f1q0w7rd0a4ny4hqvfxlhs4cmariidcy-yosys-0.62/bin/../share/yosys/techmap.v' to AST representation.
 Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
 Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
@@ -1242,7 +1248,7 @@ Generating RTLIL representation for module `$connect'.
 Generating RTLIL representation for module `$input_port'.
 Successfully finished Verilog frontend.
 
-14.20.2. Continuing TECHMAP pass.
+15.20.2. Continuing TECHMAP pass.
 Using template $paramod$32efbfac1c4dc57230cf86180788fdfd12e3b511\_90_alu for cells of type $alu.
 Using extmapper simplemap for cells of type $adffe.
 Using extmapper simplemap for cells of type $reduce_and.
@@ -1273,9 +1279,9 @@ Using template $paramod$38ea46ffd892378bfaf8febe0c8ac03b94ee7ee9\_90_alu for cel
 No more expansions possible.
 <suppressed ~1970 debug messages>
 
-14.21. Executing OPT pass (performing simple optimizations).
+15.21. Executing OPT pass (performing simple optimizations).
 
-14.21.1. Executing OPT_EXPR pass (perform const folding).
+15.21.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 <suppressed ~894 debug messages>
 Optimizing module mult_32b.
@@ -1285,7 +1291,7 @@ Optimizing module top_32b.
 Optimizing module top_scheduler.
 <suppressed ~97 debug messages>
 
-14.21.2. Executing OPT_MERGE pass (detect identical cells).
+15.21.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 1000 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -1309,9 +1315,9 @@ Finding duplicate cells in `\top_scheduler'.
 <suppressed ~15 debug messages>
 Removed a total of 7 cells.
 
-14.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+15.21.3. Executing OPT_DFF pass (perform DFF optimizations).
 
-14.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
@@ -1319,24 +1325,24 @@ Finding unused cells or wires in module \top_scheduler..
 Removed 306 unused cells and 1131 unused wires.
 <suppressed ~310 debug messages>
 
-14.21.5. Finished fast OPT passes.
+15.21.5. Finished fast OPT passes.
 
-14.22. Executing ABC pass (technology mapping using ABC).
+15.22. Executing ABC pass (technology mapping using ABC).
 
-14.22.1. Extracting gate netlist of module `\addsub_32b' to `<abc-temp-dir>/input.blif'..
+15.22.1. Extracting gate netlist of module `\addsub_32b' to `<abc-temp-dir>/input.blif'..
 
-14.22.1.1. Executed ABC.
+15.22.1.1. Executed ABC.
 Extracted 910 gates and 1041 wires to a netlist network with 130 inputs and 64 outputs.
 Running ABC script: <abc-temp-dir>/abc.script
 ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
 ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_library /tmp/yosys-abc-MrsHOC/stdcells.genlib 
+ABC: + read_library /tmp/yosys-abc-njrs90/stdcells.genlib 
 ABC: + strash 
 ABC: + dretime 
 ABC: + map 
 ABC: + write_blif <abc-temp-dir>/output.blif 
 
-14.22.1.2. Re-integrating ABC results.
+15.22.1.2. Re-integrating ABC results.
 ABC RESULTS:               AND cells:       23
 ABC RESULTS:            ANDNOT cells:      274
 ABC RESULTS:               MUX cells:       63
@@ -1352,20 +1358,20 @@ ABC RESULTS:           input signals:      130
 ABC RESULTS:          output signals:       64
 Removing temp directory.
 
-14.22.2. Extracting gate netlist of module `\mult_32b' to `<abc-temp-dir>/input.blif'..
+15.22.2. Extracting gate netlist of module `\mult_32b' to `<abc-temp-dir>/input.blif'..
 
-14.22.2.1. Executed ABC.
+15.22.2.1. Executed ABC.
 Extracted 12316 gates and 12447 wires to a netlist network with 131 inputs and 65 outputs.
 Running ABC script: <abc-temp-dir>/abc.script
 ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
 ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_library /tmp/yosys-abc-MrsHOC/stdcells.genlib 
+ABC: + read_library /tmp/yosys-abc-njrs90/stdcells.genlib 
 ABC: + strash 
 ABC: + dretime 
 ABC: + map 
 ABC: + write_blif <abc-temp-dir>/output.blif 
 
-14.22.2.2. Re-integrating ABC results.
+15.22.2.2. Re-integrating ABC results.
 ABC RESULTS:               AND cells:     1682
 ABC RESULTS:            ANDNOT cells:     3806
 ABC RESULTS:              NAND cells:      912
@@ -1380,20 +1386,20 @@ ABC RESULTS:           input signals:      131
 ABC RESULTS:          output signals:       65
 Removing temp directory.
 
-14.22.3. Extracting gate netlist of module `\top_32b' to `<abc-temp-dir>/input.blif'..
+15.22.3. Extracting gate netlist of module `\top_32b' to `<abc-temp-dir>/input.blif'..
 
-14.22.3.1. Executed ABC.
+15.22.3.1. Executed ABC.
 Extracted 312 gates and 530 wires to a netlist network with 217 inputs and 211 outputs.
 Running ABC script: <abc-temp-dir>/abc.script
 ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
 ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_library /tmp/yosys-abc-MrsHOC/stdcells.genlib 
+ABC: + read_library /tmp/yosys-abc-njrs90/stdcells.genlib 
 ABC: + strash 
 ABC: + dretime 
 ABC: + map 
 ABC: + write_blif <abc-temp-dir>/output.blif 
 
-14.22.3.2. Re-integrating ABC results.
+15.22.3.2. Re-integrating ABC results.
 ABC RESULTS:               AND cells:        3
 ABC RESULTS:            ANDNOT cells:      145
 ABC RESULTS:               MUX cells:      138
@@ -1408,20 +1414,20 @@ ABC RESULTS:           input signals:      217
 ABC RESULTS:          output signals:      211
 Removing temp directory.
 
-14.22.4. Extracting gate netlist of module `\top_scheduler' to `<abc-temp-dir>/input.blif'..
+15.22.4. Extracting gate netlist of module `\top_scheduler' to `<abc-temp-dir>/input.blif'..
 
-14.22.4.1. Executed ABC.
+15.22.4.1. Executed ABC.
 Extracted 50 gates and 65 wires to a netlist network with 14 inputs and 18 outputs.
 Running ABC script: <abc-temp-dir>/abc.script
 ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
 ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_library /tmp/yosys-abc-MrsHOC/stdcells.genlib 
+ABC: + read_library /tmp/yosys-abc-njrs90/stdcells.genlib 
 ABC: + strash 
 ABC: + dretime 
 ABC: + map 
 ABC: + write_blif <abc-temp-dir>/output.blif 
 
-14.22.4.2. Re-integrating ABC results.
+15.22.4.2. Re-integrating ABC results.
 ABC RESULTS:               AND cells:        1
 ABC RESULTS:            ANDNOT cells:       15
 ABC RESULTS:               MUX cells:        1
@@ -1438,16 +1444,16 @@ ABC RESULTS:          output signals:       18
 Removing temp directory.
 Removing global temp directory.
 
-14.23. Executing OPT pass (performing simple optimizations).
+15.23. Executing OPT pass (performing simple optimizations).
 
-14.23.1. Executing OPT_EXPR pass (perform const folding).
+15.23.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module addsub_32b.
 Optimizing module mult_32b.
 Optimizing module top_32b.
 Optimizing module top_scheduler.
 <suppressed ~1 debug messages>
 
-14.23.2. Executing OPT_MERGE pass (detect identical cells).
+15.23.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\addsub_32b'.
 Computing hashes of 935 cells of `\addsub_32b'.
 Finding duplicate cells in `\addsub_32b'.
@@ -1465,9 +1471,9 @@ Finding duplicate cells in `\top_scheduler'.
 <suppressed ~3 debug messages>
 Removed a total of 1 cells.
 
-14.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+15.23.3. Executing OPT_DFF pass (perform DFF optimizations).
 
-14.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+15.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \addsub_32b..
 Finding unused cells or wires in module \mult_32b..
 Finding unused cells or wires in module \top_32b..
@@ -1475,25 +1481,25 @@ Finding unused cells or wires in module \top_scheduler..
 Removed 0 unused cells and 1712 unused wires.
 <suppressed ~6 debug messages>
 
-14.23.5. Finished fast OPT passes.
+15.23.5. Finished fast OPT passes.
 
-14.24. Executing HIERARCHY pass (managing design hierarchy).
+15.24. Executing HIERARCHY pass (managing design hierarchy).
 Attribute `top' found on module `top_32b'. Setting top module to top_32b.
 
-14.24.1. Analyzing design hierarchy..
+15.24.1. Analyzing design hierarchy..
 Top module:  \top_32b
 Used module:     \addsub_32b
 Used module:     \mult_32b
 Used module:     \top_scheduler
 
-14.24.2. Analyzing design hierarchy..
+15.24.2. Analyzing design hierarchy..
 Top module:  \top_32b
 Used module:     \addsub_32b
 Used module:     \mult_32b
 Used module:     \top_scheduler
 Removed 0 unused modules.
 
-14.25. Printing statistics.
+15.25. Printing statistics.
 
 === addsub_32b ===
 
@@ -1633,23 +1639,23 @@ Removed 0 unused modules.
         1   mult_32b
         1   top_scheduler
 
-14.26. Executing CHECK pass (checking for obvious problems).
+15.26. Executing CHECK pass (checking for obvious problems).
 Checking module addsub_32b...
 Checking module mult_32b...
 Checking module top_32b...
 Checking module top_scheduler...
 Found and reported 0 problems.
 
-15. Executing Verilog backend.
+16. Executing Verilog backend.
 
-15.1. Executing BMUXMAP pass.
+16.1. Executing BMUXMAP pass.
 
-15.2. Executing DEMUXMAP pass.
+16.2. Executing DEMUXMAP pass.
 Dumping module `\addsub_32b'.
 Dumping module `\mult_32b'.
 Dumping module `\top_32b'.
 Dumping module `\top_scheduler'.
 
-End of script. Logfile hash: c4ca9fa14b, CPU: user 1.50s system 0.25s, MEM: 75.65 MB peak
+End of script. Logfile hash: 21967e758c, CPU: user 2.98s system 0.26s, MEM: 76.46 MB peak
 Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)
-Time spent: 40% 1x abc (1 sec), 13% 27x opt_expr (0 sec), ...
+Time spent: 43% 1x abc (2 sec), 12% 27x opt_expr (0 sec), ...

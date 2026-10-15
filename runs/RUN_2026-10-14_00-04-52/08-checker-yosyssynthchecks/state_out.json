@@ -1,0 +1,14 @@
+{
+    "json_h": "/home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-14_00-04-52/05-yosys-jsonheader/top_32b.h.json",
+    "nl": "/home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-14_00-04-52/06-yosys-synthesis/top_32b.nl.v",
+    "metrics": {
+        "design__lint_error__count": 0,
+        "design__lint_timing_construct__count": 0,
+        "design__lint_warning__count": 0,
+        "design__inferred_latch__count": 0,
+        "design__instance__count": 20529,
+        "design__instance__area": 212452.5088,
+        "design__instance_unmapped__count": 0,
+        "synthesis__check_error__count": 0
+    }
+}

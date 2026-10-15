@@ -1,3 +1,4 @@
+`include "alu32_pkg.vh"
 // File: ALU_32b.v
 // Description: 32-bit Addition/Subtraction unit
 // ============================================================================

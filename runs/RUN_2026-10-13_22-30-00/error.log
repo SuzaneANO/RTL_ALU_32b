@@ -1,0 +1,14 @@
+Subprocess had a non-zero exit.
+Last 10 line(s):
+Successfully finished Verilog frontend.
+
+7. Executing HIERARCHY pass (managing design hierarchy).
+
+8. Executing AST frontend in derive mode using pre-parsed AST for module `\top_32b'.
+Generating RTLIL representation for module `\top_32b'.
+
+8.1. Analyzing design hierarchy..
+Top module:  \top_32b
+ERROR: Module `\sramHD_64x64' referenced in module `\top_32b' in cell `\MEM2' is not part of the design.
+
+Full log file: 'runs/RUN_2026-10-13_22-30-00/05-yosys-jsonheader/yosys-jsonheader.log'

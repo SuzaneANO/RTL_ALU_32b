@@ -10,7 +10,7 @@ module top_scheduler (
     input  wire        alu_done,
     input  wire        mult_done,
     output reg  [1:0]  cmd_out,
-    input  wire [2:0]  current_instruction_cmd,
+    input  wire [1:0]  current_instruction_cmd,
     output reg         en_addsub,
     output reg         en_mult,
     output reg  [1:0]  array_select,

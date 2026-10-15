@@ -1,0 +1,43 @@
+134. Printing statistics.
+
+=== top_32b ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    13818        - wires
+    14673        - wire bits
+       33        - public wires
+      621        - public wire bits
+       13        - ports
+      267        - port bits
+    14210 3.86E+03 cells
+     4182        -   $_ANDNOT_
+     1707        -   $_AND_
+      335        -   $_MUX_
+      951        -   $_NAND_
+      275        -   $_NOR_
+      513        -   $_NOT_
+      176        -   $_ORNOT_
+     1563        -   $_OR_
+      798        -   $_XNOR_
+     3560        -   $_XOR_
+      146 3.84E+03   sky130_fd_sc_hd__dfrtp_2
+        1   26.275   sky130_fd_sc_hd__dfstp_2
+        3        -   sramHD_64x64
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+   Area for cell type \sramHD_64x64 is unknown!
+
+   Chip area for module '\top_32b': 3862.454400
+     of which used for sequential elements: 3862.454400 (100.00%)
+

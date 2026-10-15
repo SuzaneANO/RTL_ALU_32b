@@ -1,0 +1,5 @@
+`verilator_config
+lint_off -rule DECLFILENAME
+lint_off -rule EOFNEWLINE
+lint_off -rule UNDRIVEN -file "/home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_21-50-37/tmp/2340cff28fee43f8ac3e8e4b3ee8aa1c.bb.v"
+lint_off -rule UNUSEDSIGNAL -file "/home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_21-50-37/tmp/2340cff28fee43f8ac3e8e4b3ee8aa1c.bb.v"

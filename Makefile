@@ -19,7 +19,8 @@ RTL_SRCS     := $(RTL_DIR)/alu32_pkg.vh \
                 $(RTL_DIR)/top_32b.v \
                 $(RTL_DIR)/addsub_32b.v \
                 $(RTL_DIR)/mult_32b.v \
-                $(RTL_DIR)/top_scheduler.v
+                $(RTL_DIR)/top_scheduler.v \
+		$(RTL_DIR)/sramHD_64x64.v
 
 # Included Header Files / Packages
 RTL_INCLUDES  := -I$(RTL_DIR)
@@ -89,10 +90,12 @@ define OPENLANE_CONFIG_BODY
 {
   "DESIGN_NAME": "$(TOP_MODULE)",
   "VERILOG_FILES": [
+    "dir::alu32_pkg.vh",
     "dir::addsub_32b.v",
     "dir::mult_32b.v",
     "dir::top_scheduler.v",
-    "dir::top_32b.v"
+    "dir::top_32b.v",
+    "dir::sramHD_64x64.v"
   ],
   "CLOCK_PORT": "$(CLOCK_PORT)",
   "CLOCK_PERIOD": $(CLOCK_PERIOD),
@@ -102,8 +105,8 @@ define OPENLANE_CONFIG_BODY
   "SYNTH_ELABORATE_ONLY": 0,
   "MACROS": {
     "sramHD_64x64": {
-      "gds": ["macros/sramHD_64x64.gds"],
-      "lef": ["macros/sramHD_64x64.lef"],
+      "gds": ["/home/adamsbane/project_digital/librelane/RTL_Test/sky130_sram_0kbytes_1rw_64x64_8/sky130_sram_0kbytes_1rw_64x64_8.gds"],
+      "lef": ["/home/adamsbane/project_digital/librelane/RTL_Test/sky130_sram_0kbytes_1rw_64x64_8/sky130_sram_0kbytes_1rw_64x64_8.lef"],
       "instances": {
         "MEM0": {"location": [50, 50], "orientation": "N"},
         "MEM1": {"location": [50, 450], "orientation": "N"},
@@ -119,12 +122,24 @@ endef
 
 export OPENLANE_CONFIG_BODY
 
-.PHONY: openlane_config
+# LibreLane physical-design flow
+LIBRELANE ?= librelane
+CONFIG    ?= config.json
 
+.PHONY: gds physical clean
+
+# Generate the design configuration
 openlane_config:
-	@echo "==> Generating OpenLane config.json..."
-	@echo "$$OPENLANE_CONFIG_BODY" > config.json
-	@echo "config.json successfully generated."
+	@echo "==> Generating LibreLane config.json..."
+	@echo "$$OPENLANE_CONFIG_BODY" > $(CONFIG)
+	@echo "==> Configuration written to $(CONFIG)"
+
+# Run the full RTL-to-GDSII flow
+gds: openlane_config
+	$(LIBRELANE) --flow Classic $(CONFIG)
+
+physical: gds
+
 # ------------------------------------------------------------------------------
 # 4. Cleanup
 # ------------------------------------------------------------------------------

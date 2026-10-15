@@ -1,0 +1,4 @@
+Failed to pre-process input models for linting with Yosys: Command '['/nix/store/vqq4mi8prw8x5rfwz7b3136rqi8v70m7-yosys-with-plugins-0.62-python3-3.13.9-env/bin/yosys', '-p', '\n                    verilog_defines -DUSE_POWER_PINS;\nread_verilog -sv -lib /home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_21-50-37/tmp/2340cff28fee43f8ac3e8e4b3ee8aa1c.bb.v;\n\n                    blackbox;\n                    write_verilog -noattr -noexpr -nohex -nodec -defparam -blackboxes /home/adamsbane/project_digital/librelane/RTL_Test/runs/RUN_2026-10-13_21-50-37/tmp/2340cff28fee43f8ac3e8e4b3ee8aa1c.bb.v;\n                    ']' returned non-zero exit status 1.
+/nix/store/4bmfi4470w0i3ixcaidfki18d3fyqvva-yosys-with-plugins-0.62/bin/yosys: /nix/store/xx7cm72qy2c0643cm1ipngd87aqwkcdp-glibc-2.40-66/lib/libc.so.6: version `GLIBC_2.42' not found (required by /opt/eda/lib/libtcl8.6.so)
+
+Will attempt to load models into linter as-is.

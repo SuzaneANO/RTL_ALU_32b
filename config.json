@@ -1,0 +1,31 @@
+{
+  "DESIGN_NAME": "top_32b",
+  "VERILOG_FILES": [
+    "dir::alu32_pkg.vh",
+    "dir::addsub_32b.v",
+    "dir::mult_32b.v",
+    "dir::top_scheduler.v",
+    "dir::top_32b.v",
+    "dir::sramHD_64x64.v"
+  ],
+  "CLOCK_PORT": "clk",
+  "CLOCK_PERIOD": 10.0,
+  "PDK": "sky130A",
+  "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
+  "SYNTH_STRATEGY": "DELAY 3",
+  "SYNTH_ELABORATE_ONLY": 0,
+  "MACROS": {
+    "sramHD_64x64": {
+      "gds": ["/home/adamsbane/project_digital/librelane/RTL_Test/sky130_sram_0kbytes_1rw_64x64_8/sky130_sram_0kbytes_1rw_64x64_8.gds"],
+      "lef": ["/home/adamsbane/project_digital/librelane/RTL_Test/sky130_sram_0kbytes_1rw_64x64_8/sky130_sram_0kbytes_1rw_64x64_8.lef"],
+      "instances": {
+        "MEM0": {"location": [50, 50], "orientation": "N"},
+        "MEM1": {"location": [50, 450], "orientation": "N"},
+        "MEM2": {"location": [600, 250], "orientation": "FN"}
+      }
+    }
+  },
+  "FP_SIZING": "absolute",
+  "DIE_AREA": [0, 0, 1200, 1000],
+  "PL_TARGET_DENSITY": 0.45
+}

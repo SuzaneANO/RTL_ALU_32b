@@ -1,0 +1,12 @@
+
+20. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\top_32b.\effective_mem_addr' from process `\top_32b.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_32b.v:89$7'.
+No latch inferred for signal `\top_scheduler.\array_select' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\wr_mem2_start' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\en_addsub' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\en_mult' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\cmd_out' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\mem_addr' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\mem_we' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\mem_me' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.
+No latch inferred for signal `\top_scheduler.\state_next' from process `\top_scheduler.$proc$/home/adamsbane/project_digital/librelane/RTL_Test/top_scheduler.v:49$114'.

@@ -1,0 +1,1 @@
+/nix/store/4bmfi4470w0i3ixcaidfki18d3fyqvva-yosys-with-plugins-0.62/bin/yosys: /nix/store/xx7cm72qy2c0643cm1ipngd87aqwkcdp-glibc-2.40-66/lib/libc.so.6: version `GLIBC_2.42' not found (required by /opt/eda/lib/libtcl8.6.so)
