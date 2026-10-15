@@ -110,7 +110,13 @@ make synth
 
 Generates gate-level netlist `build/top_32b.gate.v` and log `reports/synthesis.log`.
 
-### 3. OpenLane Physical Design Setup
+
+### 3.Generate SRAM Black box Macro :![SRAM Layout](./docs/assets/Screenshot%202026-10-15%20114524.png)
+Generate the $0.5\text{ KB}$ ($64 \times 64$) SRAM macro using the OpenRAM layout creation tool and perform post-layout characterization to extract liberty (.lib), LEF, and behavioral simulation models:
+
+
+
+### 4. OpenLane Physical Design Setup
 
 Generate the complete `config.json` file for LibreLane / OpenLane 2 floorplanning and macro placement:
 
